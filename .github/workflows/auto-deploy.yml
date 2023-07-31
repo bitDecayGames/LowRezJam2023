@@ -35,6 +35,6 @@ jobs:
         with:
           dir: export/html5.zip
           itchUserName: bitdecaygames
-          itchGameName: ::game_name::
+          itchGameName: lowrez2023
           itchChannel: web-dev
           butlerApiKey: ${{ secrets.BUTLER_API_KEY }}

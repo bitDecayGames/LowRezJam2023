@@ -1,24 +1,33 @@
 package;
 
-import debug.DebugLayers;
-import flixel.system.debug.log.LogStyle;
-import haxe.Timer;
-import audio.FmodPlugin;
-import achievements.Achievements;
-import helpers.Storage;
-import states.SplashScreenState;
-import misc.Macros;
-import states.MainMenuState;
-import flixel.FlxState;
-import config.Configure;
+import openfl.display.Sprite;
+import openfl.display.StageQuality;
+import openfl.filters.ShaderFilter;
+
+import flixel.system.FlxAssets.FlxShader;
 import flixel.FlxG;
 import flixel.FlxGame;
+import flixel.FlxState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
 import flixel.util.FlxColor;
-import misc.FlxTextFactory;
-import openfl.display.Sprite;
+
 import bitdecay.flixel.debug.DebugDraw;
+
+import achievements.Achievements;
+import audio.FmodPlugin;
+import config.Configure;
+import debug.DebugLayers;
+import helpers.Storage;
+import misc.FlxTextFactory;
+import misc.Macros;
+import states.SplashScreenState;
+import states.MainMenuState;
+
+#if FLX_DEBUG
+import flixel.system.debug.log.LogStyle;
+#end
+
 #if play
 import states.PlayState;
 #end
@@ -44,7 +53,11 @@ class Main extends Sprite {
 			startingState = MainMenuState;
 		}
 		#end
-		addChild(new FlxGame(0, 0, startingState, 60, 60, true, false));
+		addChild(new FlxGame(64, 64, startingState, 60, 60, true, false));
+
+		// force chunky pixel appearance
+		FlxG.game.setFilters([new ShaderFilter(new FlxShader())]);
+		FlxG.game.stage.quality = StageQuality.LOW;
 
 		FlxG.fixedTimestep = false;
 
