@@ -1,5 +1,8 @@
 package;
 
+import shaders.ShaderUpdater;
+import shaders.PixelateShader;
+import flixel.FlxCamera;
 import openfl.display.Sprite;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
@@ -53,10 +56,15 @@ class Main extends Sprite {
 			startingState = MainMenuState;
 		}
 		#end
-		addChild(new FlxGame(64, 64, startingState, 60, 60, true, false));
+		var game = new FlxGame(0, 0, startingState, 60, 60, true, false);
+		addChild(game);
+		
+		// FlxG.camera.scroll.set(3 * FlxG.camera.width, 3 * FlxG.camera.height);
 
 		// force chunky pixel appearance
-		FlxG.game.setFilters([new ShaderFilter(new FlxShader())]);
+		var pixelShader = new PixelateShader();
+		FlxG.camera.setFilters( [new ShaderFilter(pixelShader)] ); 
+		FlxG.plugins.add(new ShaderUpdater(pixelShader));
 		FlxG.game.stage.quality = StageQuality.LOW;
 
 		FlxG.fixedTimestep = false;

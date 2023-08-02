@@ -19,13 +19,18 @@ class Player extends FlxSprite {
 		super();
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
-		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
-		animation.play(anims.right);
-		animation.callback = (anim, frame, index) -> {
-			if (eventData.exists(index)) {
-				trace('frame $index has data ${eventData.get(index)}');
-			}
-		};
+		// Aseprite.loadAllAnimations(this, AssetPaths.player__json);
+		// animation.play(anims.right);
+		// animation.callback = (anim, frame, index) -> {
+		// 	if (eventData.exists(index)) {
+		// 		// trace('frame $index has data ${eventData.get(index)}');
+		// 	}
+		// };
+
+		// loadGraphic(AssetPaths.run_sheet__png, true, 32, 48);
+		// animation.add('run', [ for (i in 0...20) i]);
+		// // animation.play('run');
+		// scale.set(2, 2);
 	}
 
 	override public function update(delta:Float) {
