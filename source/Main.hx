@@ -56,7 +56,7 @@ class Main extends Sprite {
 			startingState = MainMenuState;
 		}
 		#end
-		var game = new FlxGame(0, 0, startingState, 60, 60, true, false);
+		var game = new FlxGame(256, 256, startingState, 60, 60, true, false);
 		addChild(game);
 		
 		// FlxG.camera.scroll.set(3 * FlxG.camera.width, 3 * FlxG.camera.height);
@@ -65,7 +65,7 @@ class Main extends Sprite {
 		var pixelShader = new PixelateShader();
 		FlxG.camera.setFilters( [new ShaderFilter(pixelShader)] ); 
 		FlxG.plugins.add(new ShaderUpdater(pixelShader));
-		FlxG.game.stage.quality = StageQuality.LOW;
+		// FlxG.game.stage.quality = StageQuality.LOW;
 
 		FlxG.fixedTimestep = false;
 

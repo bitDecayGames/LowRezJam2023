@@ -1,5 +1,7 @@
 package levels.ogmo;
 
+import entities.Player;
+import flixel.math.FlxPoint;
 import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.addons.editors.ogmo.FlxOgmo3Loader;
@@ -11,22 +13,32 @@ import flixel.tile.FlxTilemap;
 **/
 class Level {
 	public var layer:FlxTilemap;
+	public var collisionsRaw:Array<Int>;
+	public var collisionLayerSize:FlxPoint;
 
+	public var objects:FlxTypedGroup<FlxObject>;
+
+	@:access(flixel.addons.editors.ogmo.FlxOgmo3Loader)
 	public function new(level:String) {
-		var loader = new FlxOgmo3Loader("<AssetPath to ogmo file>", level);
-		layer = loader.loadTilemap("<AssetPath to tilemap for layer>", "<layer name>");
+		var loader = new FlxOgmo3Loader(AssetPaths.lowrez2023__ogmo, level);
+		layer = loader.loadTilemap(AssetPaths.testTiles__png, "terrain");
+		// loader.loadGridMap("collisions");
+		// loader.layers
+		collisionsRaw = layer.getData();
+		collisionLayerSize = FlxPoint.get(layer.widthInTiles, layer.heightInTiles);
 
-		var objects = new FlxGroup();
+
+		objects = new FlxTypedGroup<FlxObject>();
 
 		loader.loadEntities((entityData) -> {
-			var obj:FlxBasic;
+			var obj:FlxObject = null;
 			switch (entityData.name) {
-				case "<entity name>":
-					obj = new FlxObject();
+				case "spawn":
+					obj = new Player(entityData.x, entityData.y);
 				default:
 					QuickLog.error('Entity \'${entityData.name}\' is not supported, add parsing to ${Type.getClassName(Type.getClass(this))}');
 			}
 			objects.add(obj);
-		}, "<entity layer name>");
+		}, "entities");
 	}
 }

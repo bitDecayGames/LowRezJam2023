@@ -12,6 +12,8 @@ bitdecaybtree git https://github.com/bitDecayGames/BehaviorTree.git
 bitlytics git https://github.com/bitDecayGames/Bitlytics.git
 flixelutils git https://github.com/bitDecayGames/flixel-utils.git lowrez2023
 textpop git https://github.com/bitDecayGames/text-pop.git
+echo 4.2.2
+echo-flixel 0.0.1
 
 # misc deps
 dialog-manager git https://github.com/Tanz0rz/haxe-dialog-manager.git
