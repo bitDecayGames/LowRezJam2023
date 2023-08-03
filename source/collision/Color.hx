@@ -186,6 +186,10 @@ enum abstract Color(Int) from Int to Int {
 		return (this & FlxColor.BLUE) & 0xFF;
 	}
 
+	public function toFlxColor():FlxColor {
+		return this | 0xFF000000;
+	}
+
 	public function dump():String {
 		return 'r: ${red()}, g: ${green()}, b: ${blue()}';
 	}

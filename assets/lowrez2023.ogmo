@@ -79,9 +79,47 @@
       "nodeGhost": true,
       "tags": [],
       "values": []
+    },
+    {
+      "exportID": "03607083",
+      "name": "laser",
+      "limit": -1,
+      "size": {"x": 32, "y": 32},
+      "origin": {"x": 16, "y": 16},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff0000ff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 16},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": true,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": [],
+      "values": [],
+      "texture": "images/laser-icon.png",
+      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAH5JREFUWIVjYBgFo2AUDDBgJEeT+ZS8/9jET+ZMItk8kjTALD6ZMwmXPNkOIdZyojCuEKKL5VR3BDmWk+IIJqq4klaAEt8zEBkKLLRyPDLA5wi6OABfth3wNECvKBhYB1BUMo7scgAGBrQoJscRpFg+4NXxgDdIRsEoGAUDDgBNypUM82JpswAAAABJRU5ErkJggg=="
     }
   ],
   "tilesets": [
-    {"label": "test", "path": "images/testTiles.png", "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAiJJREFUeJztmrFtwzAQRU+RuywRAwpSJoXm8BSqMoNLD5FCU3iATOAmZQADziIGUxgXUIxEHiXZ/yjzN7FlQvz3jjxSVAoCyxhjkP2vkJ2zmvb2fbbN5e/D7bvWpbsEwNknWjiAtukGy9eIiA7HMxEpA9BneK772uLgiYiK+buLkzHGNO1/k1wY+br73b7ma3c4nqmuys69GUBdlTpWAXdYsmE7WPuzG5TbjiHw/eyMu1IBoM/gEBS3bV+7mGmkqgawhjIXCt7XdkgqaoDUrFR1VYoA1FWpcwRMVQzQRQKIUQaANoBWBoA2gFYGgDaAVgaANoBWBoA2gFYGgDaAVgaANoBWBoA2gFYGgDaAlopDUWT/xfvnG9TA88cjsvvLi5HXlydI51/fP5B+bd19DcgA0AbQEr8c3e9OwTab7XqSGYSCAOzAfQHud6e/timBEI0ASUDcJjUQ3hogGfauNtt1B4Z2BYvg2CymAuGqq0AKEK6+DGqHEATgM84FLxSc5mLoBTBkvK/Sa81wSNFF0A6cf5NC0Agpqgb41vfQMNc6DcQApJsbjVn2SQRAGrzWLPskfhjqm+cpBuxq8jKYukY9DC0h86xZd4IpjohZ/ltcUhe0wvECGDLddz3mzECTgiNgjvmvNftEE1eBGGnMPpHwYWgKBM3ZJ4qYAmM2QCmcDY7aCYZgpLRbjF4G7YB8hyHaA2dN2gekEqRPKyIdb2lR+gVjFvLezy/H3gAAAABJRU5ErkJggg==", "tileWidth": 32, "tileHeight": 32, "tileSeparationX": 0, "tileSeparationY": 0, "tileMarginX": 0, "tileMarginY": 0}
+    {"label": "test", "path": "images/testTiles.png", "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAArtJREFUeJztmkFuq0AMhv9E3fUQTRZVlvQIPUF2PUG7qHqGLDnEk15vwI4DvBO8TZaRKhEOUvEWT0PMYAYPhNhJ+aQoCjCM5/fY44EsoMzr76rS7H+p2bkFZgG0DdBmFkDbAG1mAbQNuBTvz9/scRMCdBk3RT9+X+oCfL79/6aG9Qny/vxdtxuLugAU6qE+Ef5+tb0Z04/DlABDGBs+pgWQDo6LbSmmBQDiPBwjhLvOvABAXILsa0/5fAPuBlt1YaZaKq9iBkzJTQoQEzJXEwKxSEPmJmdADLMA2gZoMwugbYA2swDaBmgzC6BtgDazANoGaPPjBVhoG1BVuq/HFx9/nlQNePx1r9l9ezucbFbRN9kfjoPa03ZatHIAZ9T+cOw01j8eui50Hy2CSdA3WDpY7j5D2l0CVgCJxy0NYgyDlsGxgx+SZ6ZiCZzXoDJrLyr0/pYGD5BVINmsBnuWDqpEgTwtAADb3Zq9xhKNEPCNLLMKZVYFjffPbXfreuB5WpjM/JQl0Ex6yWZVf4CTFzkRQsJsd2s8vJwKTasiNAqh/eEY5e1bYNLNUCM3MMnRAr2VoEtoHHla1J8uaDhZJDgDaBanuOT28LKo4zwkgmV6Q8AXIU+LRnIDIBbBokhROYAbvKNrtkjPayEWoC/OJddZpFUKcwmLVnb+efqb87L1QqhRCoeg1Z1/rIvQVtoKvSHQtwxeO53/EKEe8z0tTWh0g5VsVihhTzBWADr4rqzPwc0Iy0UQcKb/CEnygtVwqQXwd4Pud5lVSHbNRtxgJGFhsRa4A9rZ2omQp8Xg+KdY9T4wchWIwaL3AeFmSCJC13N/y94HBG+GJAUQ99zfhZC73r/GyuogejcYqvW5wQGnByBd5x3a7wbFL0dDewSgWS+UWdWYJTcrQAxcCOwPR3UBxIXQuTczVjZH/wCd6FZ7gsTeDwAAAABJRU5ErkJggg==", "tileWidth": 32, "tileHeight": 32, "tileSeparationX": 0, "tileSeparationY": 0, "tileMarginX": 0, "tileMarginY": 0}
   ]
 }

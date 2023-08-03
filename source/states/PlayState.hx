@@ -1,5 +1,6 @@
 package states;
 
+import entities.LaserBeam;
 import flixel.math.FlxPoint;
 import collision.Collide;
 import collision.ColorCollideSprite;
@@ -32,10 +33,11 @@ using echo.FlxEcho;
 class PlayState extends FlxTransitionableState {
 	public static var ME:PlayState;
 
-	var player:FlxSprite;
+	public var player:Player;
 	public var dbgCam:FlxCamera;
 
 	public var objects = new FlxGroup();
+	public var lasers = new FlxGroup();
 
 	public function new() {
 		super();
@@ -58,7 +60,15 @@ class PlayState extends FlxTransitionableState {
 		dbgCam.bgColor = FlxColor.TRANSPARENT;
 		FlxG.cameras.add(dbgCam, false);
 
+		add(objects);
+		add(lasers);
+
 		var level = new Level(AssetPaths.test__json);
+
+		camera.setScrollBoundsRect(0, 0, level.layer.width, level.layer.height);
+		dbgCam.setScrollBoundsRect(0, 0, level.layer.width, level.layer.height);
+		FlxEcho.instance.world.set(0, 0, level.layer.width, level.layer.height);
+
 		var levelBodies = TileMap.generate_grid(level.collisionsRaw,
 			Constants.BLOCK_SIZE,
 			Constants.BLOCK_SIZE,
@@ -83,19 +93,30 @@ class PlayState extends FlxTransitionableState {
 
 		for (o in level.objects) {
 			o.add_to_group(objects);
-
 			// May be better to just have the level parse the player into a designated variable
-			if (Std.isOfType(o, Player)) {
-				camera.follow(o, FlxCameraFollowStyle.PLATFORMER, .5);
-				dbgCam.follow(o, FlxCameraFollowStyle.PLATFORMER, .5);
-			}
 		}
 
-		camera.setScrollBoundsRect(0, 0, level.layer.width, level.layer.height);
-		dbgCam.setScrollBoundsRect(0, 0, level.layer.width, level.layer.height);
-		FlxEcho.instance.world.set(0, 0, level.layer.width, level.layer.height);
+		player = level.player;
+		player.add_to_group(objects);
 
-		add(objects);
+		camera.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
+		dbgCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
+
+		for (emitter in level.emitters) {
+			add(emitter);
+		}
+
+		FlxEcho.listen(player, lasers, {
+			condition: Collide.colorsInteract,
+			enter: (a, b, o) -> {
+				if (Std.isOfType(a.object, ColorCollideSprite)) {
+					cast(a.object, ColorCollideSprite).handleEnter(b, o);
+				}
+				if (Std.isOfType(b.object, ColorCollideSprite)) {
+					cast(b.object, ColorCollideSprite).handleEnter(a, o);
+				}
+			},
+		});
 
 		FlxEcho.listen(objects, objects, {
 			condition: Collide.colorsInteract,
@@ -118,8 +139,13 @@ class PlayState extends FlxTransitionableState {
 			},
 		});
 
-		QuickLog.error('Example error');
+		// QuickLog.error('Example error');
 	}
+
+	public function addLaser(laser:LaserBeam) {
+		laser.add_to_group(lasers);
+	}
+
 
 	override public function update(elapsed:Float) {
 		super.update(elapsed);

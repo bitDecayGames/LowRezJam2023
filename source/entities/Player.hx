@@ -29,7 +29,7 @@ class Player extends ColorCollideSprite {
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/characters/player.json");
 	public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/characters/player.json", "Layer 1");
 
-	var body:echo.Body;
+	public var body:echo.Body;
 	var topShape:echo.Shape.Shape;
 	var bottomShape:echo.Shape.Shape;
 
@@ -56,7 +56,6 @@ class Player extends ColorCollideSprite {
 	public function new(X:Float, Y:Float) {
 		super(X, Y, EMPTY);
 
-		trace(interactColor.dump());
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
 		// Aseprite.loadAllAnimations(this, AssetPaths.player__json);
@@ -193,28 +192,40 @@ class Player extends ColorCollideSprite {
 		var rayChecksPassed = 0;
 		echoTmp.set(tmpAABB.min_x, tmpAABB.max_y - 2);
 		var groundedCast = Line.get_from_vector(echoTmp, 90, 5);
-		var intersects = groundedCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects), FlxEcho.instance.world);
+		var intersects = groundedCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
 		DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam, echoTmp.x, echoTmp.y, groundedCast.end.x, groundedCast.end.y, DebugLayers.RAYCAST, intersects.length >= 1 ? FlxColor.MAGENTA : FlxColor.LIME);
+		groundedCast.put();
 		if (intersects.length >= 1) {
 			rayChecksPassed++;
+		}
+		for (i in intersects) {
+			i.put();
 		}
 		
 		echoTmp.set(tmpAABB.min_x, tmpAABB.max_y - 2);
 		echoTmp.x += tmpAABB.width/2;
 		groundedCast = Line.get_from_vector(echoTmp, 90, 5);
-		var intersectsMiddle = groundedCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects), FlxEcho.instance.world);
+		var intersectsMiddle = groundedCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
 		DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam, echoTmp.x, echoTmp.y, groundedCast.end.x, groundedCast.end.y, DebugLayers.RAYCAST, intersectsMiddle.length >= 1 ? FlxColor.MAGENTA : FlxColor.LIME);
+		groundedCast.put();
 		if (intersectsMiddle.length >= 1) {
 			rayChecksPassed++;
+		}
+		for (i in intersects) {
+			i.put();
 		}
 
 		echoTmp.set(tmpAABB.min_x, tmpAABB.max_y - 2);
 		echoTmp.x += tmpAABB.width;
 		groundedCast = Line.get_from_vector(echoTmp, 90, 5);
-		var intersectsRight = groundedCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects), FlxEcho.instance.world);
+		var intersectsRight = groundedCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
 		DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam, echoTmp.x, echoTmp.y, groundedCast.end.x, groundedCast.end.y, DebugLayers.RAYCAST, intersectsRight.length >= 1 ? FlxColor.MAGENTA : FlxColor.LIME);
+		groundedCast.put();
 		if (intersectsRight.length >= 1) {
 			rayChecksPassed++;
+		}
+		for (i in intersects) {
+			i.put();
 		}
 
 		// this cast is originating within the player, so it will always give back at least one
