@@ -50,6 +50,7 @@
 	<haxelib name="textpop" />
 	<haxelib name="newgrounds" />
 	<haxelib name="echo-flixel" />
+	<haxelib name="ldtk-haxe-api" />
 
 	<!--In case you want to use nape with flixel-->
 	<!--<haxelib name="nape-haxe4" />-->

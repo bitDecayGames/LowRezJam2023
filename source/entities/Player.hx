@@ -101,7 +101,7 @@ class Player extends ColorCollideSprite {
 			]
 		});
 		bottomShape = body.shapes[0];
-		topShape = body.shapes[1];
+		topShape = body.shapes[2];
 	}
 
 	override function handleEnter(other:Body, data:Array<CollisionData>) {

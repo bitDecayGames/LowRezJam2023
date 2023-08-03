@@ -36,6 +36,9 @@ class PlayState extends FlxTransitionableState {
 	public var player:Player;
 	public var dbgCam:FlxCamera;
 	
+	public var pendingObjects = new Array<FlxObject>();
+	public var pendingLasers = new Array<FlxObject>();
+
 	public var playerGroup = new FlxGroup();
 	public var objects = new FlxGroup();
 	public var lasers = new FlxGroup();
@@ -65,37 +68,38 @@ class PlayState extends FlxTransitionableState {
 		add(playerGroup);
 		add(lasers);
 
-		var level = new Level(AssetPaths.test__json);
+		var level = new levels.ldtk.Level("Level_0");
 
-		camera.setScrollBoundsRect(0, 0, level.layer.width, level.layer.height);
-		dbgCam.setScrollBoundsRect(0, 0, level.layer.width, level.layer.height);
-		FlxEcho.instance.world.set(0, 0, level.layer.width, level.layer.height);
+		camera.setScrollBoundsRect(0, 0, level.bounds.width, level.bounds.height);
+		dbgCam.setScrollBoundsRect(0, 0, level.bounds.width, level.bounds.height);
+		FlxEcho.instance.world.set(0, 0, level.bounds.width, level.bounds.height);
 
-		var levelBodies = TileMap.generate_grid(level.collisionsRaw,
+		var levelBodies = TileMap.generate_grid(level.rawTerrainInts,
 			Constants.BLOCK_SIZE,
 			Constants.BLOCK_SIZE,
-			Std.int(level.collisionLayerSize.x),
-			Std.int(level.collisionLayerSize.y),
-			0,
-			0);
+			level.rawTerrainTilesWide,
+			level.rawTerrainTilesTall);
 		
+		var tmpAABB = AABB.get();
 		for (body in levelBodies) {
-			var tmpAABB = AABB.get();
-			var tileIndex = level.layer.getTileIndexByCoords(FlxPoint.weak(body.x, body.y));
-			var tileID = level.layer.getTileByIndex(tileIndex);
-			var fillerBodySprite = new ColorCollideSprite(body.x, body.y, collision.TileTypes.mapping[tileID]);
 			body.shape.bounds(tmpAABB);
+			var gridCell = FlxPoint.get(tmpAABB.min_x / level.rawTerrainLayer.gridSize, tmpAABB.min_y / level.rawTerrainLayer.gridSize);
+			if (!level.rawTerrainLayer.hasAnyTileAt(Std.int(gridCell.x), Std.int(gridCell.y))){
+				trace('whut');
+			}
+			var tStack = level.rawTerrainLayer.getTileStackAt(Std.int(gridCell.x), Std.int(gridCell.y));
+			var tileID = tStack[0].tileId;
+			var fillerBodySprite = new ColorCollideSprite(body.x, body.y, collision.TileTypes.mapping[tileID]);
 			fillerBodySprite.makeGraphic(Std.int(tmpAABB.width), Std.int(tmpAABB.height));
 			fillerBodySprite.set_body(body);
 			fillerBodySprite.add_to_group(objects);
 			fillerBodySprite.visible = false;
 		}
 
-		add(level.layer);
+		add(level.terrainGfx);
 
 		for (o in level.objects) {
 			o.add_to_group(objects);
-			// May be better to just have the level parse the player into a designated variable
 		}
 
 		player = level.player;
@@ -151,6 +155,16 @@ class PlayState extends FlxTransitionableState {
 
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
+
+		for (o in pendingObjects) {
+			o.add_to_group(objects);
+		}
+		pendingObjects = [];
+
+		for (l in pendingLasers) {
+			l.add_to_group(lasers);
+		}
+		pendingLasers = [];
 	}
 
 	override public function onFocusLost() {

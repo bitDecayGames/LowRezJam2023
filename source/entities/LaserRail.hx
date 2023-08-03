@@ -24,9 +24,9 @@ class LaserRail extends FlxSprite {
 	var laserAngle:Float;
 	var laserColor:Color;
 
-	var COOLDOWN_TIME = 10.0;
+	var COOLDOWN_TIME = 5.0;
 	var cooldown = 0.0;
-	var CHARGE_TIME = 3;
+	var CHARGE_TIME = 1.5;
 	var charging = 0.0;
 
 	var startLockAngle:Float;
@@ -68,17 +68,22 @@ class LaserRail extends FlxSprite {
 				velocity.set();
 				// TODO(SFX): laser begins charging
 			}
+
+			emitterPoint.set(0, 8).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
+			emitter.setPosition(emitterPoint.x, emitterPoint.y);
 		} else {
 			charging += elapsed;
 			
 			if (charging >= CHARGE_TIME) {
-				emitter.emitting = false;
 				var laserLength:Float = FlxG.width;
 				var laserCast = Line.get_from_vector(new Vector2(emitterPoint.x, emitterPoint.y), laserAngle, FlxG.width);
 				var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
 				if (intersects.length > 0) {
 					for (i in intersects) {
-						laserLength = Math.min(laserLength, i.closest.distance);
+						if (i.closest.distance < laserLength) {
+							laserLength = i.closest.distance;
+							emitter.setPosition(i.closest.hit.x, i.closest.hit.y);
+						}
 						i.put();
 					}
 				}
@@ -88,6 +93,7 @@ class LaserRail extends FlxSprite {
 				PlayState.ME.addLaser(laser); 
 				FlxG.camera.shake(.01, .5);
 				new FlxTimer().start(0.5, (t) -> {
+					emitter.emitting = false;
 					laser.kill();
 					active = true;
 					path.active = true;
@@ -97,8 +103,5 @@ class LaserRail extends FlxSprite {
 				charging = 0;
 			}
 		}
-
-		emitterPoint.set(0, 8).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
-		emitter.setPosition(emitterPoint.x, emitterPoint.y);
 	}
 }

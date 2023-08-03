@@ -72,18 +72,23 @@ class LaserTurret extends FlxSprite {
 				emitter.emitting = true;
 				// TODO(SFX): laser begins charging
 			}
+
+			emitterPoint.set(16, 0).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
+			emitter.setPosition(emitterPoint.x, emitterPoint.y);
 		} else {
 			charging += elapsed;
 			angle = FlxMath.lerp(startLockAngle, aimAngle, Math.min(.8, charging / CHARGE_TIME));
 
 			if (charging >= CHARGE_TIME) {
-				emitter.emitting = false;
 				var laserLength:Float = FlxG.width;
 				var laserCast = Line.get_from_vector(new Vector2(emitterPoint.x, emitterPoint.y), angle, FlxG.width);
 				var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
 				if (intersects.length > 0) {
 					for (i in intersects) {
-						laserLength = Math.min(laserLength, i.closest.distance);
+						if (i.closest.distance < laserLength) {
+							laserLength = i.closest.distance;
+							emitter.setPosition(i.closest.hit.x, i.closest.hit.y);
+						}
 						i.put();
 					}
 				}
@@ -92,7 +97,8 @@ class LaserTurret extends FlxSprite {
 				var laser = new LaserBeam(emitterPoint.x, emitterPoint.y, angle, laserLength, laserColor);
 				PlayState.ME.addLaser(laser);
 				FlxG.camera.shake(.01, .5);
-				new FlxTimer().start(0.5, (t) -> {
+				new FlxTimer().start((t) -> {
+					emitter.emitting = false;
 					laser.kill();
 					active = true;
 				});
@@ -101,8 +107,5 @@ class LaserTurret extends FlxSprite {
 				charging = 0;
 			}
 		}
-
-		emitterPoint.set(16, 0).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
-		emitter.setPosition(emitterPoint.x, emitterPoint.y);
 	}
 }

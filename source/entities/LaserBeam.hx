@@ -14,6 +14,7 @@ class LaserBeam extends ColorCollideSprite {
 
 	public var body:Body;
 
+	@:access(echo.FlxEcho)
 	public function new(X:Float, Y:Float, angle:Float, length:Float, color:Color) {
 		var spawn = FlxPoint.get(X, Y).addPoint(FlxPoint.get(1, 0).scale(length/2.0).pivotDegrees(FlxPoint.weak(), angle));
 		
@@ -31,6 +32,7 @@ class LaserBeam extends ColorCollideSprite {
 			y: spawn.y,
 			// mass: STATIC,
 			kinematic: true,
+			rotation: angle,
 			shape: {
 				type: RECT,
 				width: length,
@@ -39,24 +41,12 @@ class LaserBeam extends ColorCollideSprite {
 			}
 		});
 
-		this.angle = angle;
-		body.rotation = angle;
-		visible = false;
+		// XXX: We want to force position and rotation immediately
+		body.update_body_object();
 	}
-
-	// XXX: For some reason the object is in the wrong place on the first frame, so just don't render it?
-	// TODO: Will this misaligned hitbox still collide in its 'bad spot'?
-	var skipOne = true;
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
-
-		if (skipOne) {
-			skipOne = false;
-			return;
-		}
-
-		visible = true;
 	}
 
 	override function kill() {
