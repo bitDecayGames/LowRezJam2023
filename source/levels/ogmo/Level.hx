@@ -1,7 +1,9 @@
 package levels.ogmo;
 
+import collision.Color;
 import flixel.effects.particles.FlxEmitter;
 import entities.LaserTurret;
+import entities.LaserRail;
 import entities.Player;
 import flixel.math.FlxPoint;
 import flixel.FlxBasic;
@@ -40,9 +42,21 @@ class Level {
 			switch (entityData.name) {
 				case "spawn":
 					player = new Player(entityData.x, entityData.y);
-				case "laser":
+				case "laser_turret":
 					// TODO: Parse this from the map
-					var laser = new LaserTurret(entityData.x, entityData.y, YELLOW);
+					var laser = new LaserTurret(entityData.x, entityData.y, Color.fromStr(entityData.values.color));
+					objects.add(laser);
+					emitters.push(laser.emitter);
+				case "laser_rail":
+					var spawnPoint = FlxPoint.get(entityData.x, entityData.y);
+					var adjust = FlxPoint.get(16, 16).rotateByDegrees(entityData.rotation);
+					spawnPoint.addPoint(adjust);
+					var path = new Array<FlxPoint>();
+					path.push(spawnPoint);
+					for (node in entityData.nodes) {
+						path.push(FlxPoint.get(node.x, node.y).addPoint(adjust));
+					}
+					var laser = new LaserRail(spawnPoint.x, spawnPoint.y, Color.fromStr(entityData.values.color), path);
 					objects.add(laser);
 					emitters.push(laser.emitter);
 				default:

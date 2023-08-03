@@ -193,4 +193,15 @@ enum abstract Color(Int) from Int to Int {
 	public function dump():String {
 		return 'r: ${red()}, g: ${green()}, b: ${blue()}';
 	}
+
+	public static function fromStr(str:String):Color {
+		return switch (str) {
+				case "RED": RED;
+				case "YELLOW": YELLOW;
+				case "BLUE": BLUE;
+				default: 
+					QuickLog.error('unrecognized color enum value: $str');
+					return ALL;
+		}
+	}
 }

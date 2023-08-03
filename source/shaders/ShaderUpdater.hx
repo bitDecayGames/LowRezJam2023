@@ -9,13 +9,19 @@ import flixel.FlxBasic;
 class ShaderUpdater extends FlxBasic {
 	var shader:PixelateShader;
 
-	public function new(shader:PixelateShader) {
+	public function new() {
 		super();
-		this.shader = shader;
+	}
+
+	public function setShader(s:PixelateShader) {
+		shader = s;
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
-		shader.update(elapsed);
+
+		if (shader != null) {
+			shader.update(elapsed);
+		}
 	}
 }

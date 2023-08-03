@@ -41,10 +41,21 @@ class LaserBeam extends ColorCollideSprite {
 
 		this.angle = angle;
 		body.rotation = angle;
+		visible = false;
 	}
+
+	// XXX: For some reason the object is in the wrong place on the first frame, so just don't render it?
+	// TODO: Will this misaligned hitbox still collide in its 'bad spot'?
+	var skipOne = true;
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		if (skipOne) {
+			skipOne = false;
+			return;
+		}
+
 		visible = true;
 	}
 

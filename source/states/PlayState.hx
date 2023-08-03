@@ -35,7 +35,8 @@ class PlayState extends FlxTransitionableState {
 
 	public var player:Player;
 	public var dbgCam:FlxCamera;
-
+	
+	public var playerGroup = new FlxGroup();
 	public var objects = new FlxGroup();
 	public var lasers = new FlxGroup();
 
@@ -61,6 +62,7 @@ class PlayState extends FlxTransitionableState {
 		FlxG.cameras.add(dbgCam, false);
 
 		add(objects);
+		add(playerGroup);
 		add(lasers);
 
 		var level = new Level(AssetPaths.test__json);
@@ -97,7 +99,7 @@ class PlayState extends FlxTransitionableState {
 		}
 
 		player = level.player;
-		player.add_to_group(objects);
+		player.add_to_group(playerGroup);
 
 		camera.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
 		dbgCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
@@ -106,7 +108,7 @@ class PlayState extends FlxTransitionableState {
 			add(emitter);
 		}
 
-		FlxEcho.listen(player, lasers, {
+		FlxEcho.listen(playerGroup, lasers, {
 			condition: Collide.colorsInteract,
 			enter: (a, b, o) -> {
 				if (Std.isOfType(a.object, ColorCollideSprite)) {
@@ -118,7 +120,7 @@ class PlayState extends FlxTransitionableState {
 			},
 		});
 
-		FlxEcho.listen(objects, objects, {
+		FlxEcho.listen(player, objects, {
 			condition: Collide.colorsInteract,
 			enter: (a, b, o) -> {
 				if (Std.isOfType(a.object, ColorCollideSprite)) {

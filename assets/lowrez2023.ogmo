@@ -82,7 +82,7 @@
     },
     {
       "exportID": "03607083",
-      "name": "laser",
+      "name": "laser_turret",
       "limit": -1,
       "size": {"x": 32, "y": 32},
       "origin": {"x": 16, "y": 16},
@@ -109,14 +109,69 @@
       "canFlipX": false,
       "canFlipY": false,
       "canSetColor": false,
-      "hasNodes": false,
+      "hasNodes": true,
+      "nodeLimit": 0,
+      "nodeDisplay": 2,
+      "nodeGhost": true,
+      "tags": [],
+      "values": [
+        {
+          "name": "color",
+          "definition": "Enum",
+          "display": 1,
+          "choices": ["RED", "YELLOW", "BLUE"],
+          "defaults": 0
+        }
+      ],
+      "texture": "images/laser-turret-icon.png",
+      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAMZJREFUWIXtV0EOwCAIK2b//7I7bZkLVUHUHdajOFoaMkHgQybnYk3U+wEjHM7duqQS56zrEVHTVTlqwYKFkdLEpRjKwwI3m5WYiDAJWEauBZeSA0DSDleRvwXkUXIPVAe8sFb/FLClegA4JuXtriRZLs/A7UCU/b15rn4JbUIPfgG/AEHQAwTQgaSKBMccF4lZf0LzWyCAz8JRhDbho4dMb8GFLS6oDoyIsLrwuaF0uYjPLiaqiJaY6NWsKaSBkOWUIWw9PwHw2Ec1fvKYVgAAAABJRU5ErkJggg=="
+    },
+    {
+      "exportID": "07992195",
+      "name": "laser_rail",
+      "limit": -1,
+      "size": {"x": 32, "y": 32},
+      "origin": {"x": 16, "y": 16},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff0000ff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 32, "y": 32},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": true,
+      "rotationDegrees": 4,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": true,
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "values": [],
-      "texture": "images/laser-icon.png",
-      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAH5JREFUWIVjYBgFo2AUDDBgJEeT+ZS8/9jET+ZMItk8kjTALD6ZMwmXPNkOIdZyojCuEKKL5VR3BDmWk+IIJqq4klaAEt8zEBkKLLRyPDLA5wi6OABfth3wNECvKBhYB1BUMo7scgAGBrQoJscRpFg+4NXxgDdIRsEoGAUDDgBNypUM82JpswAAAABJRU5ErkJggg=="
+      "values": [
+        {
+          "name": "color",
+          "definition": "Enum",
+          "display": 1,
+          "choices": ["RED", "YELLOW", "BLUE"],
+          "defaults": 0
+        },
+        {"name": "speed", "definition": "Integer", "display": 2, "defaults": 0, "bounded": false, "min": 0, "max": 100}
+      ],
+      "texture": "images/laser-rail-icon.png",
+      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAJFJREFUWIXtVkEKgDAMS2X//3K9WOjmVltw1kMD4oSYhGyUEQBGIo5McwBosmD+tggiAvCDBipABagA6QHoejOwHkYyNKJw6FGbMh6MvUHl25qyyy2YmEdq6LhWgxKANFFXpJ4oun8X2vcGRsJL6EJoHCNpg7mpPx7CHcamfvocqADpAaKHzntxdOumN1AoFAonQN4SYNnEtbkAAAAASUVORK5CYII="
     }
   ],
   "tilesets": [
