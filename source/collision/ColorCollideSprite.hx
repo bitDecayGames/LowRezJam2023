@@ -6,9 +6,25 @@ import flixel.util.FlxColor;
 import flixel.FlxSprite;
 
 class ColorCollideSprite extends FlxSprite {
-	public function new(X:Float, Y:Float, initialColor:FlxColor) {
+	public var interactColor:Color;
+
+	public function new(X:Float, Y:Float, initialColor:Color) {
 		super(X, Y);
-		color = initialColor;
+		interactColor = initialColor;
+	}
+
+	override function update(elapsed:Float) {
+		super.update(elapsed);
+		color = cast interactColor;
+	}
+
+	public function addColor(i:Color) {
+		interactColor = interactColor.add(i);
+
+	}
+
+	public function removeColor(i:Color) {
+		interactColor = interactColor.sub(i);
 	}
 
 	public function handleEnter(other:Body, data:Array<CollisionData>) {

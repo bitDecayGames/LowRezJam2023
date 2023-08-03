@@ -9,7 +9,7 @@ using echo.FlxEcho;
 
 class Platform extends ColorCollideSprite {
 	public function new(X:Float, Y:Float) {
-		super(X, Y, FlxColor.WHITE);
+		super(X, Y, EMPTY);
 
 		makeGraphic(32, 32, FlxColor.GRAY, true);
 

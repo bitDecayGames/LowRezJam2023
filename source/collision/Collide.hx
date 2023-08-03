@@ -9,8 +9,8 @@ class Collide {
 		var aIsCType = Std.isOfType(a.object, ColorCollideSprite);
 		var bIsCType = Std.isOfType(b.object, ColorCollideSprite);
 		if (aIsCType && bIsCType) {
-			var aColor:Color = cast cast(a.object, ColorCollideSprite).color;
-			var bColor:Color = cast cast(b.object, ColorCollideSprite).color;
+			var aColor:Color = cast cast(a.object, ColorCollideSprite).interactColor;
+			var bColor:Color = cast cast(b.object, ColorCollideSprite).interactColor;
 			return aColor.interacts(bColor);
 		}
 		return false;

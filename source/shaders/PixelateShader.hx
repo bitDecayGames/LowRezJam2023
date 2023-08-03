@@ -31,6 +31,10 @@ class PixelateShader extends flixel.system.FlxAssets.FlxShader
             vec2 iPixelateRes = iResolution * iPixelSize;
 
             vec2 sampleUV = floor(openfl_TextureCoordv / iPixelSize) * iPixelSize;
+
+            // offset our coordinates by half of a pixel size so we sample from the center of our pixel area
+            sampleUV += iPixelSize * 0.5;
+
             vec2 subPixel = iSampleDistance * iPixelSize;
             vec4 col = texture2D(bitmap, sampleUV);
             col = col + texture2D(bitmap, sampleUV + vec2(0., subPixel.y));
