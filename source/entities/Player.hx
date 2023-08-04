@@ -59,6 +59,11 @@ class Player extends ColorCollideSprite {
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
 		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
+		// animation.
+		for (f in frames.frames) {
+			// Thanks aseprite, but we want to manage these manually
+			f.duration = 0;
+		}
 		animation.play(anims.stand);
 		// animation.callback = (anim, frame, index) -> {
 			// if (eventData.exists(index)) {
@@ -163,7 +168,7 @@ class Player extends ColorCollideSprite {
 		FlxG.watch.addQuick("Player X Accel: ", body.acceleration.x);
 
 		if (animation.curAnim != null) {
-			animation.curAnim.frameRate = FlxMath.minInt(Std.int(Math.abs(body.velocity.x) / maxSpeed * 60), 60);
+			animation.curAnim.frameRate = FlxMath.minInt(Std.int(Math.abs(body.velocity.x) / maxSpeed * 30), 30);
 			FlxG.watch.addQuick("Player frame rate: ", animation.curAnim.frameRate);
 		}
 
