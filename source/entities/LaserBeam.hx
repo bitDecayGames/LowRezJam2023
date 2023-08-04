@@ -1,10 +1,9 @@
 package entities;
 
-import collision.Constants;
+import states.PlayState;
+import echo.data.Data.CollisionData;
 import flixel.math.FlxPoint;
 import echo.Body;
-import flixel.FlxG;
-import states.PlayState;
 import collision.Color;
 import collision.ColorCollideSprite;
 
@@ -47,6 +46,15 @@ class LaserBeam extends ColorCollideSprite {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+	}
+
+	override function handleEnter(other:Body, data:Array<CollisionData>) {
+		super.handleEnter(other, data);
+
+		if (other.object is Player) {
+			// TODO: Drama / death sequence
+			PlayState.ME.resetLevel();
+		}
 	}
 
 	override function kill() {

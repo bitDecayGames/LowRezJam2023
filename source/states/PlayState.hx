@@ -1,5 +1,6 @@
 package states;
 
+import haxe.CallStack.StackItem;
 import helpers.CardinalMaker;
 import entities.LaserBeam;
 import flixel.math.FlxPoint;
@@ -33,6 +34,9 @@ using echo.FlxEcho;
 
 class PlayState extends FlxTransitionableState {
 	public static var ME:PlayState;
+
+	var lastLevel:String;
+	var lastSpawnEntity:String;
 
 	public var player:Player;
 	public var dbgCam:FlxCamera;
@@ -77,8 +81,14 @@ class PlayState extends FlxTransitionableState {
 		loadLevel("Level_0");
 	}
 
+	public function resetLevel() {
+		loadLevel(lastLevel, lastSpawnEntity);
+	}
+
 	@:access(echo.FlxEcho)
 	public function loadLevel(levelID:String, ?entityID:String) {
+		lastLevel = levelID;
+		lastSpawnEntity = entityID;
 
 		FlxEcho.clear();
 

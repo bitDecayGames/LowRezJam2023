@@ -7,13 +7,13 @@ enum abstract Color(Int) from Int to Int {
 	
 	// Primary
 	var BLUE = 0x8888FF;
-	var YELLOW = 0xEEEE33;
+	var YELLOW = 0xFFFF5E;
 	var RED = 0xFF5555;
 	
 	// Secondary
 	var GREEN = 0x3CAC3C;
 	var PURPLE = 0xAA00AA;
-	var ORANGE = 0xD96A20;
+	var ORANGE = 0xDF7A37;
 
 	// Third order
 	var ALL = 0x292929;

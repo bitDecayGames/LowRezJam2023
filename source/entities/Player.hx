@@ -170,21 +170,40 @@ class Player extends ColorCollideSprite {
 		var inputDir = InputCalcuator.getInputCardinal(playerNum);
 		if (inputDir != NONE) {
 			inputDir.asVector(tmp);
-			if (tmp.x != 0) {
-				animState.add(RUNNING);
-
-				if (grounded) {
+			if (tmp.x != 0 && grounded) {
+				if (!SimpleController.pressed(DOWN)) {
+					animState.add(RUNNING);
 					body.acceleration.x = accel * (tmp.x < 0 ? -1 : 1);
 				} else {
-					body.acceleration.x = airAccel * (tmp.x < 0 ? -1 : 1);
+					// can't hold down and run
+					body.acceleration.x = 0;
 				}
-				if (body.velocity.x > 0 && body.acceleration.x < 0 || body.velocity.x < 0 && body.acceleration.x > 0) {
-					body.acceleration.x *= turnAccelBoost;
-				}
-				flipX = body.acceleration.x > 0;
+			} else if (tmp.x != 0 && !grounded) {
+				body.acceleration.x = airAccel * (tmp.x < 0 ? -1 : 1);
 			} else {
 				body.acceleration.x = 0;
 			}
+
+			if (body.velocity.x > 0 && body.acceleration.x < 0 || body.velocity.x < 0 && body.acceleration.x > 0) {
+				body.acceleration.x *= turnAccelBoost;
+			}
+			flipX = body.acceleration.x > 0;
+			// if (tmp.x != 0 && !SimpleController.pressed(DOWN)) {
+			// 	animState.add(RUNNING);
+
+			// 	if (grounded) {
+			// 		body.acceleration.x = accel * (tmp.x < 0 ? -1 : 1);
+			// 	} else {
+			// 		body.acceleration.x = airAccel * (tmp.x < 0 ? -1 : 1);
+			// 	}
+				
+			// 	if (body.velocity.x > 0 && body.acceleration.x < 0 || body.velocity.x < 0 && body.acceleration.x > 0) {
+			// 		body.acceleration.x *= turnAccelBoost;
+			// 	}
+			// 	flipX = body.acceleration.x > 0;
+			// } else {
+			// 	body.acceleration.x = 0;
+			// }
 		} else {
 			body.acceleration.x = 0;
 
