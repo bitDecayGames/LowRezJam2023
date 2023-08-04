@@ -1,5 +1,6 @@
 package;
 
+import progress.Collected;
 import shaders.ShaderUpdater;
 import shaders.PixelateShader;
 import flixel.FlxCamera;
@@ -58,6 +59,8 @@ class Main extends Sprite {
 		#end
 		var game = new FlxGame(256, 256, startingState, 60, 60, true, false);
 		addChild(game);
+
+		Collected.initialize();
 		
 		// FlxG.camera.scroll.set(3 * FlxG.camera.width, 3 * FlxG.camera.height);
 

@@ -1,5 +1,6 @@
 package states;
 
+import progress.Collected;
 import haxe.CallStack.StackItem;
 import helpers.CardinalMaker;
 import entities.LaserBeam;
@@ -59,6 +60,9 @@ class PlayState extends FlxTransitionableState {
 		super.create();
 		Lifecycle.startup.dispatch();
 
+		// main will do this, but if we are dev'ing and going straight to the play screen, it may not be done yet
+		Collected.initialize();
+
 		FlxEcho.init({width: FlxG.width, height: FlxG.height, gravity_y: 24 * Constants.BLOCK_SIZE});
 
 		#if debug
@@ -78,7 +82,13 @@ class PlayState extends FlxTransitionableState {
 		add(particles);
 
 		// TODO: Load them at some checkpoint if they restart the game?
-		loadLevel("Level_0");
+		var checkpointRoom = Collected.getCheckpointLevel();
+		if (checkpointRoom != null) {
+			var checkpointEntity = Collected.getCheckpointEntity();
+			loadLevel(checkpointRoom, checkpointEntity);
+		} else {
+			loadLevel("Level_0");
+		}
 	}
 
 	public function resetLevel() {
@@ -89,6 +99,8 @@ class PlayState extends FlxTransitionableState {
 	public function loadLevel(levelID:String, ?entityID:String) {
 		lastLevel = levelID;
 		lastSpawnEntity = entityID;
+
+		Collected.setLastCheckpoint(levelID, entityID);
 
 		FlxEcho.clear();
 
