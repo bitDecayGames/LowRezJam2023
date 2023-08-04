@@ -28,7 +28,7 @@ class LaserTurret extends FlxSprite {
 	var startLockAngle:Float;
 
 	public function new(X:Float, Y:Float, laserColor:Color) {
-		super(X-16, Y-16);
+		super(X, Y);
 		this.laserColor = laserColor;
 
 		// TODO: Load animated laser
@@ -72,9 +72,6 @@ class LaserTurret extends FlxSprite {
 				emitter.emitting = true;
 				// TODO(SFX): laser begins charging
 			}
-
-			emitterPoint.set(16, 0).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
-			emitter.setPosition(emitterPoint.x, emitterPoint.y);
 		} else {
 			charging += elapsed;
 			angle = FlxMath.lerp(startLockAngle, aimAngle, Math.min(.8, charging / CHARGE_TIME));
@@ -107,5 +104,8 @@ class LaserTurret extends FlxSprite {
 				charging = 0;
 			}
 		}
+
+		emitterPoint.set(16, 0).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
+		emitter.setPosition(emitterPoint.x, emitterPoint.y);
 	}
 }

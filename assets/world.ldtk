@@ -11,7 +11,7 @@
 	"iid": "48a599b0-1460-11ee-8f1d-1923aa7248a0",
 	"jsonVersion": "1.3.3",
 	"appBuildId": 467698,
-	"nextUid": 75,
+	"nextUid": 76,
 	"identifierStyle": "Capitalize",
 	"toc": [],
 	"worldLayout": "GridVania",
@@ -345,7 +345,7 @@
 			"exportToToc": false,
 			"doc": null,
 			"width": 16,
-			"height": 32,
+			"height": 48,
 			"resizableX": false,
 			"resizableY": false,
 			"minWidth": null,
@@ -418,12 +418,46 @@
 					"editorDisplayScale": 0,
 					"editorDisplayPos": "Center",
 					"editorLinkStyle": "StraightArrow",
-					"editorAlwaysShow": false,
+					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "Color",
+					"doc": null,
+					"__type": "LocalEnum.Color",
+					"uid": 75,
+					"type": "F_Enum(71)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 0,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": true,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -447,7 +481,7 @@
 			"exportToToc": false,
 			"doc": null,
 			"width": 16,
-			"height": 32,
+			"height": 48,
 			"resizableX": false,
 			"resizableY": false,
 			"minWidth": null,
@@ -459,7 +493,7 @@
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
-			"color": "#E4A672",
+			"color": "#FFFFFF",
 			"renderMode": "Rectangle",
 			"showName": true,
 			"tilesetId": null,
@@ -542,6 +576,7 @@
 			{ "id": "SOUTH", "tileRect": { "tilesetUid": 16, "x": 48, "y": 80, "w": 16, "h": 16 }, "tileId": -1, "color": 14984818, "__tileSrcRect": [48,80,16,16] }
 		], "iconTilesetUid": 16, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "Color", "uid": 71, "values": [
+			{ "id": "EMPTY", "tileRect": null, "tileId": -1, "color": 16777215, "__tileSrcRect": null },
 			{ "id": "RED", "tileRect": null, "tileId": -1, "color": 16733525, "__tileSrcRect": null },
 			{ "id": "YELLOW", "tileRect": null, "tileId": -1, "color": 15658547, "__tileSrcRect": null },
 			{ "id": "BLUE", "tileRect": null, "tileId": -1, "color": 8947967, "__tileSrcRect": null }
@@ -646,12 +681,12 @@
 							"__pivot": [0.5,1],
 							"__tags": [],
 							"__tile": { "tilesetUid": 16, "x": 16, "y": 16, "w": 16, "h": 16 },
-							"__smartColor": "#EAD4AA",
+							"__smartColor": "#FFFFFF",
 							"iid": "9e10bf90-1460-11ee-8f1d-51b23626c850",
 							"width": 16,
-							"height": 32,
+							"height": 48,
 							"defUid": 13,
-							"px": [1000,160],
+							"px": [994,160],
 							"fieldInstances": [
 								{ "__identifier": "Entity_ref", "__type": "EntityRef", "__value": {
 									"entityIid": "a298dfc0-1460-11ee-8f1d-d11dc3ebbe51",
@@ -665,21 +700,25 @@
 								{ "__identifier": "access_dir", "__type": "LocalEnum.Direction", "__value": "WEST", "__tile": { "tilesetUid": 16, "x": 16, "y": 16, "w": 16, "h": 16 }, "defUid": 17, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["WEST"]
+								}] },
+								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["EMPTY"]
 								}] }
 							]
 						},
 						{
 							"__identifier": "Spawn",
-							"__grid": [4,6],
+							"__grid": [4,5],
 							"__pivot": [0,0],
 							"__tags": [],
 							"__tile": null,
-							"__smartColor": "#E4A672",
+							"__smartColor": "#FFFFFF",
 							"iid": "6b0421c0-1460-11ee-8f1d-6f31ce1c79f9",
 							"width": 16,
-							"height": 32,
+							"height": 48,
 							"defUid": 74,
-							"px": [64,96],
+							"px": [64,80],
 							"fieldInstances": []
 						}
 					]
@@ -767,7 +806,6 @@
 						{ "px": [512,96], "src": [32,0], "f": 0, "t": 1, "d": [112], "a": 1 },
 						{ "px": [576,96], "src": [0,0], "f": 0, "t": 0, "d": [114], "a": 1 },
 						{ "px": [608,96], "src": [0,0], "f": 0, "t": 0, "d": [115], "a": 1 },
-						{ "px": [992,96], "src": [32,0], "f": 0, "t": 1, "d": [127], "a": 1 },
 						{ "px": [0,128], "src": [32,0], "f": 0, "t": 1, "d": [128], "a": 1 },
 						{ "px": [32,128], "src": [32,0], "f": 0, "t": 1, "d": [129], "a": 1 },
 						{ "px": [64,128], "src": [32,0], "f": 0, "t": 1, "d": [130], "a": 1 },
@@ -885,21 +923,33 @@
 					"entityInstances": [
 						{
 							"__identifier": "Door",
-							"__grid": [1,9],
+							"__grid": [2,9],
 							"__pivot": [0.5,1],
 							"__tags": [],
 							"__tile": { "tilesetUid": 16, "x": 0, "y": 16, "w": 16, "h": 16 },
-							"__smartColor": "#EAD4AA",
+							"__smartColor": "#FFFFFF",
 							"iid": "a298dfc0-1460-11ee-8f1d-d11dc3ebbe51",
 							"width": 16,
-							"height": 32,
+							"height": 48,
 							"defUid": 13,
-							"px": [24,160],
+							"px": [32,160],
 							"fieldInstances": [
-								{ "__identifier": "Entity_ref", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 14, "realEditorValues": [null] },
+								{ "__identifier": "Entity_ref", "__type": "EntityRef", "__value": {
+									"entityIid": "9e10bf90-1460-11ee-8f1d-51b23626c850",
+									"layerIid": "fd11f470-1460-11ee-8f1d-dfc32b423512",
+									"levelIid": "48a5c0c0-1460-11ee-8f1d-1df80661b277",
+									"worldIid": "48a599b1-1460-11ee-8f1d-bf5d483c5ed2"
+								}, "__tile": null, "defUid": 14, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["9e10bf90-1460-11ee-8f1d-51b23626c850"]
+								}] },
 								{ "__identifier": "access_dir", "__type": "LocalEnum.Direction", "__value": "EAST", "__tile": { "tilesetUid": 16, "x": 0, "y": 16, "w": 16, "h": 16 }, "defUid": 17, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["EAST"]
+								}] },
+								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["EMPTY"]
 								}] }
 							]
 						}
@@ -940,7 +990,6 @@
 						{ "px": [224,32], "src": [32,0], "f": 0, "t": 1, "d": [15], "a": 1 },
 						{ "px": [0,64], "src": [32,0], "f": 0, "t": 1, "d": [16], "a": 1 },
 						{ "px": [224,64], "src": [32,0], "f": 0, "t": 1, "d": [23], "a": 1 },
-						{ "px": [0,96], "src": [32,0], "f": 0, "t": 1, "d": [24], "a": 1 },
 						{ "px": [224,96], "src": [32,0], "f": 0, "t": 1, "d": [31], "a": 1 },
 						{ "px": [224,128], "src": [32,0], "f": 0, "t": 1, "d": [39], "a": 1 },
 						{ "px": [0,160], "src": [32,0], "f": 0, "t": 1, "d": [40], "a": 1 },

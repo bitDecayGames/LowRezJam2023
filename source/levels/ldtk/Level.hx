@@ -1,5 +1,6 @@
 package levels.ldtk;
 
+import entities.Transition;
 import entities.LaserTurret;
 import flixel.math.FlxRect;
 import entities.LaserRail;
@@ -13,6 +14,9 @@ import flixel.group.FlxSpriteGroup;
 class Level {
 	private static inline var WORLD_ID = "48a599b1-1460-11ee-8f1d-bf5d483c5ed2";
 	var project = new LDTKProject();
+	
+	// in case we need something specific
+	public var raw:LDTKProject_Level;
 
 	public var bounds = FlxRect.get();
 	public var terrainGfx = new FlxSpriteGroup();
@@ -24,10 +28,12 @@ class Level {
 
 	public var objects = new FlxTypedGroup<FlxObject>();
 	public var emitters = new Array<FlxEmitter>();
-	public var player:Player;
+	public var playerSpawn:Entity_Spawn;
 
-	public function new(name:String) {
-		var level = project.all_worlds.Default.getLevel(name);
+	public function new(nameOrIID:String) {
+		var level = project.all_worlds.Default.getLevel(nameOrIID);
+		raw = level;
+
 		bounds.width = level.pxWid;
 		bounds.height = level.pxHei;
 		rawTerrainLayer = level.l_Terrain;
@@ -46,9 +52,6 @@ class Level {
 			}
 		}
 
-		var playerSpawn = level.l_Objects.all_Spawn[0];
-		player = new Player(playerSpawn.pixelX, playerSpawn.pixelY);
-
 		for (laser_rail in level.l_Objects.all_Laser_rail) {
 			var spawnPoint = FlxPoint.get(laser_rail.pixelX, laser_rail.pixelY);
 			// TODO: Adjust these based on the rotation of the entity
@@ -66,13 +69,18 @@ class Level {
 
 		for (laser_turret in level.l_Objects.all_Laser_turret) {
 			var spawnPoint = FlxPoint.get(laser_turret.pixelX, laser_turret.pixelY);
-				var adjust = FlxPoint.get(16, 16);
-				spawnPoint.addPoint(adjust);
-				var path = new Array<FlxPoint>();
-				path.push(spawnPoint);
-				var laser = new LaserTurret(spawnPoint.x, spawnPoint.y, Color.fromStr(laser_turret.f_Color.getName()));
-				objects.add(laser);
-				emitters.push(laser.emitter);
+			var adjust = FlxPoint.get(-16, -16);
+			spawnPoint.addPoint(adjust);
+			var path = new Array<FlxPoint>();
+			path.push(spawnPoint);
+			var laser = new LaserTurret(spawnPoint.x, spawnPoint.y, Color.fromStr(laser_turret.f_Color.getName()));
+			objects.add(laser);
+			emitters.push(laser.emitter);
+		}
+
+		for (door in level.l_Objects.all_Door) {
+			var d = new Transition(door);
+			objects.add(d);
 		}
 	}
 }

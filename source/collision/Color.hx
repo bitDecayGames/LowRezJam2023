@@ -16,7 +16,7 @@ enum abstract Color(Int) from Int to Int {
 	var ORANGE = 0xD96A20;
 
 	// Third order
-	var ALL = 0x000000;
+	var ALL = 0x292929;
 
 	public function interacts(other:Color) {
 		if (this == EMPTY || other == EMPTY) {
@@ -199,6 +199,7 @@ enum abstract Color(Int) from Int to Int {
 				case "RED": RED;
 				case "YELLOW": YELLOW;
 				case "BLUE": BLUE;
+				case "EMPTY": EMPTY;
 				default: 
 					QuickLog.error('unrecognized color enum value: $str');
 					return ALL;

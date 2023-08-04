@@ -1,5 +1,6 @@
 package states;
 
+import helpers.CardinalMaker;
 import entities.LaserBeam;
 import flixel.math.FlxPoint;
 import collision.Collide;
@@ -40,6 +41,7 @@ class PlayState extends FlxTransitionableState {
 	public var pendingLasers = new Array<FlxObject>();
 
 	public var playerGroup = new FlxGroup();
+	public var terrainGroup = new FlxGroup();
 	public var objects = new FlxGroup();
 	public var lasers = new FlxGroup();
 
@@ -64,11 +66,36 @@ class PlayState extends FlxTransitionableState {
 		dbgCam.bgColor = FlxColor.TRANSPARENT;
 		FlxG.cameras.add(dbgCam, false);
 
+		add(terrainGroup);
 		add(objects);
 		add(playerGroup);
 		add(lasers);
 
-		var level = new levels.ldtk.Level("Level_0");
+		// TODO: Load them at some checkpoint if they restart the game?
+		loadLevel("Level_0");
+	}
+
+	public function loadLevel(levelID:String, ?entityID:String) {
+
+		FlxEcho.clear();
+
+		terrainGroup.forEach((f) -> f.destroy());
+		terrainGroup.clear();
+
+		objects.forEach((f) -> f.destroy());
+		objects.clear();
+
+		lasers.forEach((f) -> f.destroy());
+		lasers.clear();
+
+		playerGroup.forEach((f) -> f.destroy());
+		playerGroup.clear();
+		player = null;
+		add(objects);
+
+		var level = new levels.ldtk.Level(levelID);
+
+		terrainGroup.add(level.terrainGfx);
 
 		camera.setScrollBoundsRect(0, 0, level.bounds.width, level.bounds.height);
 		dbgCam.setScrollBoundsRect(0, 0, level.bounds.width, level.bounds.height);
@@ -96,15 +123,32 @@ class PlayState extends FlxTransitionableState {
 			fillerBodySprite.visible = false;
 		}
 
-		add(level.terrainGfx);
-
 		for (o in level.objects) {
 			o.add_to_group(objects);
 		}
 
-		player = level.player;
+		var spawnPoint = FlxPoint.get();
+		if (entityID != null) {
+			var matches = level.raw.l_Objects.all_Door.filter((d) -> {return d.iid == entityID;});
+			if (matches.length != 1) {
+				var msg = 'expected door in level ${levelID} with iid ${entityID}, but got ${matches.length} matches';
+				QuickLog.critical(msg);
+			}
+			var spawn = matches[0];
+			spawnPoint.set(spawn.pixelX, spawn.pixelY - 4);
+			spawnPoint.addPoint(CardinalMaker.fromString(spawn.f_access_dir.getName()).asVector().scale(24));
+		} else if (level.raw.l_Objects.all_Spawn.length > 0) {
+			var rawSpawn = level.raw.l_Objects.all_Spawn[0];
+			spawnPoint.set(rawSpawn.pixelX, rawSpawn.pixelY);
+		} else {
+			QuickLog.critical('no spawn found, and no entity provided. Cannot spawn player');
+		}
+
+		player = new Player(spawnPoint.x, spawnPoint.y);
 		player.add_to_group(playerGroup);
 
+		camera.focusOn(player.getGraphicMidpoint());
+		dbgCam.scroll.copyFrom(camera.scroll);
 		camera.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
 		dbgCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
 
@@ -144,8 +188,6 @@ class PlayState extends FlxTransitionableState {
 				}
 			},
 		});
-
-		// QuickLog.error('Example error');
 	}
 
 	public function addLaser(laser:LaserBeam) {

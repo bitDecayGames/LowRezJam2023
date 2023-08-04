@@ -27,7 +27,7 @@ using echo.FlxEcho;
 class Player extends ColorCollideSprite {
 	public static var anims = AsepriteMacros.tagNames("assets/aseprite/characters/player.json");
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/characters/player.json");
-	public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/characters/player.json", "Layer 1");
+	// public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/characters/player.json", "Layer 1");
 
 	public var body:echo.Body;
 	var topShape:echo.Shape.Shape;
@@ -58,22 +58,22 @@ class Player extends ColorCollideSprite {
 
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
-		// Aseprite.loadAllAnimations(this, AssetPaths.player__json);
-		// animation.play(anims.right);
+		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
+		animation.play(anims.stand);
 		// animation.callback = (anim, frame, index) -> {
-		// 	if (eventData.exists(index)) {
-		// 		// trace('frame $index has data ${eventData.get(index)}');
-		// 	}
+			// if (eventData.exists(index)) {
+				// trace('frame $index has data ${eventData.get(index)}');
+			// }
 		// };
 
-		loadGraphic(AssetPaths.run_sheet__png, true, 32, 48);
-		animation.add('run', [ for (i in 0...20) i]);
-		animation.add('crouch', [20]);
-		animation.add('skid', [21]);
-		animation.add('jump', [22]);
-		animation.add('fall', [23]);
-		animation.add('slide', [24]);
-		animation.add('stand', [25]);
+		// loadGraphic(AssetPaths.run_sheet__png, true, 32, 48);
+		// animation.add('run', [ for (i in 0...20) i]);
+		// animation.add('crouch', [20]);
+		// animation.add('skid', [21]);
+		// animation.add('jump', [22]);
+		// animation.add('fall', [23]);
+		// animation.add('slide', [24]);
+		// animation.add('stand', [25]);
 		setSize(16, 32);
 		offset.set(0, 16);
 
@@ -163,7 +163,7 @@ class Player extends ColorCollideSprite {
 		FlxG.watch.addQuick("Player X Accel: ", body.acceleration.x);
 
 		if (animation.curAnim != null) {
-			animation.curAnim.frameRate = FlxMath.minInt(Std.int(Math.abs(body.velocity.x) / maxSpeed * 30), 30);
+			animation.curAnim.frameRate = FlxMath.minInt(Std.int(Math.abs(body.velocity.x) / maxSpeed * 60), 60);
 			FlxG.watch.addQuick("Player frame rate: ", animation.curAnim.frameRate);
 		}
 
@@ -248,9 +248,6 @@ class Player extends ColorCollideSprite {
 		updateCurrentAnimation();
 
 		DebugDraw.ME.drawCameraRect(PlayState.ME.dbgCam, 0, 0, 10,10, GENERAL, interactColor);
-		FlxG.watch.addQuick("player red: ", interactColor.red());
-		FlxG.watch.addQuick("player green: ", interactColor.green());
-		FlxG.watch.addQuick("player blue: ", interactColor.blue());
 	}
 
 	function updateCurrentAnimation() {
@@ -264,39 +261,39 @@ class Player extends ColorCollideSprite {
 			if (animState.has(RUNNING)) {
 				if ((animState.has(ACCEL_LEFT) && body.velocity.x > 0) || (animState.has(ACCEL_RIGHT) && body.velocity.x < 0)) {
 					if (animState.has(CROUCHED)) {
-						animation.play('slide');
+						// animation.play('slide');
 					} else {
-						animation.play('skid');
+						// animation.play('skid');
 					}
 				} else {
 					// if (animState.has(CROUCHED)) {
 					// 	animation.play('crawl');
 					// }
-					animation.play('run');
+					animation.play(anims.run);
 				}
 			} else { 
 				if (animState.has(CROUCHED)) {
 					if (body.velocity.x != 0) {
-						animation.play('slide');
+						// animation.play('slide');
 					} else {
-						animation.play('crouch');
+						// animation.play('crouch');
 					}
 				} else {
 					if (body.velocity.x != 0) {
-						animation.play('skid');
+						// animation.play('skid');
 					} else {
-						animation.play('stand');
+						animation.play(anims.stand);
 					}
 				}
 			}
 		} else {
 			if (body.velocity.y > 0) {
-				animation.play('fall');
+				// animation.play('fall');
 			} else {
-				animation.play('jump');
+				// animation.play('jump');
 			}
 		}
 
-		FlxG.watch.addQuick("Player Anim: ", animation.curAnim.name);
+		// FlxG.watch.addQuick("Player Anim: ", animation.curAnim.name);
 	}
 }
