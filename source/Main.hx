@@ -56,16 +56,26 @@ class Main extends Sprite {
 			startingState = MainMenuState;
 		}
 		#end
-		var game = new FlxGame(0, 0, startingState, 60, 60, true, false);
+		var game = new FlxGame(256, 256, startingState, 60, 60, true, false);
 		addChild(game);
 		
 		// FlxG.camera.scroll.set(3 * FlxG.camera.width, 3 * FlxG.camera.height);
 
 		// force chunky pixel appearance
-		var pixelShader = new PixelateShader();
-		FlxG.camera.setFilters( [new ShaderFilter(pixelShader)] ); 
-		FlxG.plugins.add(new ShaderUpdater(pixelShader));
-		FlxG.game.stage.quality = StageQuality.LOW;
+		var shaderUpdater = new ShaderUpdater();
+		FlxG.plugins.add(shaderUpdater);
+		var setCameraShader = () -> {
+			var pixelShader = new PixelateShader();
+			FlxG.camera.setFilters( [new ShaderFilter(pixelShader)] ); 
+			shaderUpdater.setShader(pixelShader);
+		};
+
+		// call it once on startup
+		setCameraShader();
+		// then every time we switch states
+		FlxG.signals.preStateSwitch.add(setCameraShader);
+		
+		// FlxG.game.stage.quality = StageQuality.LOW;
 
 		FlxG.fixedTimestep = false;
 

@@ -1,0 +1,180 @@
+{
+  "name": "LowRez2023",
+  "ogmoVersion": "3.4.0",
+  "levelPaths": ["."],
+  "backgroundColor": "#282c34ff",
+  "gridColor": "#3c4049cc",
+  "anglesRadians": true,
+  "directoryDepth": 5,
+  "layerGridDefaultSize": {"x": 32, "y": 32},
+  "levelDefaultSize": {"x": 320, "y": 240},
+  "levelMinSize": {"x": 128, "y": 128},
+  "levelMaxSize": {"x": 4096, "y": 4096},
+  "levelValues": [],
+  "defaultExportMode": ".json",
+  "compactExport": false,
+  "externalScript": "",
+  "playCommand": "",
+  "entityTags": [],
+  "layers": [
+    {
+      "definition": "grid",
+      "name": "collisions",
+      "gridSize": {"x": 32, "y": 32},
+      "exportID": "99441423",
+      "arrayMode": 0,
+      "legend": {"0": "#00000000", "1": "#c32222ff"}
+    },
+    {
+      "definition": "tile",
+      "name": "terrain",
+      "gridSize": {"x": 32, "y": 32},
+      "exportID": "99437515",
+      "exportMode": 0,
+      "arrayMode": 0,
+      "defaultTileset": "test"
+    },
+    {
+      "definition": "entity",
+      "name": "entities",
+      "gridSize": {"x": 32, "y": 32},
+      "exportID": "00807397",
+      "requiredTags": [],
+      "excludedTags": []
+    }
+  ],
+  "entities": [
+    {
+      "exportID": "99442434",
+      "name": "spawn",
+      "limit": -1,
+      "size": {"x": 16, "y": 32},
+      "origin": {"x": 8, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff0000ff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 16},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": [],
+      "values": []
+    },
+    {
+      "exportID": "03607083",
+      "name": "laser_turret",
+      "limit": -1,
+      "size": {"x": 32, "y": 32},
+      "origin": {"x": 16, "y": 16},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff0000ff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 16},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": true,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": true,
+      "nodeLimit": 0,
+      "nodeDisplay": 2,
+      "nodeGhost": true,
+      "tags": [],
+      "values": [
+        {
+          "name": "color",
+          "definition": "Enum",
+          "display": 1,
+          "choices": ["RED", "YELLOW", "BLUE"],
+          "defaults": 0
+        }
+      ],
+      "texture": "images/laser-turret-icon.png",
+      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAMZJREFUWIXtV0EOwCAIK2b//7I7bZkLVUHUHdajOFoaMkHgQybnYk3U+wEjHM7duqQS56zrEVHTVTlqwYKFkdLEpRjKwwI3m5WYiDAJWEauBZeSA0DSDleRvwXkUXIPVAe8sFb/FLClegA4JuXtriRZLs/A7UCU/b15rn4JbUIPfgG/AEHQAwTQgaSKBMccF4lZf0LzWyCAz8JRhDbho4dMb8GFLS6oDoyIsLrwuaF0uYjPLiaqiJaY6NWsKaSBkOWUIWw9PwHw2Ec1fvKYVgAAAABJRU5ErkJggg=="
+    },
+    {
+      "exportID": "07992195",
+      "name": "laser_rail",
+      "limit": -1,
+      "size": {"x": 32, "y": 32},
+      "origin": {"x": 16, "y": 16},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff0000ff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 32, "y": 32},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": true,
+      "rotationDegrees": 4,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": true,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": [],
+      "values": [
+        {
+          "name": "color",
+          "definition": "Enum",
+          "display": 1,
+          "choices": ["RED", "YELLOW", "BLUE"],
+          "defaults": 0
+        },
+        {"name": "speed", "definition": "Integer", "display": 2, "defaults": 0, "bounded": false, "min": 0, "max": 100}
+      ],
+      "texture": "images/laser-rail-icon.png",
+      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAJFJREFUWIXtVkEKgDAMS2X//3K9WOjmVltw1kMD4oSYhGyUEQBGIo5McwBosmD+tggiAvCDBipABagA6QHoejOwHkYyNKJw6FGbMh6MvUHl25qyyy2YmEdq6LhWgxKANFFXpJ4oun8X2vcGRsJL6EJoHCNpg7mpPx7CHcamfvocqADpAaKHzntxdOumN1AoFAonQN4SYNnEtbkAAAAASUVORK5CYII="
+    }
+  ],
+  "tilesets": [
+    {"label": "test", "path": "images/testTiles.png", "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAArtJREFUeJztmkFuq0AMhv9E3fUQTRZVlvQIPUF2PUG7qHqGLDnEk15vwI4DvBO8TZaRKhEOUvEWT0PMYAYPhNhJ+aQoCjCM5/fY44EsoMzr76rS7H+p2bkFZgG0DdBmFkDbAG1mAbQNuBTvz9/scRMCdBk3RT9+X+oCfL79/6aG9Qny/vxdtxuLugAU6qE+Ef5+tb0Z04/DlABDGBs+pgWQDo6LbSmmBQDiPBwjhLvOvABAXILsa0/5fAPuBlt1YaZaKq9iBkzJTQoQEzJXEwKxSEPmJmdADLMA2gZoMwugbYA2swDaBmgzC6BtgDazANoGaPPjBVhoG1BVuq/HFx9/nlQNePx1r9l9ezucbFbRN9kfjoPa03ZatHIAZ9T+cOw01j8eui50Hy2CSdA3WDpY7j5D2l0CVgCJxy0NYgyDlsGxgx+SZ6ZiCZzXoDJrLyr0/pYGD5BVINmsBnuWDqpEgTwtAADb3Zq9xhKNEPCNLLMKZVYFjffPbXfreuB5WpjM/JQl0Ex6yWZVf4CTFzkRQsJsd2s8vJwKTasiNAqh/eEY5e1bYNLNUCM3MMnRAr2VoEtoHHla1J8uaDhZJDgDaBanuOT28LKo4zwkgmV6Q8AXIU+LRnIDIBbBokhROYAbvKNrtkjPayEWoC/OJddZpFUKcwmLVnb+efqb87L1QqhRCoeg1Z1/rIvQVtoKvSHQtwxeO53/EKEe8z0tTWh0g5VsVihhTzBWADr4rqzPwc0Iy0UQcKb/CEnygtVwqQXwd4Pud5lVSHbNRtxgJGFhsRa4A9rZ2omQp8Xg+KdY9T4wchWIwaL3AeFmSCJC13N/y94HBG+GJAUQ99zfhZC73r/GyuogejcYqvW5wQGnByBd5x3a7wbFL0dDewSgWS+UWdWYJTcrQAxcCOwPR3UBxIXQuTczVjZH/wCd6FZ7gsTeDwAAAABJRU5ErkJggg==", "tileWidth": 32, "tileHeight": 32, "tileSeparationX": 0, "tileSeparationY": 0, "tileMarginX": 0, "tileMarginY": 0}
+  ]
+}

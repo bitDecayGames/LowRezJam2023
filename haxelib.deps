@@ -8,11 +8,11 @@ openfl 9.2.2
 newgrounds 2.0.0
 
 # bitDecayGames deps
-bitdecaybtree git https://github.com/bitDecayGames/BehaviorTree.git
 bitlytics git https://github.com/bitDecayGames/Bitlytics.git
 flixelutils git https://github.com/bitDecayGames/flixel-utils.git lowrez2023
-textpop git https://github.com/bitDecayGames/text-pop.git
+echo 4.2.2
+echo-flixel 0.0.1
+ldtk-haxe-api 1.3.3-rc.1
 
 # misc deps
-dialog-manager git https://github.com/Tanz0rz/haxe-dialog-manager.git
 haxefmod git https://github.com/Tanz0rz/haxe-fmod.git
