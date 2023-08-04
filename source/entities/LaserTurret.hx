@@ -128,6 +128,9 @@ class LaserTurret extends FlxSprite {
 				cooldown = 0;
 				charging = 0;
 				startLockAngle = Math.NaN;
+
+				// return here to prevent our emitter from being mobed back to the turret
+				return;
 			}
 		}
 

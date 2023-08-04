@@ -1,5 +1,6 @@
 package entities;
 
+import helpers.CardinalMaker;
 import states.PlayState;
 import echo.Body;
 import echo.data.Data.CollisionData;
@@ -8,6 +9,7 @@ import collision.ColorCollideSprite;
 
 using echo.FlxEcho;
 
+@:access(echo.FlxEcho)
 class Transition extends ColorCollideSprite {
 	var data:Entity_Door;
 	var body:Body;
@@ -30,14 +32,23 @@ class Transition extends ColorCollideSprite {
 				solid: false,
 			}
 		});
+
+		body.update_body_object();
 	} 
 
 	override function handleEnter(other:Body, colData:Array<CollisionData>) {
 		super.handleEnter(other, colData);
 
 		if (other.object is Player) {
-			trace('TRAN TO SOMEWHERE: ${data.f_Entity_ref.levelIid}');
-			PlayState.ME.loadLevel(data.f_Entity_ref.levelIid, data.f_Entity_ref.entityIid);
+			var player:Player = cast other.object;
+			if (!player.inControl) {
+				return;
+			}
+			FlxEcho.updates = false;
+			FlxEcho.instance.active = false;
+			player.transitionWalk(CardinalMaker.fromString(data.f_access_dir.getName()).opposite(), () -> {
+				PlayState.ME.loadLevel(data.f_Entity_ref.levelIid, data.f_Entity_ref.entityIid);
+			});
 		}
 	}
 }

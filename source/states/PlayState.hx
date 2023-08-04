@@ -77,6 +77,7 @@ class PlayState extends FlxTransitionableState {
 		loadLevel("Level_0");
 	}
 
+	@:access(echo.FlxEcho)
 	public function loadLevel(levelID:String, ?entityID:String) {
 
 		FlxEcho.clear();
@@ -139,6 +140,7 @@ class PlayState extends FlxTransitionableState {
 			o.add_to_group(objects);
 		}
 
+		var extraSpawnLogic:Void->Void = null;
 		var spawnPoint = FlxPoint.get();
 		if (entityID != null) {
 			var matches = level.raw.l_Objects.all_Door.filter((d) -> {return d.iid == entityID;});
@@ -147,8 +149,19 @@ class PlayState extends FlxTransitionableState {
 				QuickLog.critical(msg);
 			}
 			var spawn = matches[0];
+			var spawnDir = CardinalMaker.fromString(spawn.f_access_dir.getName());
 			spawnPoint.set(spawn.pixelX, spawn.pixelY - 4);
-			spawnPoint.addPoint(CardinalMaker.fromString(spawn.f_access_dir.getName()).asVector().scale(24));
+			// TODO: find a better way to calculate this offset
+			spawnPoint.addPoint(spawnDir.asVector().scale(-48));
+
+			FlxEcho.updates = false;
+			FlxEcho.instance.active = false;
+			extraSpawnLogic = () -> {
+				player.transitionWalk(spawnDir, () -> {
+					FlxEcho.updates = true;
+					FlxEcho.instance.active = true;
+				});
+			}
 		} else if (level.raw.l_Objects.all_Spawn.length > 0) {
 			var rawSpawn = level.raw.l_Objects.all_Spawn[0];
 			spawnPoint.set(rawSpawn.pixelX, rawSpawn.pixelY);
@@ -158,6 +171,9 @@ class PlayState extends FlxTransitionableState {
 
 		player = new Player(spawnPoint.x, spawnPoint.y);
 		player.add_to_group(playerGroup);
+		if (extraSpawnLogic != null) {
+			extraSpawnLogic();
+		}
 
 		camera.focusOn(player.getGraphicMidpoint());
 		dbgCam.scroll.copyFrom(camera.scroll);

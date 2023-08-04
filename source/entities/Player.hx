@@ -1,5 +1,8 @@
 package entities;
 
+import flixel.tweens.FlxTween;
+import flixel.path.FlxPath;
+import bitdecay.flixel.spacial.Cardinal;
 import echo.util.AABB;
 import animation.AnimationState;
 import echo.Body;
@@ -29,7 +32,10 @@ class Player extends ColorCollideSprite {
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/characters/player.json");
 	// public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/characters/player.json", "Layer 1");
 
+	public var inControl:Bool = true;
+
 	public var body:echo.Body;
+	var bodyOffset:FlxPoint;
 	var topShape:echo.Shape.Shape;
 	var bottomShape:echo.Shape.Shape;
 
@@ -59,9 +65,10 @@ class Player extends ColorCollideSprite {
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
 		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
-		for (f in frames.frames) {
+
+		for (f in animation.getByName(anims.run).frames) {
 			// Thanks aseprite, but we want to manage these manually
-			f.duration = 0;
+			frames.frames[f].duration = 0;
 		}
 		animation.play(anims.stand);
 		// animation.callback = (anim, frame, index) -> {
@@ -71,7 +78,7 @@ class Player extends ColorCollideSprite {
 		// };
 
 		setSize(16, 32);
-		offset.set(0, 16);
+		offset.set(0, 18);
 
 		body = this.add_body({
 			x: X,
@@ -98,6 +105,8 @@ class Player extends ColorCollideSprite {
 		});
 		bottomShape = body.shapes[0];
 		topShape = body.shapes[2];
+
+		bodyOffset = FlxPoint.get(body.x - x, body.y - y);
 	}
 
 	override function handleEnter(other:Body, data:Array<CollisionData>) {
@@ -113,11 +122,51 @@ class Player extends ColorCollideSprite {
 		}
 	}
 
+	@:access(echo.FlxEcho)
+	public function transitionWalk(dir:Cardinal, cb:Void->Void) {
+		var transitionDistance = 72;
+		// XXX: Make sure we are aligned with our physics body
+		body.update_body_object();
+		// body.active = false;
+		inControl = false;
+		var curPos = getPosition();
+		var destPos = curPos.copyTo();
+		animation.play(anims.run);
+		switch(dir) {
+			case E:
+				destPos.x += transitionDistance;
+			case W:
+				destPos.x -= transitionDistance;	
+			default:
+		}
+		flipX = curPos.x < destPos.x;
+		FlxTween.linearMotion(this, curPos.x, curPos.y, destPos.x, destPos.y, 1.5, {
+			onComplete: (t) -> {
+				body.set_position(x + origin.x, y + origin.y);
+				cb();
+				inControl = true;
+			}
+		});
+	}
+
 	override public function update(delta:Float) {
 		super.update(delta);
 
 		animState.reset();
 
+		FlxG.watch.addQuick("Player anim: ", animation.curAnim.name);
+
+		if (inControl) {
+			handleInput(delta);
+			updateCurrentAnimation();
+		} else {
+			animation.play(anims.run);
+			animation.curAnim.frameRate = 10;
+			FlxG.watch.addQuick("Player frame rate: ", animation.curAnim.frameRate);
+		}
+	}
+
+	function handleInput(delta:Float) {
 		var inputDir = InputCalcuator.getInputCardinal(playerNum);
 		if (inputDir != NONE) {
 			inputDir.asVector(tmp);
@@ -184,7 +233,6 @@ class Player extends ColorCollideSprite {
 		
 		body.bounds(tmpAABB);
 		
-
 		var rayChecksPassed = 0;
 		echoTmp.set(tmpAABB.min_x, tmpAABB.max_y - 2);
 		var groundedCast = Line.get_from_vector(echoTmp, 90, 5);
@@ -240,10 +288,6 @@ class Player extends ColorCollideSprite {
 		if (grounded) {
 			animState.add(GROUNDED);
 		}
-
-		updateCurrentAnimation();
-
-		DebugDraw.ME.drawCameraRect(PlayState.ME.dbgCam, 0, 0, 10,10, GENERAL, interactColor);
 	}
 
 	function updateCurrentAnimation() {
@@ -257,39 +301,49 @@ class Player extends ColorCollideSprite {
 			if (animState.has(RUNNING)) {
 				if ((animState.has(ACCEL_LEFT) && body.velocity.x > 0) || (animState.has(ACCEL_RIGHT) && body.velocity.x < 0)) {
 					if (animState.has(CROUCHED)) {
-						// animation.play('slide');
+						playAnimIfNotAlready(anims.slide);
 					} else {
-						animation.play(anims.skid);
+						playAnimIfNotAlready(anims.skid);
 					}
 				} else {
 					// if (animState.has(CROUCHED)) {
 					// 	animation.play('crawl');
 					// }
-					animation.play(anims.run);
+					playAnimIfNotAlready(anims.run);
 				}
 			} else { 
 				if (animState.has(CROUCHED)) {
 					if (body.velocity.x != 0) {
-						// animation.play('slide');
+						playAnimIfNotAlready(anims.slide);
 					} else {
-						animation.play(anims.crouch);
+						playAnimIfNotAlready(anims.crouch);
 					}
 				} else {
 					if (body.velocity.x != 0) {
-						animation.play(anims.skid);
+						playAnimIfNotAlready(anims.skid);
 					} else {
-						animation.play(anims.stand);
+						playAnimIfNotAlready(anims.stand);
 					}
 				}
 			}
 		} else {
-			if (body.velocity.y > 0) {
-				animation.play(anims.fall);
+			if (animState.has(CROUCHED)) {
+				playAnimIfNotAlready(anims.jumpCrouch);
 			} else {
-				animation.play(anims.jump);
+				if (body.velocity.y > 0) {
+					playAnimIfNotAlready(anims.fall);
+				} else {
+					playAnimIfNotAlready(anims.jump);
+				}
 			}
 		}
 
 		// FlxG.watch.addQuick("Player Anim: ", animation.curAnim.name);
+	}
+
+	function playAnimIfNotAlready(name:String) {
+		if (animation.curAnim == null || animation.curAnim.name != name) {
+			animation.play(name, true);
+		}
 	}
 }
