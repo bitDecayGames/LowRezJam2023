@@ -25,7 +25,7 @@ class LaserTurret extends FlxSprite {
 	var CHARGE_TIME = 3;
 	var charging = 0.0;
 
-	var startLockAngle:Float;
+	var startLockAngle:Float = Math.NaN;
 
 	public function new(X:Float, Y:Float, laserColor:Color) {
 		super(X, Y);
@@ -49,8 +49,10 @@ class LaserTurret extends FlxSprite {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
+		#if debug_turret
 		FlxG.watch.addQuick('Cooldown: ', cooldown);
 		FlxG.watch.addQuick('Charge: ', charging);
+		#end
 
 		var playerBounds = PlayState.ME.player.body.bounds();
 		var playerCenter = new Vector2((playerBounds.min_x + playerBounds.max_x) / 2, (playerBounds.min_y + playerBounds.max_y) / 2);
@@ -59,10 +61,33 @@ class LaserTurret extends FlxSprite {
 		var vector = FlxPoint.get(laserAim.x, laserAim.y);
 		var aimAngle = vector.degreesFrom(midpoint);
 
+		var curAngle = angle;
+		if (Math.abs(aimAngle - curAngle) > 180) {
+			 if (curAngle > aimAngle) {
+				// if we aren't locked on, adjust our angle.
+				// if we ARE locked on, adjust our aim angle
+				if (Math.isNaN(startLockAngle)) {
+					curAngle -= 360;
+				} else {
+					aimAngle += 360;
+				}
+			} else {
+				if (Math.isNaN(startLockAngle)) {
+					curAngle += 360;
+				} else {
+					aimAngle -= 360;
+				}
+			}
+			angle = curAngle;
+		}
+
 		// TODO: This aim angle behaves oddly when you dance around 180 degrees
 		// off from the right side.
+		#if debug_turret
+		FlxG.watch.addQuick('curAngle: ', curAngle);
 		FlxG.watch.addQuick('aimAngle: ', aimAngle);
-
+		#end
+		
 		if (cooldown < COOLDOWN_TIME) {
 			angle = FlxMath.lerp(angle, aimAngle, Math.min(1, cooldown / COOLDOWN_TIME / 5));
 
@@ -102,6 +127,7 @@ class LaserTurret extends FlxSprite {
 				active = false;
 				cooldown = 0;
 				charging = 0;
+				startLockAngle = Math.NaN;
 			}
 		}
 
