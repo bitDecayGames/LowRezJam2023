@@ -59,7 +59,6 @@ class Player extends ColorCollideSprite {
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
 		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
-		// animation.
 		for (f in frames.frames) {
 			// Thanks aseprite, but we want to manage these manually
 			f.duration = 0;
@@ -71,14 +70,6 @@ class Player extends ColorCollideSprite {
 			// }
 		// };
 
-		// loadGraphic(AssetPaths.run_sheet__png, true, 32, 48);
-		// animation.add('run', [ for (i in 0...20) i]);
-		// animation.add('crouch', [20]);
-		// animation.add('skid', [21]);
-		// animation.add('jump', [22]);
-		// animation.add('fall', [23]);
-		// animation.add('slide', [24]);
-		// animation.add('stand', [25]);
 		setSize(16, 32);
 		offset.set(0, 16);
 
@@ -268,7 +259,7 @@ class Player extends ColorCollideSprite {
 					if (animState.has(CROUCHED)) {
 						// animation.play('slide');
 					} else {
-						// animation.play('skid');
+						animation.play(anims.skid);
 					}
 				} else {
 					// if (animState.has(CROUCHED)) {
@@ -281,11 +272,11 @@ class Player extends ColorCollideSprite {
 					if (body.velocity.x != 0) {
 						// animation.play('slide');
 					} else {
-						// animation.play('crouch');
+						animation.play(anims.crouch);
 					}
 				} else {
 					if (body.velocity.x != 0) {
-						// animation.play('skid');
+						animation.play(anims.skid);
 					} else {
 						animation.play(anims.stand);
 					}
@@ -293,9 +284,9 @@ class Player extends ColorCollideSprite {
 			}
 		} else {
 			if (body.velocity.y > 0) {
-				// animation.play('fall');
+				animation.play(anims.fall);
 			} else {
-				// animation.play('jump');
+				animation.play(anims.jump);
 			}
 		}
 

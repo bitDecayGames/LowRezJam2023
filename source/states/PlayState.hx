@@ -44,6 +44,7 @@ class PlayState extends FlxTransitionableState {
 	public var terrainGroup = new FlxGroup();
 	public var objects = new FlxGroup();
 	public var lasers = new FlxGroup();
+	public var particles = new FlxGroup();
 
 	public function new() {
 		super();
@@ -70,6 +71,7 @@ class PlayState extends FlxTransitionableState {
 		add(objects);
 		add(playerGroup);
 		add(lasers);
+		add(particles);
 
 		// TODO: Load them at some checkpoint if they restart the game?
 		loadLevel("Level_0");
@@ -88,6 +90,9 @@ class PlayState extends FlxTransitionableState {
 		lasers.forEach((f) -> f.destroy());
 		lasers.clear();
 
+		particles.forEach((f) -> f.destroy());
+		particles.clear();
+
 		playerGroup.forEach((f) -> f.destroy());
 		playerGroup.clear();
 		player = null;
@@ -102,8 +107,8 @@ class PlayState extends FlxTransitionableState {
 		FlxEcho.instance.world.set(0, 0, level.bounds.width, level.bounds.height);
 
 		var levelBodies = TileMap.generate_grid(level.rawTerrainInts,
-			Constants.BLOCK_SIZE,
-			Constants.BLOCK_SIZE,
+			level.raw.l_Terrain.gridSize,
+			level.raw.l_Terrain.gridSize,
 			level.rawTerrainTilesWide,
 			level.rawTerrainTilesTall);
 		
@@ -111,10 +116,17 @@ class PlayState extends FlxTransitionableState {
 		for (body in levelBodies) {
 			body.shape.bounds(tmpAABB);
 			var gridCell = FlxPoint.get(tmpAABB.min_x / level.rawTerrainLayer.gridSize, tmpAABB.min_y / level.rawTerrainLayer.gridSize);
+			#if debug
 			if (!level.rawTerrainLayer.hasAnyTileAt(Std.int(gridCell.x), Std.int(gridCell.y))){
 				trace('whut');
 			}
+			#end
 			var tStack = level.rawTerrainLayer.getTileStackAt(Std.int(gridCell.x), Std.int(gridCell.y));
+			#if debug
+			if (tStack.length == 0) {
+				trace('whut');
+			}
+			#end
 			var tileID = tStack[0].tileId;
 			var fillerBodySprite = new ColorCollideSprite(body.x, body.y, collision.TileTypes.mapping[tileID]);
 			fillerBodySprite.makeGraphic(Std.int(tmpAABB.width), Std.int(tmpAABB.height));
@@ -153,7 +165,7 @@ class PlayState extends FlxTransitionableState {
 		dbgCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
 
 		for (emitter in level.emitters) {
-			add(emitter);
+			particles.add(emitter);
 		}
 
 		FlxEcho.listen(playerGroup, lasers, {
