@@ -1,5 +1,7 @@
 package entities;
 
+import loaders.Aseprite;
+import loaders.AsepriteMacros;
 import flixel.util.FlxTimer;
 import flixel.path.FlxPath;
 import flixel.math.FlxPoint;
@@ -13,6 +15,8 @@ import collision.Color;
 import flixel.FlxSprite;
 
 class LaserRail extends FlxSprite {
+	private static var anims = AsepriteMacros.tagNames("assets/aseprite/crawlingTurret.json");
+
 	public var emitter:FlxEmitter;
 	
 	var destPointIndex = 0;
@@ -42,8 +46,9 @@ class LaserRail extends FlxSprite {
 		this.path = new FlxPath();
 		this.path.start(pathPoints, 50, FlxPathType.YOYO);
 
-		// TODO: Load animated laser
-		loadGraphic(AssetPaths.laser_rail_icon__png);
+		Aseprite.loadAllAnimations(this, AssetPaths.crawlingTurret__json);
+
+		animation.play(anims.move);
 
 		emitterPoint.set(0, 8);
 
@@ -103,5 +108,13 @@ class LaserRail extends FlxSprite {
 				charging = 0;
 			}
 		}
+
+		if (velocity.x == 0) {
+			animation.pause();
+		} else {
+			animation.resume();
+		}
+
+		flipX = velocity.x > 0;
 	}
 }

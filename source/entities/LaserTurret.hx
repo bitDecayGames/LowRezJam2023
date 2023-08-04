@@ -31,8 +31,7 @@ class LaserTurret extends FlxSprite {
 		super(X, Y);
 		this.laserColor = laserColor;
 
-		// TODO: Load animated laser
-		loadGraphic(AssetPaths.laser_turret_icon__png);
+		loadGraphic(AssetPaths.rotatingTurret__png);
 
 		emitterPoint.set(16, 0);
 
