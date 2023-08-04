@@ -20,11 +20,16 @@ class Level {
 
 	public var bounds = FlxRect.get();
 	public var terrainGfx = new FlxSpriteGroup();
-	public var rawTerrainInts = new Array<Int>();
-	public var rawTerrainTilesWide = 0;
-	public var rawTerrainTilesTall = 0;
+	public var rawFineTerrainInts = new Array<Int>();
+	public var rawFineTerrainTilesWide = 0;
+	public var rawFineTerrainTilesTall = 0;
+
+	public var rawCoarseTerrainInts = new Array<Int>();
+	public var rawCoarseTerrainTilesWide = 0;
+	public var rawCoarseTerrainTilesTall = 0;
 
 	public var rawTerrainLayer:levels.ldtk.LDTKProject.Layer_Terrain;
+	public var rawCoarseTerrainLayer:levels.ldtk.LDTKProject.Layer_Terrain_coarse;
 
 	public var objects = new FlxTypedGroup<FlxObject>();
 	public var emitters = new Array<FlxEmitter>();
@@ -37,17 +42,33 @@ class Level {
 		bounds.width = level.pxWid;
 		bounds.height = level.pxHei;
 		rawTerrainLayer = level.l_Terrain;
+		rawCoarseTerrainLayer = level.l_Terrain_coarse;
 		terrainGfx = level.l_Terrain.render();
-		rawTerrainInts = new Array<Int>();
-		rawTerrainTilesWide = level.l_Terrain.cWid;
-		rawTerrainTilesTall = level.l_Terrain.cHei;
+		level.l_Terrain_coarse.render(terrainGfx);
+		rawFineTerrainInts = new Array<Int>();
+		rawFineTerrainTilesWide = level.l_Terrain.cWid;
+		rawFineTerrainTilesTall = level.l_Terrain.cHei;
 		for (ch in 0...level.l_Terrain.cHei) {
 			for (cw in 0...level.l_Terrain.cWid) {
 				if (level.l_Terrain.hasAnyTileAt(cw, ch)) {
 					var tileStack = level.l_Terrain.getTileStackAt(cw, ch);
-					rawTerrainInts.push(tileStack[0].tileId);
+					rawFineTerrainInts.push(tileStack[0].tileId);
 				} else {
-					rawTerrainInts.push(0);
+					rawFineTerrainInts.push(0);
+				}
+			}
+		}
+
+		rawCoarseTerrainInts = new Array<Int>();
+		rawCoarseTerrainTilesWide = level.l_Terrain_coarse.cWid;
+		rawCoarseTerrainTilesTall = level.l_Terrain_coarse.cHei;
+		for (ch in 0...level.l_Terrain_coarse.cHei) {
+			for (cw in 0...level.l_Terrain_coarse.cWid) {
+				if (level.l_Terrain_coarse.hasAnyTileAt(cw, ch)) {
+					var tileStack = level.l_Terrain_coarse.getTileStackAt(cw, ch);
+					rawCoarseTerrainInts.push(tileStack[0].tileId);
+				} else {
+					rawCoarseTerrainInts.push(0);
 				}
 			}
 		}
