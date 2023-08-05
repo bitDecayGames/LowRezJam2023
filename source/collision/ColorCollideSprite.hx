@@ -20,23 +20,29 @@ class ColorCollideSprite extends FlxSprite {
 		super(X, Y);
 		lastColor = initialColor;
 		interactColor = initialColor;
+		color = cast initialColor;
+		// color = FlxColor.YELLOW;
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 		colorTime = Math.min(transitionLength, colorTime + elapsed);
 		
-		var val = FlxColor.interpolate(cast lastColor, cast interactColor, colorTime / transitionLength);
-		// if (this is Player) {
-		// 	var lastCast:FlxColor = cast lastColor;
-		// 	var curCast:FlxColor = cast interactColor;
-		// 	FlxG.watch.addQuick("colorTime: ", colorTime);
-		// 	FlxG.watch.addQuick("lastCast: ", lastCast);
-		// 	FlxG.watch.addQuick("curCast: ", curCast);
-
-		// 	DebugDraw.ME.drawWorldCircle(PlayState.ME.dbgCam, x -10, y - 10, 3, null, val);
-		// }
-		color = val;
+		if (lastColor == interactColor) {
+			// color = interactColor.toFlxColor();
+		} else {
+			var val = FlxColor.interpolate(cast lastColor, cast interactColor, colorTime / transitionLength);
+			// if (this is Player) {
+			// 	var lastCast:FlxColor = cast lastColor;
+			// 	var curCast:FlxColor = cast interactColor;
+			// 	FlxG.watch.addQuick("colorTime: ", colorTime);
+			// 	FlxG.watch.addQuick("lastCast: ", lastCast);
+			// 	FlxG.watch.addQuick("curCast: ", curCast);
+	
+			// 	DebugDraw.ME.drawWorldCircle(PlayState.ME.dbgCam, x -10, y - 10, 3, null, val);
+			// }
+			color = val;
+		}
 	}
 
 	public function addColor(i:Color) {

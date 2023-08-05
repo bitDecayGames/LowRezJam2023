@@ -1,5 +1,6 @@
 package collision;
 
+import flixel.FlxSprite;
 import levels.ldtk.Level;
 import flixel.group.FlxGroup;
 import echo.Body;
@@ -56,10 +57,15 @@ class TileTypes {
 						
 						var color = TileTypes.getColorFromTile(cx, cy, layer.gridSize, colorLayer);
 	
-						var s = new ColorCollideSprite(xPix, yPix, color);
+						var s:FlxSprite;
+						if (color != EMPTY) {
+							s = new ColorCollideSprite(xPix, yPix, color);
+						} else {
+							s = new FlxSprite(xPix, yPix);
+						}
 						s.flipX = tile.flipBits & 1 != 0;
 						s.flipY = tile.flipBits & 2 != 0;
-						s.frame = layer.untypedTileset.getFrame(tile.tileId);
+						s.frame = layer.untypedTileset.getFrame(tile.tileId).copyTo();
 						s.width = layer.gridSize;
 						s.height = layer.gridSize;
 						s.set_body(b);
@@ -70,11 +76,6 @@ class TileTypes {
 	public static function getColorFromTile(cX:Int, cY:Int, gridSize:Int, colors:Layer_TerrainColor):Color {
 		var scale:Int = Std.int(gridSize / colors.gridSize);
 		var colorInt = colors.getInt(cX * scale, cY * scale);
-
-		if (colorInt == 0) {
-			return EMPTY;
-		}
-
-		return mapping[colorInt];
+		return mapping.exists(colorInt) ? mapping[colorInt] : EMPTY;
 	}
 }

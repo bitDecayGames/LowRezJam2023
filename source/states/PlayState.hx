@@ -188,7 +188,7 @@ class PlayState extends FlxTransitionableState {
 			condition: Collide.colorBodiesDoNotInteract,
 			separate: false,
 			enter: (a, b, o) -> {
-				Collide.ignoreCollisions(a, b);
+				Collide.ignoreCollisionsOfBColor(a, b);
 			},
 			exit: (a, b) -> {
 				Collide.restoreCollisions(a, b);
