@@ -1,5 +1,8 @@
 package entities;
 
+import states.substate.UpgradeCutscene;
+import flixel.util.FlxColor;
+import flixel.FlxG;
 import states.PlayState;
 import progress.Collected;
 import collision.Color;
@@ -33,7 +36,8 @@ class ColorUpgrade extends ColorCollideSprite {
 			shape: {
 				type: RECT,
 				width: 10,
-				height: data.height,
+				height: 5,
+				offset_y: data.height / 2 - 5/2,
 				solid: false,
 			}
 		});
@@ -42,9 +46,19 @@ class ColorUpgrade extends ColorCollideSprite {
 	override function handleEnter(other:Body, data:Array<CollisionData>) {
 		super.handleEnter(other, data);
 
-		// TODO: Cutscene
+		FlxEcho.updates = false;
+		FlxEcho.instance.active = false;
+
+		FlxG.camera.fade(FlxColor.BLACK, 0.2, () -> {
+			FlxG.state.openSubState(new UpgradeCutscene(colorToUnlock, () -> {
+				FlxEcho.updates = true;
+				FlxEcho.instance.active = true;
+			}));
+		});
 
 		if (other.object is Player) {
+			var player:Player = cast other.object;
+			player.forceStand();
 			switch(colorToUnlock) {
 				case RED:
 					Collected.unlockRed();

@@ -31,7 +31,6 @@ using echo.FlxEcho;
 class Player extends ColorCollideSprite {
 	public static var anims = AsepriteMacros.tagNames("assets/aseprite/characters/player.json");
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/characters/player.json");
-	// public static var eventData = AsepriteMacros.frameUserData("assets/aseprite/characters/player.json", "Layer 1");
 
 	public var inControl:Bool = true;
 
@@ -72,11 +71,6 @@ class Player extends ColorCollideSprite {
 			frames.frames[f].duration = 0;
 		}
 		animation.play(anims.stand);
-		// animation.callback = (anim, frame, index) -> {
-			// if (eventData.exists(index)) {
-				// trace('frame $index has data ${eventData.get(index)}');
-			// }
-		// };
 
 		setSize(16, 32);
 		offset.set(0, 18);
@@ -108,6 +102,11 @@ class Player extends ColorCollideSprite {
 		topShape = body.shapes[2];
 
 		bodyOffset = FlxPoint.get(body.x - x, body.y - y);
+	}
+
+	public function forceStand() {
+		animation.play(anims.stand);
+		body.velocity.x = 0;
 	}
 
 	override function handleEnter(other:Body, data:Array<CollisionData>) {

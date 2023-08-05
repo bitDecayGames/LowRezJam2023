@@ -1,5 +1,6 @@
 package states;
 
+import entities.Transition;
 import openfl.display.BlendMode;
 import collision.TileTypes;
 import progress.Collected;
@@ -146,6 +147,16 @@ class PlayState extends FlxTransitionableState {
 				QuickLog.critical(msg);
 			}
 			var spawn = matches[0];
+			var t:Transition = null;
+			for (o in objects) {
+				if (o is Transition) {
+					t = cast o;
+					if (t.doorID == spawn.iid) {
+						// this is the door we are coming into, so open it
+						t.open();
+					}
+				}
+			}
 			var spawnDir = CardinalMaker.fromString(spawn.f_access_dir.getName());
 			spawnPoint.set(spawn.pixelX, spawn.pixelY - 4);
 			// TODO: find a better way to calculate this offset
@@ -157,6 +168,7 @@ class PlayState extends FlxTransitionableState {
 				player.transitionWalk(spawnDir, () -> {
 					FlxEcho.updates = true;
 					FlxEcho.instance.active = true;
+					t.close();
 				});
 			}
 		} else if (level.raw.l_Objects.all_Spawn.length > 0) {
@@ -231,6 +243,10 @@ class PlayState extends FlxTransitionableState {
 
 	public function addLaser(laser:LaserBeam) {
 		laser.add_to_group(lasers);
+	}
+
+	public function addParticle(o:FlxObject) {
+		particles.add(o);
 	}
 
 	override public function update(elapsed:Float) {

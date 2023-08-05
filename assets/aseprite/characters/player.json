@@ -663,7 +663,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
     "sourceSize": { "w": 32, "h": 48 },
-    "duration": 100
+    "duration": 500
    },
    {
     "filename": "player 74.ase",
@@ -776,7 +776,7 @@
  ],
  "meta": {
   "app": "https://www.aseprite.org/",
-  "version": "1.3-rc6-x64",
+  "version": "1.3-rc4-x64",
   "image": "player.png",
   "format": "RGBA8888",
   "size": { "w": 256, "h": 384 },

@@ -54,7 +54,11 @@ class Aseprite {
 		var tags:Array<AsepriteTypes.AseAtlasTag> = atlas.meta.frameTags;
 		for (tag in tags) {
 			var loop = !(tag.repeat == 1);
-			into.animation.add(tag.name, [for (i in tag.from...tag.to + 1) i], loop);
+			var frames = [for (i in tag.from...tag.to + 1) i];
+			if (tag.direction == "reverse") {
+				frames.reverse();
+			}
+			into.animation.add(tag.name, frames, loop);
 		}
 	}
 
