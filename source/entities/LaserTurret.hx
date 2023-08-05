@@ -1,5 +1,7 @@
 package entities;
 
+import echo.Body;
+import collision.Collide;
 import flixel.util.FlxTimer;
 import echo.FlxEcho;
 import echo.math.Vector2;
@@ -106,9 +108,11 @@ class LaserTurret extends FlxSprite {
 				var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
 				if (intersects.length > 0) {
 					for (i in intersects) {
-						if (i.closest.distance < laserLength) {
-							laserLength = i.closest.distance;
-							emitter.setPosition(i.closest.hit.x, i.closest.hit.y);
+						if (Collide.bodyInteractsWithColor(i.body, laserColor)) {
+							if (i.closest.distance < laserLength) {
+								laserLength = i.closest.distance;
+								emitter.setPosition(i.closest.hit.x, i.closest.hit.y);
+							}
 						}
 						i.put();
 					}

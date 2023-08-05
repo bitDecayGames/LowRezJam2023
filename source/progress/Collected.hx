@@ -26,7 +26,7 @@ class Collected {
 	public static function initialize() {
 		if (!initialized) {
 			FlxG.save.bind("save", "bitdecaygames/lowrezjam2023/");
-			if (FlxG.save.data.game == null) {
+			if (FlxG.save.data.game == null #if clearsave || true#end) {
 				FlxG.save.data.game = Collected.newData();
 				FlxG.save.flush();
 			}

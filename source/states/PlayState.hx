@@ -181,8 +181,22 @@ class PlayState extends FlxTransitionableState {
 			particles.add(emitter);
 		}
 
+		// We need to cache our non-interacting collisions to avoid glitchy
+		// physics if they change color after they overlap with a valid color
+		// match.
+		FlxEcho.listen(playerGroup, objects, {
+			condition: Collide.colorBodiesDoNotInteract,
+			separate: false,
+			enter: (a, b, o) -> {
+				Collide.ignoreCollisions(a, b);
+			},
+			exit: (a, b) -> {
+				Collide.restoreCollisions(a, b);
+			}
+		});
+
 		FlxEcho.listen(playerGroup, lasers, {
-			condition: Collide.colorsInteract,
+			condition: Collide.colorBodiesInteract,
 			enter: (a, b, o) -> {
 				if (Std.isOfType(a.object, ColorCollideSprite)) {
 					cast(a.object, ColorCollideSprite).handleEnter(b, o);
@@ -193,8 +207,8 @@ class PlayState extends FlxTransitionableState {
 			},
 		});
 
-		FlxEcho.listen(player, objects, {
-			condition: Collide.colorsInteract,
+		FlxEcho.listen(playerGroup, objects, {
+			condition: Collide.colorBodiesInteract,
 			enter: (a, b, o) -> {
 				if (Std.isOfType(a.object, ColorCollideSprite)) {
 					cast(a.object, ColorCollideSprite).handleEnter(b, o);
