@@ -233,7 +233,6 @@ class PlayState extends FlxTransitionableState {
 		laser.add_to_group(lasers);
 	}
 
-
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 

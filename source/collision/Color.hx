@@ -190,6 +190,19 @@ enum abstract Color(Int) from Int to Int {
 		return this | 0xFF000000;
 	}
 
+	public function name():String {
+		return switch (this) {
+			case RED: "RED";
+			case YELLOW: "YELLOW";
+			case BLUE: "BLUE";
+			case ORANGE: "ORANGE";
+			case GREEN: "GREEN";
+			case PURPLE: "PURPLE";
+			case ALL: "ALL";
+			default: "EMPTY";
+		}
+	}
+
 	public function dump():String {
 		return 'r: ${red()}, g: ${green()}, b: ${blue()}';
 	}
@@ -204,5 +217,9 @@ enum abstract Color(Int) from Int to Int {
 					QuickLog.error('unrecognized color enum value: $str');
 					return ALL;
 		}
+	}
+
+	public static function fromEnum(e:Enum_Color) {
+		return fromStr(e.getName());
 	}
 }

@@ -1,6 +1,7 @@
 package progress;
 
 import flixel.FlxG;
+import collision.Color;
 
 typedef Data = {
 	blueUnlocked: Bool,
@@ -61,5 +62,14 @@ class Collected {
 
 	public static function getCheckpointEntity() {
 		return FlxG.save.data.game.lastEntityID;
+	}
+
+	public static function has(c:Color) {
+		return switch (c) {
+			case RED: FlxG.save.data.game.redUnlocked;
+			case YELLOW: FlxG.save.data.game.yellowUnlocked;
+			case BLUE: FlxG.save.data.game.blueUnlocked;
+			default: false;
+		}
 	}
 }
