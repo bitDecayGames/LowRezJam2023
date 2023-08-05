@@ -64,15 +64,6 @@
    },
    {
     "filename": "powerUp 7.aseprite",
-    "frame": { "x": 1792, "y": 0, "w": 256, "h": 256 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
-    "sourceSize": { "w": 256, "h": 256 },
-    "duration": 100
-   },
-   {
-    "filename": "powerUp 8.aseprite",
     "frame": { "x": 0, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -81,7 +72,7 @@
     "duration": 100
    },
    {
-    "filename": "powerUp 9.aseprite",
+    "filename": "powerUp 8.aseprite",
     "frame": { "x": 256, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -90,7 +81,7 @@
     "duration": 100
    },
    {
-    "filename": "powerUp 10.aseprite",
+    "filename": "powerUp 9.aseprite",
     "frame": { "x": 512, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -99,8 +90,17 @@
     "duration": 100
    },
    {
+    "filename": "powerUp 10.aseprite",
+    "frame": { "x": 768, "y": 0, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   {
     "filename": "powerUp 11.aseprite",
-    "frame": { "x": 768, "y": 256, "w": 256, "h": 256 },
+    "frame": { "x": 0, "y": 0, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -109,7 +109,7 @@
    },
    {
     "filename": "powerUp 12.aseprite",
-    "frame": { "x": 1024, "y": 256, "w": 256, "h": 256 },
+    "frame": { "x": 768, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -118,7 +118,7 @@
    },
    {
     "filename": "powerUp 13.aseprite",
-    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
+    "frame": { "x": 1024, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -127,33 +127,6 @@
    },
    {
     "filename": "powerUp 14.aseprite",
-    "frame": { "x": 1536, "y": 256, "w": 256, "h": 256 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
-    "sourceSize": { "w": 256, "h": 256 },
-    "duration": 100
-   },
-   {
-    "filename": "powerUp 15.aseprite",
-    "frame": { "x": 1536, "y": 256, "w": 256, "h": 256 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
-    "sourceSize": { "w": 256, "h": 256 },
-    "duration": 100
-   },
-   {
-    "filename": "powerUp 16.aseprite",
-    "frame": { "x": 1536, "y": 256, "w": 256, "h": 256 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
-    "sourceSize": { "w": 256, "h": 256 },
-    "duration": 100
-   },
-   {
-    "filename": "powerUp 17.aseprite",
     "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -162,8 +135,35 @@
     "duration": 100
    },
    {
+    "filename": "powerUp 15.aseprite",
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   {
+    "filename": "powerUp 16.aseprite",
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   {
+    "filename": "powerUp 17.aseprite",
+    "frame": { "x": 1024, "y": 256, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   {
     "filename": "powerUp 18.aseprite",
-    "frame": { "x": 1792, "y": 256, "w": 256, "h": 256 },
+    "frame": { "x": 1536, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -181,7 +181,7 @@
    },
    {
     "filename": "powerUp 20.aseprite",
-    "frame": { "x": 256, "y": 512, "w": 256, "h": 256 },
+    "frame": { "x": 1024, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -190,7 +190,7 @@
    },
    {
     "filename": "powerUp 21.aseprite",
-    "frame": { "x": 512, "y": 512, "w": 256, "h": 256 },
+    "frame": { "x": 256, "y": 512, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -199,7 +199,7 @@
    },
    {
     "filename": "powerUp 22.aseprite",
-    "frame": { "x": 768, "y": 512, "w": 256, "h": 256 },
+    "frame": { "x": 512, "y": 512, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -208,7 +208,7 @@
    },
    {
     "filename": "powerUp 23.aseprite",
-    "frame": { "x": 1024, "y": 512, "w": 256, "h": 256 },
+    "frame": { "x": 768, "y": 512, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -217,7 +217,7 @@
    },
    {
     "filename": "powerUp 24.aseprite",
-    "frame": { "x": 1280, "y": 512, "w": 256, "h": 256 },
+    "frame": { "x": 1024, "y": 512, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -226,7 +226,7 @@
    },
    {
     "filename": "powerUp 25.aseprite",
-    "frame": { "x": 1536, "y": 512, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 512, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -235,7 +235,7 @@
    },
    {
     "filename": "powerUp 26.aseprite",
-    "frame": { "x": 1792, "y": 512, "w": 256, "h": 256 },
+    "frame": { "x": 1536, "y": 512, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -307,15 +307,6 @@
    },
    {
     "filename": "powerUp 34.aseprite",
-    "frame": { "x": 1792, "y": 768, "w": 256, "h": 256 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
-    "sourceSize": { "w": 256, "h": 256 },
-    "duration": 100
-   },
-   {
-    "filename": "powerUp 35.aseprite",
     "frame": { "x": 0, "y": 1024, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -324,7 +315,7 @@
     "duration": 100
    },
    {
-    "filename": "powerUp 36.aseprite",
+    "filename": "powerUp 35.aseprite",
     "frame": { "x": 256, "y": 1024, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -333,7 +324,7 @@
     "duration": 100
    },
    {
-    "filename": "powerUp 37.aseprite",
+    "filename": "powerUp 36.aseprite",
     "frame": { "x": 512, "y": 1024, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -342,7 +333,7 @@
     "duration": 100
    },
    {
-    "filename": "powerUp 38.aseprite",
+    "filename": "powerUp 37.aseprite",
     "frame": { "x": 768, "y": 1024, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -351,7 +342,7 @@
     "duration": 100
    },
    {
-    "filename": "powerUp 39.aseprite",
+    "filename": "powerUp 38.aseprite",
     "frame": { "x": 1024, "y": 1024, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -360,7 +351,7 @@
     "duration": 100
    },
    {
-    "filename": "powerUp 40.aseprite",
+    "filename": "powerUp 39.aseprite",
     "frame": { "x": 1280, "y": 1024, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -369,52 +360,16 @@
     "duration": 100
    },
    {
+    "filename": "powerUp 40.aseprite",
+    "frame": { "x": 1536, "y": 1024, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   {
     "filename": "powerUp 41.aseprite",
-    "frame": { "x": 1536, "y": 1024, "w": 256, "h": 256 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
-    "sourceSize": { "w": 256, "h": 256 },
-    "duration": 100
-   },
-   {
-    "filename": "powerUp 42.aseprite",
-    "frame": { "x": 1536, "y": 1024, "w": 256, "h": 256 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
-    "sourceSize": { "w": 256, "h": 256 },
-    "duration": 100
-   },
-   {
-    "filename": "powerUp 43.aseprite",
-    "frame": { "x": 1536, "y": 1024, "w": 256, "h": 256 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
-    "sourceSize": { "w": 256, "h": 256 },
-    "duration": 100
-   },
-   {
-    "filename": "powerUp 44.aseprite",
-    "frame": { "x": 1536, "y": 1024, "w": 256, "h": 256 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
-    "sourceSize": { "w": 256, "h": 256 },
-    "duration": 100
-   },
-   {
-    "filename": "powerUp 45.aseprite",
-    "frame": { "x": 1792, "y": 1024, "w": 256, "h": 256 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
-    "sourceSize": { "w": 256, "h": 256 },
-    "duration": 100
-   },
-   {
-    "filename": "powerUp 46.aseprite",
     "frame": { "x": 0, "y": 1280, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -423,7 +378,34 @@
     "duration": 100
    },
    {
-    "filename": "powerUp 47.aseprite",
+    "filename": "powerUp 42.aseprite",
+    "frame": { "x": 0, "y": 1280, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   {
+    "filename": "powerUp 43.aseprite",
+    "frame": { "x": 0, "y": 1280, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   {
+    "filename": "powerUp 44.aseprite",
+    "frame": { "x": 0, "y": 1280, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   {
+    "filename": "powerUp 45.aseprite",
     "frame": { "x": 256, "y": 1280, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -432,8 +414,26 @@
     "duration": 100
    },
    {
-    "filename": "powerUp 48.aseprite",
+    "filename": "powerUp 46.aseprite",
     "frame": { "x": 512, "y": 1280, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   {
+    "filename": "powerUp 47.aseprite",
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   {
+    "filename": "powerUp 48.aseprite",
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -442,7 +442,7 @@
    },
    {
     "filename": "powerUp 49.aseprite",
-    "frame": { "x": 768, "y": 1280, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -451,7 +451,7 @@
    },
    {
     "filename": "powerUp 50.aseprite",
-    "frame": { "x": 1024, "y": 1280, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -460,7 +460,7 @@
    },
    {
     "filename": "powerUp 51.aseprite",
-    "frame": { "x": 1024, "y": 1280, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -469,7 +469,7 @@
    },
    {
     "filename": "powerUp 52.aseprite",
-    "frame": { "x": 1280, "y": 1280, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -478,7 +478,7 @@
    },
    {
     "filename": "powerUp 53.aseprite",
-    "frame": { "x": 768, "y": 1280, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -487,7 +487,7 @@
    },
    {
     "filename": "powerUp 54.aseprite",
-    "frame": { "x": 512, "y": 1280, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -496,7 +496,7 @@
    },
    {
     "filename": "powerUp 55.aseprite",
-    "frame": { "x": 1536, "y": 1280, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -505,7 +505,7 @@
    },
    {
     "filename": "powerUp 56.aseprite",
-    "frame": { "x": 1792, "y": 1280, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -514,7 +514,7 @@
    },
    {
     "filename": "powerUp 57.aseprite",
-    "frame": { "x": 0, "y": 1536, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -523,7 +523,7 @@
    },
    {
     "filename": "powerUp 58.aseprite",
-    "frame": { "x": 256, "y": 1536, "w": 256, "h": 256 },
+    "frame": { "x": 1280, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -536,15 +536,11 @@
   "version": "1.3-rc6-x64",
   "image": "powerUp.png",
   "format": "RGBA8888",
-  "size": { "w": 2048, "h": 1792 },
+  "size": { "w": 1792, "h": 1536 },
   "scale": "1",
   "frameTags": [
   ],
   "layers": [
-   { "name": "Layer 7", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" },
    { "name": "Layer 4", "opacity": 255, "blendMode": "normal" },
    { "name": "Layer 6", "opacity": 255, "blendMode": "normal" }
   ],
