@@ -13,7 +13,7 @@ import flixel.group.FlxSpriteGroup;
 
 class Level {
 	private static inline var WORLD_ID = "48a599b1-1460-11ee-8f1d-bf5d483c5ed2";
-	var project = new LDTKProject();
+	public static var project = new LDTKProject();
 	
 	// in case we need something specific
 	public var raw:LDTKProject_Level;
@@ -28,7 +28,7 @@ class Level {
 	public var rawCoarseTerrainTilesWide = 0;
 	public var rawCoarseTerrainTilesTall = 0;
 
-	public var rawTerrainLayer:levels.ldtk.LDTKProject.Layer_Terrain;
+	public var rawFineTerrainLayer:levels.ldtk.LDTKProject.Layer_Terrain_fine;
 	public var rawCoarseTerrainLayer:levels.ldtk.LDTKProject.Layer_Terrain_coarse;
 
 	public var objects = new FlxTypedGroup<FlxObject>();
@@ -41,17 +41,17 @@ class Level {
 
 		bounds.width = level.pxWid;
 		bounds.height = level.pxHei;
-		rawTerrainLayer = level.l_Terrain;
+		rawFineTerrainLayer = level.l_Terrain_fine;
 		rawCoarseTerrainLayer = level.l_Terrain_coarse;
-		terrainGfx = level.l_Terrain.render();
+		terrainGfx = level.l_Terrain_fine.render();
 		level.l_Terrain_coarse.render(terrainGfx);
 		rawFineTerrainInts = new Array<Int>();
-		rawFineTerrainTilesWide = level.l_Terrain.cWid;
-		rawFineTerrainTilesTall = level.l_Terrain.cHei;
-		for (ch in 0...level.l_Terrain.cHei) {
-			for (cw in 0...level.l_Terrain.cWid) {
-				if (level.l_Terrain.hasAnyTileAt(cw, ch)) {
-					var tileStack = level.l_Terrain.getTileStackAt(cw, ch);
+		rawFineTerrainTilesWide = level.l_Terrain_fine.cWid;
+		rawFineTerrainTilesTall = level.l_Terrain_fine.cHei;
+		for (ch in 0...level.l_Terrain_fine.cHei) {
+			for (cw in 0...level.l_Terrain_fine.cWid) {
+				if (level.l_Terrain_fine.hasAnyTileAt(cw, ch)) {
+					var tileStack = level.l_Terrain_fine.getTileStackAt(cw, ch);
 					rawFineTerrainInts.push(tileStack[0].tileId);
 				} else {
 					rawFineTerrainInts.push(0);

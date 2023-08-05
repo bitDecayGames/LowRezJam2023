@@ -1,5 +1,7 @@
 package states;
 
+import openfl.display.BlendMode;
+import collision.TileTypes;
 import progress.Collected;
 import haxe.CallStack.StackItem;
 import helpers.CardinalMaker;
@@ -129,62 +131,7 @@ class PlayState extends FlxTransitionableState {
 		dbgCam.setScrollBoundsRect(0, 0, level.bounds.width, level.bounds.height);
 		FlxEcho.instance.world.set(0, 0, level.bounds.width, level.bounds.height);
 
-		var levelBodies = TileMap.generate_grid(level.rawFineTerrainInts,
-			level.raw.l_Terrain.gridSize,
-			level.raw.l_Terrain.gridSize,
-			level.rawFineTerrainTilesWide,
-			level.rawFineTerrainTilesTall);
-		
-		var tmpAABB = AABB.get();
-		for (body in levelBodies) {
-			body.shape.bounds(tmpAABB); 
-			var gridCell = FlxPoint.get(tmpAABB.min_x / level.rawTerrainLayer.gridSize, tmpAABB.min_y / level.rawTerrainLayer.gridSize);
-			#if debug
-			if (!level.rawTerrainLayer.hasAnyTileAt(Std.int(gridCell.x), Std.int(gridCell.y))){
-				trace('whut');
-			}
-			#end
-			var tStack = level.rawTerrainLayer.getTileStackAt(Std.int(gridCell.x), Std.int(gridCell.y));
-			#if debug
-			if (tStack.length == 0) {
-				trace('whut');
-			}
-			#end
-			var tileID = tStack[0].tileId;
-			var fillerBodySprite = new ColorCollideSprite(body.x, body.y, collision.TileTypes.mapping[tileID]);
-			fillerBodySprite.makeGraphic(Std.int(tmpAABB.width), Std.int(tmpAABB.height));
-			fillerBodySprite.set_body(body);
-			fillerBodySprite.add_to_group(objects);
-			fillerBodySprite.visible = false;
-		}
-
-		levelBodies = TileMap.generate_grid(level.rawCoarseTerrainInts,
-			level.raw.l_Terrain_coarse.gridSize,
-			level.raw.l_Terrain_coarse.gridSize,
-			level.rawCoarseTerrainTilesWide,
-			level.rawCoarseTerrainTilesTall);
-		
-			for (body in levelBodies) {
-				body.shape.bounds(tmpAABB); 
-				var gridCell = FlxPoint.get(tmpAABB.min_x / level.rawCoarseTerrainLayer.gridSize, tmpAABB.min_y / level.rawCoarseTerrainLayer.gridSize);
-				#if debug
-				if (!level.rawCoarseTerrainLayer.hasAnyTileAt(Std.int(gridCell.x), Std.int(gridCell.y))){
-					trace('whut');
-				}
-				#end
-				var tStack = level.rawCoarseTerrainLayer.getTileStackAt(Std.int(gridCell.x), Std.int(gridCell.y));
-				#if debug
-				if (tStack.length == 0) {
-					trace('whut');
-				}
-				#end
-				var tileID = tStack[0].tileId;
-				var fillerBodySprite = new ColorCollideSprite(body.x, body.y, collision.TileTypes.mapping[tileID]);
-				fillerBodySprite.makeGraphic(Std.int(tmpAABB.width), Std.int(tmpAABB.height));
-				fillerBodySprite.set_body(body);
-				fillerBodySprite.add_to_group(objects);
-				fillerBodySprite.visible = false;
-			}
+		TileTypes.buildTiles(level, objects);
 		
 		for (o in level.objects) {
 			o.add_to_group(objects);
