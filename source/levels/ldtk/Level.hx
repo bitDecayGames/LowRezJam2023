@@ -1,5 +1,8 @@
 package levels.ldtk;
 
+import collision.Color;
+import progress.Collected;
+import entities.ColorUpgrade;
 import entities.Transition;
 import entities.LaserTurret;
 import flixel.math.FlxRect;
@@ -102,6 +105,15 @@ class Level {
 		for (door in level.l_Objects.all_Door) {
 			var d = new Transition(door);
 			objects.add(d);
+		}
+
+		for (u in level.l_Objects.all_Color_upgrade) {
+			if (Collected.has(Color.fromEnum(u.f_Color))) {
+				// they already have collected this
+				continue;
+			}
+			var upgrader = new ColorUpgrade(u);
+			objects.add(upgrader);
 		}
 	}
 }

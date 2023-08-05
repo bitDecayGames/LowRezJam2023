@@ -1,5 +1,6 @@
 package entities;
 
+import progress.Collected;
 import flixel.tweens.FlxTween;
 import flixel.path.FlxPath;
 import bitdecay.flixel.spacial.Cardinal;
@@ -215,7 +216,7 @@ class Player extends ColorCollideSprite {
 		if (body.velocity.x == 0) {
 			removeColor(RED);
 		} else {
-			addColor(RED);
+			addColorIfUnlocked(RED);
 		}
 
 		if (body.acceleration.x > 0) {
@@ -244,7 +245,7 @@ class Player extends ColorCollideSprite {
 		if (SimpleController.pressed(DOWN)) {
 			animState.add(CROUCHED);
 			topShape.solid = false;
-			addColor(YELLOW);
+			addColorIfUnlocked(YELLOW);
 		} else {
 			topShape.solid = true;
 			removeColor(YELLOW);
@@ -301,7 +302,7 @@ class Player extends ColorCollideSprite {
 		} else if (intersects.length <= 1 && intersectsRight.length <= 1 && intersectsMiddle.length <= 1) {
 			checkGrounded = false;
 			grounded = false;
-			addColor(BLUE);
+			addColorIfUnlocked(BLUE);
 		}
 
 		if (grounded) {
@@ -363,6 +364,12 @@ class Player extends ColorCollideSprite {
 	function playAnimIfNotAlready(name:String) {
 		if (animation.curAnim == null || animation.curAnim.name != name) {
 			animation.play(name, true);
+		}
+	}
+
+	function addColorIfUnlocked(c:Color) {
+		if (Collected.has(c)) {
+			addColor(c);
 		}
 	}
 }
