@@ -25,7 +25,7 @@ class UpgradeCutscene extends FlxSubState {
 	override function create() {
 		super.create();
 
-		FlxG.camera.fade(FlxColor.BLACK, .2, true);
+		FlxG.camera.fade(FlxColor.BLACK, .3, true);
 
 		player = new DummyPlayer(0,0);
 		player.scrollFactor.set();
@@ -34,7 +34,7 @@ class UpgradeCutscene extends FlxSubState {
 
 		power = new UnlockParticle(0,0, done, () -> {
 			FlxG.camera.flash(cast upgradeColor, 0.1);
-			FlxG.camera.shake(0.005, 0.4);
+			FlxG.camera.shake(0.01, 0.4);
 			player.color = cast upgradeColor;
 		});
 
