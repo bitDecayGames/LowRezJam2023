@@ -186,8 +186,8 @@ class PlayState extends FlxTransitionableState {
 
 		camera.focusOn(player.getGraphicMidpoint());
 		dbgCam.scroll.copyFrom(camera.scroll);
-		camera.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
-		dbgCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
+
+		softFollowPlayer();
 
 		for (emitter in level.emitters) {
 			particles.add(emitter);
@@ -247,6 +247,16 @@ class PlayState extends FlxTransitionableState {
 
 	public function addParticle(o:FlxObject) {
 		particles.add(o);
+	}
+
+	public function softFollowPlayer() {
+		camera.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
+		dbgCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
+	}
+
+	public function hardFollowPlayer(lerp:Float) {
+		camera.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
+		dbgCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
 	}
 
 	override public function update(elapsed:Float) {

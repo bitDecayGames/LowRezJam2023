@@ -49,10 +49,14 @@ class ColorUpgrade extends ColorCollideSprite {
 		FlxEcho.updates = false;
 		FlxEcho.instance.active = false;
 
-		FlxG.camera.fade(FlxColor.BLACK, 0.2, () -> {
+		PlayState.ME.hardFollowPlayer(.1);
+
+		FlxG.camera.fade(FlxColor.BLACK, 1, () -> {
+			kill();
 			FlxG.state.openSubState(new UpgradeCutscene(colorToUnlock, () -> {
 				FlxEcho.updates = true;
 				FlxEcho.instance.active = true;
+				PlayState.ME.softFollowPlayer();
 			}));
 		});
 
@@ -71,7 +75,6 @@ class ColorUpgrade extends ColorCollideSprite {
 			}
 		}
 
-		kill();
 		body.active = false;
 	}
 }
