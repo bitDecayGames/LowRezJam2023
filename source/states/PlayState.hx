@@ -14,7 +14,6 @@ import collision.ColorCollideSprite;
 import echo.util.AABB;
 import echo.util.TileMap;
 import echo.Echo;
-import levels.ogmo.Level;
 import flixel.group.FlxGroup;
 import echo.FlxEcho;
 import collision.Constants;
@@ -162,7 +161,7 @@ class PlayState extends FlxTransitionableState {
 				}
 			}
 			var spawnDir = CardinalMaker.fromString(spawn.f_access_dir.getName());
-			spawnPoint.set(spawn.pixelX, spawn.pixelY - 4);
+			spawnPoint.set(spawn.pixelX, spawn.pixelY - 2); // TODO: Adjust this so player walks out at correct height
 			// TODO: find a better way to calculate this offset
 			spawnPoint.addPoint(spawnDir.asVector().scale(-48));
 

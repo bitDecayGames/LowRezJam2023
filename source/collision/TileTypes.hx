@@ -5,7 +5,6 @@ import levels.ldtk.Level;
 import flixel.group.FlxGroup;
 import echo.Body;
 import ldtk.Layer_Tiles;
-import flixel.util.FlxColor;
 
 using echo.FlxEcho;
 
@@ -63,6 +62,7 @@ class TileTypes {
 						} else {
 							s = new FlxSprite(xPix, yPix);
 						}
+
 						s.flipX = tile.flipBits & 1 != 0;
 						s.flipY = tile.flipBits & 2 != 0;
 						s.frame = layer.untypedTileset.getFrame(tile.tileId).copyTo();
