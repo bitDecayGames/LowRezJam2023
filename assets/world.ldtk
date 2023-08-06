@@ -572,7 +572,7 @@
 			"maxCount": 1,
 			"limitScope": "PerWorld",
 			"limitBehavior": "MoveLastOne",
-			"pivotX": 0,
+			"pivotX": 0.5,
 			"pivotY": 1,
 			"fieldDefs": []
 		},
@@ -1065,7 +1065,7 @@
 						{
 							"__identifier": "Spawn",
 							"__grid": [4,7],
-							"__pivot": [0,1],
+							"__pivot": [0.5,1],
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#FFFFFF",

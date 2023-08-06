@@ -1,5 +1,6 @@
 package states;
 
+import flixel.math.FlxRect;
 import entities.Transition;
 import openfl.display.BlendMode;
 import collision.TileTypes;
@@ -53,6 +54,8 @@ class PlayState extends FlxTransitionableState {
 	public var objects = new FlxGroup();
 	public var lasers = new FlxGroup();
 	public var particles = new FlxGroup();
+
+	var softFocusBounds:FlxRect;
 
 	public function new() {
 		super();
@@ -128,8 +131,7 @@ class PlayState extends FlxTransitionableState {
 
 		terrainGroup.add(level.terrainGfx);
 
-		camera.setScrollBoundsRect(0, 0, level.bounds.width, level.bounds.height);
-		dbgCam.setScrollBoundsRect(0, 0, level.bounds.width, level.bounds.height);
+		softFocusBounds = FlxRect.get(0, 0, level.bounds.width, level.bounds.height);
 		FlxEcho.instance.world.set(0, 0, level.bounds.width, level.bounds.height);
 
 		TileTypes.buildTiles(level, objects);
@@ -250,11 +252,15 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	public function softFollowPlayer() {
+		camera.setScrollBoundsRect(0, 0, softFocusBounds.width, softFocusBounds.height);
+		dbgCam.setScrollBoundsRect(0, 0, softFocusBounds.width, softFocusBounds.height);
 		camera.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
 		dbgCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
 	}
 
 	public function hardFollowPlayer(lerp:Float) {
+		camera.setScrollBounds(null, null, null, null);
+		dbgCam.setScrollBounds(null, null, null, null);
 		camera.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
 		dbgCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
 	}
@@ -271,6 +277,8 @@ class PlayState extends FlxTransitionableState {
 			l.add_to_group(lasers);
 		}
 		pendingLasers = [];
+
+		DebugDraw.ME.drawCameraCircle(FlxG.width/2, FlxG.height/2, 2);
 	}
 
 	override public function onFocusLost() {

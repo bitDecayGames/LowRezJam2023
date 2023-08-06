@@ -60,6 +60,7 @@ class Player extends ColorCollideSprite {
 	var animState = new AnimationState();
 
 	public function new(X:Float, Y:Float) {
+		Y -= 20;
 		super(X, Y, EMPTY);
 
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
@@ -72,8 +73,11 @@ class Player extends ColorCollideSprite {
 		}
 		animation.play(anims.stand);
 
-		setSize(16, 32);
-		offset.set(0, 18);
+		// TODO: The deadzone on the camera seems to be 32 pix wide at the moment.
+		// if we reduce this width the player has some "wiggle room" before camera starts
+		// scrolling
+		setSize(32, 32);
+		offset.set(0, 2);
 
 		body = this.add_body({
 			x: X,
@@ -84,16 +88,18 @@ class Player extends ColorCollideSprite {
 				{
 					type:CIRCLE,
 					radius: 4,
-					offset_x: -4
+					offset_x: -4,
+					offset_y: 16,
 				},
 				{
 					type:CIRCLE,
 					radius: 4,
-					offset_x: 4
+					offset_x: 4,
+					offset_y: 16,
 				},
 				{
 					type:CIRCLE,
-					offset_y: -16,
+					// offset_y: -16,
 					radius: 8,
 				}
 			]
@@ -164,6 +170,9 @@ class Player extends ColorCollideSprite {
 			animation.curAnim.frameRate = 10;
 			FlxG.watch.addQuick("Player frame rate: ", animation.curAnim.frameRate);
 		}
+
+		DebugDraw.ME.drawWorldCircle(body.x, body.y, 2, null, FlxColor.GREEN);
+		DebugDraw.ME.drawWorldCircle(x, y, 2, null, FlxColor.BLUE);
 	}
 
 	function handleInput(delta:Float) {
