@@ -73,6 +73,14 @@ class Player extends ColorCollideSprite {
 		}
 		animation.play(anims.stand);
 
+		animation.callback = (name, frameNumber, frameIndex) -> {
+			if (name == anims.run) {
+				if (frameNumber == 4 || frameNumber == 10)  {
+					FmodManager.PlaySoundOneShot(FmodSFX.PlayerStep);
+				}
+			}
+		}
+
 		// TODO: The deadzone on the camera seems to be 32 pix wide at the moment.
 		// if we reduce this width the player has some "wiggle room" before camera starts
 		// scrolling
@@ -228,6 +236,7 @@ class Player extends ColorCollideSprite {
 		}
 
 		if ((grounded || (unGroundedTime < coyoteTime)) && SimpleController.just_pressed(A)) {
+			FmodManager.PlaySoundOneShot(FmodSFX.PlayerJump4);
 			y--;
 			body.velocity.y = JUMP_STRENGTH;
 		}
@@ -287,6 +296,9 @@ class Player extends ColorCollideSprite {
 		if (rayChecksPassed >= 1) {
 			if (checkGrounded) {
 				checkGrounded = false;
+				if(grounded == false) {
+					FmodManager.PlaySoundOneShot(FmodSFX.PlayerLand1);
+				}
 				grounded = true;
 				removeColor(BLUE);
 			}
@@ -314,6 +326,7 @@ class Player extends ColorCollideSprite {
 					if (animState.has(CROUCHED)) {
 						playAnimIfNotAlready(anims.slide);
 					} else {
+						FmodManager.PlaySoundOneShot(FmodSFX.PlayerSkidShort);
 						playAnimIfNotAlready(anims.skid);
 					}
 				} else {
@@ -331,6 +344,7 @@ class Player extends ColorCollideSprite {
 					}
 				} else {
 					if (body.velocity.x != 0) {
+						// FmodManager.PlaySoundOneShot(FmodSFX.PlayerSkidShort);
 						playAnimIfNotAlready(anims.skid);
 					} else {
 						playAnimIfNotAlready(anims.stand);
