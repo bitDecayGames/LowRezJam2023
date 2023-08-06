@@ -39,6 +39,10 @@ import states.PlayState;
 import states.CreditsState;
 #end
 
+#if erik
+import states.ArtPreviewState;
+#end
+
 class Main extends Sprite {
 	public function new() {
 		super();
@@ -57,6 +61,11 @@ class Main extends Sprite {
 			startingState = MainMenuState;
 		}
 		#end
+
+		#if erik
+		startingState = ArtPreviewState;
+		#end
+
 		var game = new FlxGame(256, 256, startingState, 60, 60, true, false);
 		addChild(game);
 

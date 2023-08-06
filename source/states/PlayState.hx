@@ -40,6 +40,8 @@ using echo.FlxEcho;
 class PlayState extends FlxTransitionableState {
 	public static var ME:PlayState;
 
+	public static var backgroundColor = FlxColor.GRAY.getDarkened(0.8);
+
 	var lastLevel:String;
 	var lastSpawnEntity:String;
 
@@ -75,7 +77,7 @@ class PlayState extends FlxTransitionableState {
 		FlxEcho.draw_debug = true;
 		#end
 
-		FlxG.camera.bgColor = FlxColor.GRAY.getDarkened(0.8);
+		FlxG.camera.bgColor = backgroundColor;
 
 		dbgCam = new FlxCamera();
 		dbgCam.bgColor = FlxColor.TRANSPARENT;
