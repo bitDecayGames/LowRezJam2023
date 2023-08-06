@@ -1,9 +1,7 @@
 package entities;
 
-import entities.particles.DeathParticles;
 import progress.Collected;
 import flixel.tweens.FlxTween;
-import flixel.path.FlxPath;
 import bitdecay.flixel.spacial.Cardinal;
 import echo.util.AABB;
 import animation.AnimationState;
@@ -33,12 +31,21 @@ class Player extends ColorCollideSprite {
 	public static var anims = AsepriteMacros.tagNames("assets/aseprite/characters/player.json");
 	public static var layers = AsepriteMacros.layerNames("assets/aseprite/characters/player.json");
 
+	// Tune this to make the player feel more/less mobile
+	private static inline var PLAYER_WEIGHT = 500;
+
 	public var inControl:Bool = true;
 
 	public var body:echo.Body;
 	var bodyOffset:FlxPoint;
+
+	var groundedCastLeft:Bool = false;
+	var groundedCastMiddle:Bool = false;
+	var groundedCastRight:Bool = false;
+
 	var topShape:echo.Shape.Shape;
 	var bottomShape:echo.Shape.Shape;
+	var groundCircle:echo.Shape.Shape;
 
 	var JUMP_STRENGTH = -10 * Constants.BLOCK_SIZE;
 	var turnAccelBoost:Float = 3;
@@ -50,7 +57,7 @@ class Player extends ColorCollideSprite {
 
 	// set to true to run a one-time grounded check
 	var checkGrounded = true;
-	var grounded = false;
+	public var grounded = false;
 	var unGroundedTime = 0.0;
 	var coyoteTime = 0.2;
 
@@ -93,27 +100,30 @@ class Player extends ColorCollideSprite {
 			y: Y,
 			max_velocity_x: maxSpeed,
 			drag_x: decel,
+			mass: PLAYER_WEIGHT,
 			shapes: [
 				{
-					type:CIRCLE,
-					radius: 4,
-					offset_x: -4,
-					offset_y: 16,
+					type:RECT,
+					width: 10,
+					height: 20,
+					offset_y: 10,
+				},
+				{
+					type:RECT,
+					width: 10,
+					height: 20,
+					offset_y: -5,
 				},
 				{
 					type:CIRCLE,
-					radius: 4,
-					offset_x: 4,
-					offset_y: 16,
-				},
-				{
-					type:CIRCLE,
-					radius: 8,
+					radius: 2,
+					offset_y: 18.5
 				}
 			]
 		});
 		bottomShape = body.shapes[0];
-		topShape = body.shapes[2];
+		topShape = body.shapes[1];
+		groundCircle = body.shapes[2];
 
 		bodyOffset = FlxPoint.get(body.x - x, body.y - y);
 	}
@@ -123,13 +133,21 @@ class Player extends ColorCollideSprite {
 		body.velocity.x = 0;
 	}
 
+	@:access(echo.Shape)
 	override function handleEnter(other:Body, data:Array<CollisionData>) {
 		super.handleEnter(other, data);
 
-		// This likely needs to be done safer
-		if (!data[0].sa.solid || !data[0].sb.solid) {
-			return;
+		// only ignore this collision if the _OTHER_ shape is not solid
+		if (data[0].sa.parent.object == this) {
+			if (!data[0].sb.solid) {
+				return;
+			}
+		} else if (data[0].sb.parent.object == this) {
+			if (!data[0].sa.solid) {
+				return;
+			}
 		}
+
 
 		if (data[0].normal.y > 0) {
 			checkGrounded = true;
@@ -138,6 +156,9 @@ class Player extends ColorCollideSprite {
 
 	@:access(echo.FlxEcho)
 	public function transitionWalk(dir:Cardinal, cb:Void->Void) {
+		playAnimIfNotAlready(anims.run);
+		animation.curAnim.frameRate = 10;
+
 		var transitionDistance = 72;
 		// XXX: Make sure we are aligned with our physics body
 		body.update_body_object();
@@ -168,15 +189,12 @@ class Player extends ColorCollideSprite {
 
 		animState.reset();
 
-		FlxG.watch.addQuick("Player anim: ", animation.curAnim.name);
+		FlxG.watch.addQuick("Player anim: ", '${animation.curAnim.name}:${animation.curAnim.curFrame+1}/${animation.curAnim.numFrames}');
+		FlxG.watch.addQuick("Player grounded: ", '${grounded}');
 
 		if (inControl) {
 			handleInput(delta);
 			updateCurrentAnimation();
-		} else {
-			animation.play(anims.run);
-			animation.curAnim.frameRate = 10;
-			FlxG.watch.addQuick("Player frame rate: ", animation.curAnim.frameRate);
 		}
 
 		DebugDraw.ME.drawWorldCircle(body.x, body.y, 2, null, FlxColor.GREEN);
@@ -204,7 +222,10 @@ class Player extends ColorCollideSprite {
 			if (body.velocity.x > 0 && body.acceleration.x < 0 || body.velocity.x < 0 && body.acceleration.x > 0) {
 				body.acceleration.x *= turnAccelBoost;
 			}
-			flipX = body.acceleration.x > 0;
+
+			if (body.acceleration.x != 0) {
+				flipX = body.acceleration.x > 0;
+			}
 		} else {
 			body.acceleration.x = 0;
 
@@ -253,6 +274,10 @@ class Player extends ColorCollideSprite {
 		}
 		
 		body.bounds(tmpAABB);
+
+		groundedCastLeft = false;
+		groundedCastMiddle = false;
+		groundedCastRight = false;
 		
 		var rayChecksPassed = 0;
 		echoTmp.set(tmpAABB.min_x, tmpAABB.max_y - 2);
@@ -262,6 +287,7 @@ class Player extends ColorCollideSprite {
 		groundedCast.put();
 		if (intersects.length >= 1) {
 			rayChecksPassed++;
+			groundedCastLeft = true;
 		}
 		for (i in intersects) {
 			i.put();
@@ -275,8 +301,9 @@ class Player extends ColorCollideSprite {
 		groundedCast.put();
 		if (intersectsMiddle.length >= 1) {
 			rayChecksPassed++;
+			groundedCastMiddle = true;
 		}
-		for (i in intersects) {
+		for (i in intersectsMiddle) {
 			i.put();
 		}
 
@@ -288,10 +315,22 @@ class Player extends ColorCollideSprite {
 		groundedCast.put();
 		if (intersectsRight.length >= 1) {
 			rayChecksPassed++;
+			groundedCastRight = true;
 		}
-		for (i in intersects) {
+		for (i in intersectsRight) {
 			i.put();
 		}
+
+		// Here for better ground feel
+		// if (groundedCastMiddle && (!groundedCastLeft || !groundedCastRight)) {
+		// 	groundCircle.solid = false;
+		// } else {
+		// 	groundCircle.solid = true;
+		// }
+
+		groundCircle.solid = groundedCastMiddle || (!groundedCastLeft && !groundedCastRight);
+
+
 
 		// this cast is originating within the player, so it will always give back at least one
 		if (rayChecksPassed >= 1) {
@@ -303,7 +342,7 @@ class Player extends ColorCollideSprite {
 				grounded = true;
 				removeColor(BLUE);
 			}
-		} else if (intersects.length <= 1 && intersectsRight.length <= 1 && intersectsMiddle.length <= 1) {
+		} else if (!groundedCastLeft && !groundedCastMiddle && !groundedCastRight) {
 			checkGrounded = false;
 			grounded = false;
 			addColorIfUnlocked(BLUE);
@@ -371,6 +410,13 @@ class Player extends ColorCollideSprite {
 		if (animation.curAnim == null || animation.curAnim.name != name) {
 			animation.play(name, true);
 		}
+	}
+
+	public function beginDie() {
+		inControl = false;
+		body.velocity.set(0, 0);
+		body.active = false;
+		playAnimIfNotAlready(anims.death);
 	}
 
 	function addColorIfUnlocked(c:Color) {

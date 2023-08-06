@@ -6,13 +6,13 @@ import flixel.effects.particles.FlxEmitter;
 
 class DeathParticles {
 
-	public static function create(pX:Float, pY:Float, colors:Array<Color>) {
+	public static function create(pX:Float, pY:Float, circular:Bool, colors:Array<Color>) {
 		for (c in colors) {
-			createPoofOfColor(pX, pY, c);
+			createPoofOfColor(pX, pY, circular, c);
 		}
 	}
 
-	public static function createPoofOfColor(pX:Float, pY:Float, color:Color) {
+	public static function createPoofOfColor(pX:Float, pY:Float, circle:Bool, color:Color) {
 		var emitter = new FlxEmitter(pX, pY);
 		emitter.loadParticles(AssetPaths.simple_round__png);
 		emitter.color.set(cast color);
@@ -22,7 +22,11 @@ class DeathParticles {
 		emitter.acceleration.set(0, 10, 0, 20, 0, -70, 0, -120);
 		emitter.speed.set(20, 300);
 		emitter.drag.set(80, 20, 600, 30);
-		emitter.launchAngle.set(-200, 20);
+		if (circle) {
+			emitter.launchAngle.set(0, 359);
+		} else {
+			emitter.launchAngle.set(-200, 20);
+		}
 		emitter.start(true);
 		// emitter.emitting = false;
 

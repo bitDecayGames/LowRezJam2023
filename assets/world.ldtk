@@ -338,40 +338,6 @@
 					"tilesetUid": null
 				},
 				{
-					"identifier": "Direction",
-					"doc": null,
-					"__type": "LocalEnum.Direction",
-					"uid": 70,
-					"type": "F_Enum(15)",
-					"isArray": false,
-					"canBeNull": false,
-					"arrayMinLength": null,
-					"arrayMaxLength": null,
-					"editorDisplayMode": "NameAndValue",
-					"editorDisplayScale": 1,
-					"editorDisplayPos": "Above",
-					"editorLinkStyle": "StraightArrow",
-					"editorAlwaysShow": true,
-					"editorShowInWorld": true,
-					"editorCutLongValues": true,
-					"editorTextSuffix": null,
-					"editorTextPrefix": null,
-					"useForSmartColor": false,
-					"min": null,
-					"max": null,
-					"regex": null,
-					"acceptFileTypes": null,
-					"defaultOverride": null,
-					"textLanguageMode": null,
-					"symmetricalRef": false,
-					"autoChainRef": true,
-					"allowOutOfLevelRef": true,
-					"allowedRefs": "OnlySame",
-					"allowedRefsEntityUid": null,
-					"allowedRefTags": [],
-					"tilesetUid": null
-				},
-				{
 					"identifier": "Color",
 					"doc": null,
 					"__type": "LocalEnum.Color",
@@ -454,40 +420,6 @@
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "ArrowsLine",
 					"editorAlwaysShow": false,
-					"editorShowInWorld": true,
-					"editorCutLongValues": true,
-					"editorTextSuffix": null,
-					"editorTextPrefix": null,
-					"useForSmartColor": false,
-					"min": null,
-					"max": null,
-					"regex": null,
-					"acceptFileTypes": null,
-					"defaultOverride": null,
-					"textLanguageMode": null,
-					"symmetricalRef": false,
-					"autoChainRef": true,
-					"allowOutOfLevelRef": true,
-					"allowedRefs": "OnlySame",
-					"allowedRefsEntityUid": null,
-					"allowedRefTags": [],
-					"tilesetUid": null
-				},
-				{
-					"identifier": "Direction",
-					"doc": null,
-					"__type": "LocalEnum.Direction",
-					"uid": 87,
-					"type": "F_Enum(15)",
-					"isArray": false,
-					"canBeNull": false,
-					"arrayMinLength": null,
-					"arrayMaxLength": null,
-					"editorDisplayMode": "NameAndValue",
-					"editorDisplayScale": 1,
-					"editorDisplayPos": "Above",
-					"editorLinkStyle": "StraightArrow",
-					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
@@ -610,40 +542,6 @@
 					"tilesetUid": null
 				},
 				{
-					"identifier": "Direction",
-					"doc": null,
-					"__type": "LocalEnum.Direction",
-					"uid": 91,
-					"type": "F_Enum(15)",
-					"isArray": false,
-					"canBeNull": false,
-					"arrayMinLength": null,
-					"arrayMaxLength": null,
-					"editorDisplayMode": "NameAndValue",
-					"editorDisplayScale": 1,
-					"editorDisplayPos": "Above",
-					"editorLinkStyle": "StraightArrow",
-					"editorAlwaysShow": true,
-					"editorShowInWorld": true,
-					"editorCutLongValues": true,
-					"editorTextSuffix": null,
-					"editorTextPrefix": null,
-					"useForSmartColor": false,
-					"min": null,
-					"max": null,
-					"regex": null,
-					"acceptFileTypes": null,
-					"defaultOverride": null,
-					"textLanguageMode": null,
-					"symmetricalRef": false,
-					"autoChainRef": true,
-					"allowOutOfLevelRef": true,
-					"allowedRefs": "OnlySame",
-					"allowedRefsEntityUid": null,
-					"allowedRefTags": [],
-					"tilesetUid": null
-				},
-				{
 					"identifier": "Color",
 					"doc": null,
 					"__type": "LocalEnum.Color",
@@ -726,40 +624,6 @@
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "ArrowsLine",
 					"editorAlwaysShow": false,
-					"editorShowInWorld": true,
-					"editorCutLongValues": true,
-					"editorTextSuffix": null,
-					"editorTextPrefix": null,
-					"useForSmartColor": false,
-					"min": null,
-					"max": null,
-					"regex": null,
-					"acceptFileTypes": null,
-					"defaultOverride": null,
-					"textLanguageMode": null,
-					"symmetricalRef": false,
-					"autoChainRef": true,
-					"allowOutOfLevelRef": true,
-					"allowedRefs": "OnlySame",
-					"allowedRefsEntityUid": null,
-					"allowedRefTags": [],
-					"tilesetUid": null
-				},
-				{
-					"identifier": "Direction",
-					"doc": null,
-					"__type": "LocalEnum.Direction",
-					"uid": 95,
-					"type": "F_Enum(15)",
-					"isArray": false,
-					"canBeNull": false,
-					"arrayMinLength": null,
-					"arrayMaxLength": null,
-					"editorDisplayMode": "NameAndValue",
-					"editorDisplayScale": 1,
-					"editorDisplayPos": "Above",
-					"editorLinkStyle": "StraightArrow",
-					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
@@ -1134,8 +998,8 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": {
-				"opaqueTiles": "0111111000111111100011111110001111111000111110000000000000000000000000000000000000000000000000000000",
-				"averageColors": "0000f444f444f444f444f555f444000000000000f444f555f444f444f555f555f555000000000000f555f555f555f555f555f555f555000000000000f555f555f555f444f555f555f555000000000000f555f555f444f555f5550000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+				"opaqueTiles": "0111111000111111100011111110001111111000111111100000000000000000000000000000000000000000000000000000",
+				"averageColors": "0000f444f444f444f444f555f444000000000000f444f555f444f444f555f555f555000000000000f555f555f555f555f555f555f555000000000000f555f555f555f444f555f555f555000000000000f555f555f444f555f555f555f55500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 			}
 		},
 		{
@@ -1156,8 +1020,8 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": {
-				"opaqueTiles": "0111111000111111100011111110001111111000111110000000000000000000000000000000000000000000000000000000",
-				"averageColors": "0000f333f444f333f444f444f444000000000000f444f444f444f444f444f555f444000000000000f555f555f555f444f444f444f444000000000000f444f444f444f444f555f444f555000000000000f444f444f333f555f5550000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+				"opaqueTiles": "0111111000111111100011111110001111111000111111100000000000000000000000000000000000000000000000000000",
+				"averageColors": "0000f333f444f333f444f444f444000000000000f444f444f444f444f444f555f444000000000000f555f555f555f444f444f444f444000000000000f444f444f444f444f555f444f555000000000000f444f444f333f555f555f444f44400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 			}
 		}
 	], "enums": [
@@ -1256,10 +1120,6 @@
 								{ "__identifier": "path", "__type": "Array<Point>", "__value": [{ "cx": 45, "cy": 2 }], "__tile": null, "defUid": 7, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["45,2"]
-								}] },
-								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "SOUTH", "__tile": null, "defUid": 70, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["SOUTH"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "YELLOW", "__tile": null, "defUid": 72, "realEditorValues": [{
 									"id": "V_String",
@@ -2023,10 +1883,6 @@
 									"id": "V_String",
 									"params": ["14,14"]
 								}] },
-								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "EAST", "__tile": null, "defUid": 91, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["EAST"]
-								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 92, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["RED"]
@@ -2049,10 +1905,6 @@
 								{ "__identifier": "path", "__type": "Array<Point>", "__value": [{ "cx": 26, "cy": 11 }], "__tile": null, "defUid": 94, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["26,11"]
-								}] },
-								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "WEST", "__tile": null, "defUid": 95, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "BLUE", "__tile": null, "defUid": 96, "realEditorValues": [{
 									"id": "V_String",
@@ -2077,10 +1929,6 @@
 									"id": "V_String",
 									"params": ["8,10"]
 								}] },
-								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "NORTH", "__tile": null, "defUid": 87, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["NORTH"]
-								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "YELLOW", "__tile": null, "defUid": 88, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["YELLOW"]
@@ -2103,10 +1951,6 @@
 								{ "__identifier": "path", "__type": "Array<Point>", "__value": [{ "cx": 0, "cy": 5 }], "__tile": null, "defUid": 7, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["0,5"]
-								}] },
-								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "SOUTH", "__tile": null, "defUid": 70, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["SOUTH"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 72, "realEditorValues": [{
 									"id": "V_String",

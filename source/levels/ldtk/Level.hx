@@ -84,7 +84,7 @@ class Level {
 				spawnX: l.pixelX,
 				spawnY: l.pixelY,
 				color: Color.fromEnum(l.f_Color),
-				dir: CardinalMaker.fromString(l.f_Direction.getName()),
+				dir: Cardinal.N,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}]
@@ -95,7 +95,7 @@ class Level {
 				spawnX: l.pixelX,
 				spawnY: l.pixelY,
 				color: Color.fromEnum(l.f_Color),
-				dir: CardinalMaker.fromString(l.f_Direction.getName()),
+				dir: Cardinal.S,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}]
@@ -106,7 +106,7 @@ class Level {
 				spawnX: l.pixelX,
 				spawnY: l.pixelY,
 				color: Color.fromEnum(l.f_Color),
-				dir: CardinalMaker.fromString(l.f_Direction.getName()),
+				dir: Cardinal.W,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}]
@@ -117,7 +117,7 @@ class Level {
 				spawnX: l.pixelX,
 				spawnY: l.pixelY,
 				color: Color.fromEnum(l.f_Color),
-				dir: CardinalMaker.fromString(l.f_Direction.getName()),
+				dir: Cardinal.E,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}]

@@ -60,6 +60,8 @@ class PlayState extends FlxTransitionableState {
 	public var lasers = new FlxGroup();
 	public var particles = new FlxGroup();
 
+	public var deltaModIgnorers = new FlxGroup();
+
 	var softFocusBounds:FlxRect;
 
 	var deltaMod = 1.0;
@@ -190,6 +192,7 @@ class PlayState extends FlxTransitionableState {
 
 		player = new Player(spawnPoint.x, spawnPoint.y);
 		player.add_to_group(playerGroup);
+		deltaModIgnorers.add(player);
 		if (extraSpawnLogic != null) {
 			extraSpawnLogic();
 		}
@@ -200,7 +203,7 @@ class PlayState extends FlxTransitionableState {
 		softFollowPlayer();
 
 		for (emitter in level.emitters) {
-			particles.add(emitter);
+			addParticle(emitter);
 		}
 
 		// We need to cache our non-interacting collisions to avoid glitchy
@@ -257,6 +260,7 @@ class PlayState extends FlxTransitionableState {
 
 	public function addParticle(o:FlxBasic) {
 		particles.add(o);
+		deltaModIgnorers.add(o);
 	}
 
 	public function softFollowPlayer() {
@@ -274,15 +278,13 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	public function playerDied() {
-		player.inControl = false;
-		player.body.velocity.set(0, 0);
-		player.body.active = false;
+		player.beginDie();
 		// TODO: Tie in player animation for timing somehow
 		FlxTween.tween(this, {deltaMod: deathDeltaMod}, 0.2, {
 			onComplete: (tween1) -> {
 				new FlxTimer().start(.7, (timer) -> {
 					player.kill();
-					DeathParticles.create(player.body.x, player.body.y, [EMPTY, RED, BLUE]);
+					DeathParticles.create(player.body.x, player.body.y, !player.grounded, [EMPTY, RED, BLUE]);
 					camera.flash(0.5);
 					new FlxTimer().start(1, (timer2) -> {
 						FlxTween.tween(this, {deltaMod: 1}, 1, {
@@ -300,6 +302,7 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	override public function update(elapsed:Float) {
+		var originalDelta = elapsed;
 		elapsed *= deltaMod;
 		super.update(elapsed);
 
@@ -314,8 +317,7 @@ class PlayState extends FlxTransitionableState {
 		pendingLasers = [];
 
 		if (deltaMod < 1) {
-			trace('updating particles an extra ${(1-deltaMod)}');
-			particles.update(elapsed * (1 - deltaMod));
+			deltaModIgnorers.update(originalDelta * (1 - deltaMod));
 		}
 
 		DebugDraw.ME.drawCameraCircle(FlxG.width/2, FlxG.height/2, 2);
