@@ -20,8 +20,9 @@ class ColorCollideSprite extends FlxSprite {
 		super(X, Y);
 		lastColor = initialColor;
 		interactColor = initialColor;
-		color = cast initialColor;
-		// color = FlxColor.YELLOW;
+		if (initialColor != Color.EMPTY) {
+			color = cast initialColor;
+		}
 	}
 
 	override function update(elapsed:Float) {
@@ -29,7 +30,7 @@ class ColorCollideSprite extends FlxSprite {
 		colorTime = Math.min(transitionLength, colorTime + elapsed);
 		
 		if (lastColor == interactColor) {
-			// color = interactColor.toFlxColor();
+			color = interactColor.toFlxColor();
 		} else {
 			var val = FlxColor.interpolate(cast lastColor, cast interactColor, colorTime / transitionLength);
 			// if (this is Player) {

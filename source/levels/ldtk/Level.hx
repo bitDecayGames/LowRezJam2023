@@ -1,5 +1,7 @@
 package levels.ldtk;
 
+import helpers.CardinalMaker;
+import bitdecay.flixel.spacial.Cardinal;
 import collision.Color;
 import progress.Collected;
 import entities.ColorUpgrade;
@@ -76,17 +78,54 @@ class Level {
 			}
 		}
 
-		for (laser_rail in level.l_Objects.all_Laser_rail) {
-			var spawnPoint = FlxPoint.get(laser_rail.pixelX, laser_rail.pixelY);
-			// TODO: Adjust these based on the rotation of the entity
-			var adjust = FlxPoint.get(16, 16).rotateByDegrees(0);
-			spawnPoint.addPoint(adjust);
-			var path = new Array<FlxPoint>();
-			path.push(spawnPoint);
-			for (node in laser_rail.f_path) {
-				path.push(FlxPoint.get(node.cx * level.l_Objects.gridSize, node.cy * level.l_Objects.gridSize).addPoint(adjust));
-			}
-			var laser = new LaserRail(spawnPoint.x, spawnPoint.y, Color.fromStr(laser_rail.f_Color.getName()), path);
+		var laserOps:Array<LaserOptions> = [];
+		for (l in level.l_Objects.all_Laser_rail_up) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: CardinalMaker.fromString(l.f_Direction.getName()),
+				path: [for (point in l.f_path) {
+					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
+				}]
+			});
+		}
+		for (l in level.l_Objects.all_Laser_rail_down) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: CardinalMaker.fromString(l.f_Direction.getName()),
+				path: [for (point in l.f_path) {
+					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
+				}]
+			});
+		}
+		for (l in level.l_Objects.all_Laser_rail_left) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: CardinalMaker.fromString(l.f_Direction.getName()),
+				path: [for (point in l.f_path) {
+					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
+				}]
+			});
+		}
+		for (l in level.l_Objects.all_Laser_rail_right) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: CardinalMaker.fromString(l.f_Direction.getName()),
+				path: [for (point in l.f_path) {
+					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
+				}]
+			});
+		}
+
+		for (l_config in laserOps) {
+			var laser = new LaserRail(l_config);
 			objects.add(laser);
 			emitters.push(laser.emitter);
 		}

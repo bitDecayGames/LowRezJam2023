@@ -1,5 +1,6 @@
 package entities;
 
+import bitdecay.flixel.spacial.Cardinal;
 import loaders.Aseprite;
 import loaders.AsepriteMacros;
 import flixel.util.FlxTimer;
@@ -13,6 +14,14 @@ import flixel.FlxG;
 import flixel.effects.particles.FlxEmitter;
 import collision.Color;
 import flixel.FlxSprite;
+
+typedef LaserOptions = {
+	spawnX: Float,
+	spawnY: Float,
+	dir: Cardinal,
+	path: Array<FlxPoint>,
+	color: Color,
+}
 
 class LaserRail extends FlxSprite {
 	private static var anims = AsepriteMacros.tagNames("assets/aseprite/crawlingTurret.json");
@@ -35,14 +44,20 @@ class LaserRail extends FlxSprite {
 
 	var startLockAngle:Float;
 
-	public function new(X:Float, Y:Float, laserColor:Color, path:Array<FlxPoint>) {
-		super(X, Y);
-		// offset.set(16, 16);
-		this.laserColor = laserColor;
-		// TODO: Accept stating angle for rail laser
-		laserAngle = angle + 90;
+	public function new(options:LaserOptions) {
+		var spawnPoint = FlxPoint.get(options.spawnX, options.spawnY);
+		var adjust = FlxPoint.get(16, 16);
+		spawnPoint.addPoint(adjust);
+		super(spawnPoint.x, spawnPoint.y);
+		this.laserColor = options.color;
+		angle = options.dir + 180;
+		laserAngle = options.dir + 270;
 
-		this.pathPoints = path;
+		this.pathPoints = options.path;
+		for (p in pathPoints) {
+			p.addPoint(adjust);
+		}
+		pathPoints.push(spawnPoint);
 		this.path = new FlxPath();
 		this.path.start(pathPoints, 50, FlxPathType.YOYO);
 
@@ -52,7 +67,7 @@ class LaserRail extends FlxSprite {
 
 		emitterPoint.set(0, 8);
 
-		emitter = new FlxEmitter(X, Y);
+		emitter = new FlxEmitter(options.spawnX + emitterPoint.x, options.spawnY + emitterPoint.y);
 		emitter.loadParticles(AssetPaths.simple_round__png);
 		emitter.color.set(laserColor.toFlxColor());
 		emitter.lifespan.set(.1, .25);
