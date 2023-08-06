@@ -1,5 +1,6 @@
 package;
 
+import collision.Color;
 import progress.Collected;
 import shaders.ShaderUpdater;
 import shaders.PixelateShader;
@@ -77,7 +78,7 @@ class Main extends Sprite {
 		var shaderUpdater = new ShaderUpdater();
 		FlxG.plugins.add(shaderUpdater);
 		var setCameraShader = () -> {
-			var pixelShader = new PixelateShader();
+			var pixelShader = new PixelateShader(Color.EMPTY);
 			FlxG.camera.setFilters( [new ShaderFilter(pixelShader)] ); 
 			shaderUpdater.setShader(pixelShader);
 		};

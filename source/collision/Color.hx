@@ -222,4 +222,10 @@ enum abstract Color(Int) from Int to Int {
 	public static function fromEnum(e:Enum_Color) {
 		return fromStr(e.getName());
 	}
+
+
+	public static function asList() {
+		// TODO: Expand to all colors
+		return [RED, YELLOW, BLUE];
+	}
 }

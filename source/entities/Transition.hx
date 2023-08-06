@@ -66,12 +66,21 @@ class Transition extends ColorCollideSprite {
 
 	override function handleEnter(other:Body, colData:Array<CollisionData>) {
 		super.handleEnter(other, colData);
+	}
+
+	override function handleStay(other:Body, colData:Array<CollisionData>) {
+		super.handleStay(other, colData);
 
 		if (other.object is Player) {
 			var player:Player = cast other.object;
 			if (!player.inControl) {
 				return;
 			}
+
+			if (!player.grounded) {
+				return;
+			}
+
 			FlxEcho.updates = false;
 			FlxEcho.instance.active = false;
 

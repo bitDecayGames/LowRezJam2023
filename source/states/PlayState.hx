@@ -1,5 +1,7 @@
 package states;
 
+import openfl.filters.ShaderFilter;
+import shaders.PixelateShader;
 import flixel.util.FlxTimer;
 import entities.particles.DeathParticles;
 import flixel.tweens.FlxTween;
@@ -49,6 +51,9 @@ class PlayState extends FlxTransitionableState {
 	var lastSpawnEntity:String;
 
 	public var player:Player;
+
+	public var mainCam:FlxCamera;
+	public var colorCams:Map<Color, FlxCamera> = [];
 	public var dbgCam:FlxCamera;
 	
 	public var pendingObjects = new Array<FlxObject>();
@@ -85,11 +90,24 @@ class PlayState extends FlxTransitionableState {
 		FlxEcho.draw_debug = true;
 		#end
 
-		FlxG.camera.bgColor = backgroundColor;
+		mainCam = FlxG.camera;
+
+		mainCam.bgColor = backgroundColor;
+
+		setupColorCameras();
 
 		dbgCam = new FlxCamera();
 		dbgCam.bgColor = FlxColor.TRANSPARENT;
 		FlxG.cameras.add(dbgCam, false);
+
+		for (c in FlxG.cameras.list) {
+			FlxG.cameras.setDefaultDrawTarget(c, false);
+		}
+
+		FlxG.cameras.setDefaultDrawTarget(mainCam, true);
+
+		// TODO: These don't seem to be rendering in the order we define them...
+		
 
 		add(terrainGroup);
 		add(objects);
@@ -97,13 +115,35 @@ class PlayState extends FlxTransitionableState {
 		add(lasers);
 		add(particles);
 
-		// TODO: Load them at some checkpoint if they restart the game?
 		var checkpointRoom = Collected.getCheckpointLevel();
 		if (checkpointRoom != null) {
 			var checkpointEntity = Collected.getCheckpointEntity();
 			loadLevel(checkpointRoom, checkpointEntity);
 		} else {
 			loadLevel("Level_0");
+		}
+	}
+
+	function setupColorCameras() {
+		var pixelShader = new PixelateShader(Color.EMPTY);
+		mainCam.setFilters( [new ShaderFilter(pixelShader)] ); 
+
+		for (color in Color.asList()) {
+			var colorCam = new FlxCamera();
+			// colorCam.visible = false;
+			var shader = new PixelateShader(color);
+			colorCam.setFilters( [new ShaderFilter(shader)]);
+			colorCam.bgColor = FlxColor.TRANSPARENT;
+			colorCams.set(color, colorCam);
+			FlxG.cameras.add(colorCam, true);
+		};
+	}
+
+	function setCamera(ccs:ColorCollideSprite) {
+		if (ccs.interactColor != EMPTY) {
+			if (colorCams.exists(ccs.interactColor)) {
+				ccs.cameras = [colorCams.get(ccs.interactColor)];
+			}
 		}
 	}
 
@@ -148,6 +188,14 @@ class PlayState extends FlxTransitionableState {
 		
 		for (o in level.objects) {
 			o.add_to_group(objects);
+		}
+
+		trace('scanning ${objects.members.length}');
+		for (o in objects.members) {
+			if (o != null && o is ColorCollideSprite) {
+				var ccs:ColorCollideSprite = cast o;
+				setCamera(ccs);
+			}
 		}
 
 		var extraSpawnLogic:Void->Void = null;
@@ -197,13 +245,13 @@ class PlayState extends FlxTransitionableState {
 			extraSpawnLogic();
 		}
 
-		camera.focusOn(player.getGraphicMidpoint());
-		dbgCam.scroll.copyFrom(camera.scroll);
+		mainCam.focusOn(player.getGraphicMidpoint());
+		dbgCam.scroll.copyFrom(mainCam.scroll);
 
 		softFollowPlayer();
 
 		for (emitter in level.emitters) {
-			addParticle(emitter);
+			addParticle(emitter, false);
 		}
 
 		// We need to cache our non-interacting collisions to avoid glitchy
@@ -242,7 +290,14 @@ class PlayState extends FlxTransitionableState {
 					cast(b.object, ColorCollideSprite).handleEnter(a, o);
 				}
 			},
-			stay: (a, b, o) -> { },
+			stay: (a, b, o) -> {
+				if (Std.isOfType(a.object, ColorCollideSprite)) {
+					cast(a.object, ColorCollideSprite).handleStay(b, o);
+				}
+				if (Std.isOfType(b.object, ColorCollideSprite)) {
+					cast(b.object, ColorCollideSprite).handleStay(a, o);
+				}
+			},
 			exit: (a, b) -> {
 				if (Std.isOfType(a.object, ColorCollideSprite)) {
 					cast(a.object, ColorCollideSprite).handleExit(b);
@@ -256,25 +311,25 @@ class PlayState extends FlxTransitionableState {
 
 	public function addLaser(laser:LaserBeam) {
 		laser.add_to_group(lasers);
+		setCamera(laser);
 	}
 
-	public function addParticle(o:FlxBasic) {
+	public function addParticle(o:FlxBasic, bypassDelta:Bool = false) {
 		particles.add(o);
-		deltaModIgnorers.add(o);
+
+		if (bypassDelta) {
+			deltaModIgnorers.add(o);
+		}
 	}
 
 	public function softFollowPlayer() {
-		camera.setScrollBoundsRect(0, 0, softFocusBounds.width, softFocusBounds.height);
-		dbgCam.setScrollBoundsRect(0, 0, softFocusBounds.width, softFocusBounds.height);
-		camera.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
-		dbgCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
+		mainCam.setScrollBoundsRect(0, 0, softFocusBounds.width, softFocusBounds.height);
+		mainCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
 	}
 
 	public function hardFollowPlayer(lerp:Float) {
-		camera.setScrollBounds(null, null, null, null);
-		dbgCam.setScrollBounds(null, null, null, null);
-		camera.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
-		dbgCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
+		mainCam.setScrollBounds(null, null, null, null);
+		mainCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
 	}
 
 	public function playerDied() {
@@ -285,7 +340,7 @@ class PlayState extends FlxTransitionableState {
 				new FlxTimer().start(.7, (timer) -> {
 					player.kill();
 					DeathParticles.create(player.body.x, player.body.y, !player.grounded, [EMPTY, RED, BLUE]);
-					camera.flash(0.5);
+					mainCam.flash(0.5);
 					new FlxTimer().start(1, (timer2) -> {
 						FlxTween.tween(this, {deltaMod: 1}, 1, {
 							onComplete: (tween2) -> {
@@ -321,6 +376,16 @@ class PlayState extends FlxTransitionableState {
 		}
 
 		DebugDraw.ME.drawCameraCircle(FlxG.width/2, FlxG.height/2, 2);
+
+		alignCameras();
+	}
+
+	function alignCameras() {
+		for (c in colorCams) {
+			c.scroll.copyFrom(mainCam.scroll);
+		}
+
+		dbgCam.scroll.copyFrom(mainCam.scroll);
 	}
 
 	override public function onFocusLost() {

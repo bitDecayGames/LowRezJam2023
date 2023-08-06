@@ -10,6 +10,7 @@ import echo.data.Data.CollisionData;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 
+
 class ColorCollideSprite extends FlxSprite {
 	var lastColor:Int;
 	public var interactColor:Color;
@@ -65,6 +66,10 @@ class ColorCollideSprite extends FlxSprite {
 	}
 
 	public function handleEnter(other:Body, data:Array<CollisionData>) {
+
+	}
+
+	public function handleStay(other:Body, data:Array<CollisionData>) {
 
 	}
 

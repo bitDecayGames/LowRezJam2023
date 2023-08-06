@@ -30,6 +30,7 @@ class TileTypes {
 
 	// This is taken from the ldtk codebase so that we can augment it to add color and attach echo bodies
 	@:access(ldtk.Layer_Tiles)
+	@:access(echo.FlxEcho)
 	static function buildForLayer(layer:Layer_Tiles, target:FlxGroup, colorLayer:Layer_TerrainColor) {
 		for( cy in 0...layer.cHei )
 			for( cx in 0...layer.cWid )
@@ -70,6 +71,7 @@ class TileTypes {
 						s.height = layer.gridSize;
 						s.set_body(b);
 						s.add_to_group(target);
+						b.update_body_object();
 					}
 	}
 

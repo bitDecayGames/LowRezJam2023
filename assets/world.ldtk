@@ -225,7 +225,7 @@
 					"max": 256,
 					"regex": null,
 					"acceptFileTypes": null,
-					"defaultOverride": { "id": "V_Float", "params": [64] },
+					"defaultOverride": { "id": "V_Float", "params": [128] },
 					"textLanguageMode": null,
 					"symmetricalRef": false,
 					"autoChainRef": true,
@@ -1203,7 +1203,7 @@
 							"defUid": 3,
 							"px": [440,72],
 							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 64, "__tile": null, "defUid": 9, "realEditorValues": [] },
+								{ "__identifier": "range", "__type": "Float", "__value": 128, "__tile": null, "defUid": 9, "realEditorValues": [null] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "YELLOW", "__tile": null, "defUid": 73, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["YELLOW"]
@@ -1281,7 +1281,7 @@
 						0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 						0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,
 						0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-						0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,
+						0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 						0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 						0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 						0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
