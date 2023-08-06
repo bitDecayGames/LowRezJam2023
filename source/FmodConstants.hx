@@ -10,6 +10,7 @@ class FmodSongs {
 }
 
 class FmodSFX {
+    public static inline var DoorTick:String = "event:/SFX/Level/Door/DoorTick";
     public static inline var MenuHover:String = "event:/SFX/Menu/MenuHover";
     public static inline var MenuSelect:String = "event:/SFX/Menu/MenuSelect";
     public static inline var PlayerJump1:String = "event:/SFX/Player/Jump/PlayerJump1";
