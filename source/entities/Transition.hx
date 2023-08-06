@@ -28,6 +28,13 @@ class Transition extends ColorCollideSprite {
 		doorID = data.iid;
 		
 		Aseprite.loadAllAnimations(this, AssetPaths.door__json);
+
+		animation.callback = (name, frameNumber, frameIndex) -> {
+			if (name == anims.activate || name == anims.deactivate) {
+				FmodManager.PlaySoundOneShot(FmodSFX.DoorTick);
+			}
+		}
+
 		animation.finishCallback = animFinished;
 		animation.play(anims.closed);
 
