@@ -107,7 +107,6 @@ class Player extends ColorCollideSprite {
 				},
 				{
 					type:CIRCLE,
-					// offset_y: -16,
 					radius: 8,
 				}
 			]
@@ -205,22 +204,6 @@ class Player extends ColorCollideSprite {
 				body.acceleration.x *= turnAccelBoost;
 			}
 			flipX = body.acceleration.x > 0;
-			// if (tmp.x != 0 && !SimpleController.pressed(DOWN)) {
-			// 	animState.add(RUNNING);
-
-			// 	if (grounded) {
-			// 		body.acceleration.x = accel * (tmp.x < 0 ? -1 : 1);
-			// 	} else {
-			// 		body.acceleration.x = airAccel * (tmp.x < 0 ? -1 : 1);
-			// 	}
-				
-			// 	if (body.velocity.x > 0 && body.acceleration.x < 0 || body.velocity.x < 0 && body.acceleration.x > 0) {
-			// 		body.acceleration.x *= turnAccelBoost;
-			// 	}
-			// 	flipX = body.acceleration.x > 0;
-			// } else {
-			// 	body.acceleration.x = 0;
-			// }
 		} else {
 			body.acceleration.x = 0;
 
