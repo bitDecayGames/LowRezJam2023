@@ -1,5 +1,6 @@
 package entities;
 
+import entities.particles.DeathParticles;
 import progress.Collected;
 import flixel.tweens.FlxTween;
 import flixel.path.FlxPath;

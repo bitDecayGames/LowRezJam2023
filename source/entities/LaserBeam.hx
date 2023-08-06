@@ -1,5 +1,6 @@
 package entities;
 
+import entities.particles.DeathParticles;
 import states.PlayState;
 import echo.data.Data.CollisionData;
 import flixel.math.FlxPoint;
@@ -53,7 +54,7 @@ class LaserBeam extends ColorCollideSprite {
 
 		if (other.object is Player) {
 			// TODO: Drama / death sequence
-			PlayState.ME.resetLevel();
+			PlayState.ME.playerDied();
 		}
 	}
 

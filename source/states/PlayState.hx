@@ -1,5 +1,9 @@
 package states;
 
+import flixel.util.FlxTimer;
+import entities.particles.DeathParticles;
+import flixel.tweens.FlxTween;
+import flixel.FlxBasic;
 import flixel.math.FlxRect;
 import entities.Transition;
 import openfl.display.BlendMode;
@@ -57,6 +61,9 @@ class PlayState extends FlxTransitionableState {
 	public var particles = new FlxGroup();
 
 	var softFocusBounds:FlxRect;
+
+	var deltaMod = 1.0;
+	var deathDeltaMod = 0.1;
 
 	public function new() {
 		super();
@@ -248,7 +255,7 @@ class PlayState extends FlxTransitionableState {
 		laser.add_to_group(lasers);
 	}
 
-	public function addParticle(o:FlxObject) {
+	public function addParticle(o:FlxBasic) {
 		particles.add(o);
 	}
 
@@ -266,7 +273,34 @@ class PlayState extends FlxTransitionableState {
 		dbgCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
 	}
 
+	public function playerDied() {
+		player.inControl = false;
+		player.body.velocity.set(0, 0);
+		player.body.active = false;
+		// TODO: Tie in player animation for timing somehow
+		FlxTween.tween(this, {deltaMod: deathDeltaMod}, 0.2, {
+			onComplete: (tween1) -> {
+				new FlxTimer().start(.7, (timer) -> {
+					player.kill();
+					DeathParticles.create(player.body.x, player.body.y, [EMPTY, RED, BLUE]);
+					camera.flash(0.5);
+					new FlxTimer().start(1, (timer2) -> {
+						FlxTween.tween(this, {deltaMod: 1}, 1, {
+							onComplete: (tween2) -> {
+								new FlxTimer().start(1.5, (timer3) -> {
+									resetLevel();
+								});
+							}
+						});
+					});
+				});
+			}
+		});
+		
+	}
+
 	override public function update(elapsed:Float) {
+		elapsed *= deltaMod;
 		super.update(elapsed);
 
 		for (o in pendingObjects) {
@@ -278,6 +312,11 @@ class PlayState extends FlxTransitionableState {
 			l.add_to_group(lasers);
 		}
 		pendingLasers = [];
+
+		if (deltaMod < 1) {
+			trace('updating particles an extra ${(1-deltaMod)}');
+			particles.update(elapsed * (1 - deltaMod));
+		}
 
 		DebugDraw.ME.drawCameraCircle(FlxG.width/2, FlxG.height/2, 2);
 	}

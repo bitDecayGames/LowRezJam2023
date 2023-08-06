@@ -21,7 +21,7 @@ class ColorCollideSprite extends FlxSprite {
 		lastColor = initialColor;
 		interactColor = initialColor;
 		if (initialColor != Color.EMPTY) {
-			color = cast initialColor;
+			// color = cast initialColor;
 		}
 	}
 
@@ -30,7 +30,7 @@ class ColorCollideSprite extends FlxSprite {
 		colorTime = Math.min(transitionLength, colorTime + elapsed);
 		
 		if (lastColor == interactColor) {
-			color = interactColor.toFlxColor();
+			// color = interactColor.toFlxColor();
 		} else {
 			var val = FlxColor.interpolate(cast lastColor, cast interactColor, colorTime / transitionLength);
 			// if (this is Player) {
