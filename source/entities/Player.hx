@@ -47,12 +47,12 @@ class Player extends ColorCollideSprite {
 	var bottomShape:echo.Shape.Shape;
 	var groundCircle:echo.Shape.Shape;
 
-	var JUMP_STRENGTH = -10 * Constants.BLOCK_SIZE;
+	var JUMP_STRENGTH = -11 * Constants.BLOCK_SIZE;
 	var turnAccelBoost:Float = 3;
 	var accel:Float = Constants.BLOCK_SIZE * 3125;
 	var airAccel:Float = Constants.BLOCK_SIZE * 1800;
 	var decel:Float = Constants.BLOCK_SIZE * 9;
-	var maxSpeed:Float = Constants.BLOCK_SIZE * 5;
+	var maxSpeed:Float = Constants.BLOCK_SIZE * 4;
 	var playerNum = 0;
 
 	// set to true to run a one-time grounded check
@@ -115,11 +115,23 @@ class Player extends ColorCollideSprite {
 					height: 20,
 					offset_y: -5,
 				},
+				// collision snag helpers
 				{
 					type:CIRCLE,
 					radius: 2,
 					offset_y: 18.5
 				}
+				// Experimental side helpers to prevent snag on vertical walls
+				// {
+				// 	type:CIRCLE,
+				// 	radius: 2,
+				// 	offset_x: 3.5
+				// },
+				// {
+				// 	type:CIRCLE,
+				// 	radius: 2,
+				// 	offset_x: -3.5
+				// }
 			]
 		});
 		bottomShape = body.shapes[0];
@@ -127,7 +139,7 @@ class Player extends ColorCollideSprite {
 		groundCircle = body.shapes[2];
 
 		bodyOffset = FlxPoint.get(body.x - x, body.y - y);
-		
+
 		// XXX: We want to force position and rotation immediately
 		body.update_body_object();
 	}
@@ -259,12 +271,24 @@ class Player extends ColorCollideSprite {
 
 		if (!grounded) {
 			unGroundedTime = Math.min(unGroundedTime + delta, coyoteTime);
+
+			if (unGroundedTime < coyoteTime) {
+				DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam,
+					body.x - 5,
+					body.y - 25,
+					body.x + 5 - (unGroundedTime / coyoteTime * 10),
+					body.y - 25, PLAYER, FlxColor.LIME);
+			}
+		} else {
+			unGroundedTime = 0.0;
 		}
 
 		if ((grounded || (unGroundedTime < coyoteTime)) && SimpleController.just_pressed(A)) {
 			FmodManager.PlaySoundOneShot(FmodSFX.PlayerJump4);
 			y--;
 			body.velocity.y = JUMP_STRENGTH;
+			unGroundedTime = coyoteTime;
+			grounded = false;
 		}
 
 		// TODO: Need to prevent running (x-accel) when crouching

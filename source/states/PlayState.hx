@@ -50,6 +50,7 @@ class PlayState extends FlxTransitionableState {
 
 	var lastLevel:String;
 	var lastSpawnEntity:String;
+	var deathGraceFrames = 1;
 
 	public var player:Player;
 
@@ -117,7 +118,11 @@ class PlayState extends FlxTransitionableState {
 			var checkpointEntity = Collected.getCheckpointEntity();
 			loadLevel(checkpointRoom, checkpointEntity);
 		} else {
+			#if tune_movement
 			loadLevel("Level_0");
+			#else
+			loadLevel("Level_3");
+			#end
 		}
 	}
 
@@ -158,6 +163,7 @@ class PlayState extends FlxTransitionableState {
 
 	@:access(echo.FlxEcho)
 	public function loadLevel(levelID:String, ?entityID:String) {
+		deathGraceFrames = 1;
 		lastLevel = levelID;
 		lastSpawnEntity = entityID;
 
@@ -283,6 +289,7 @@ class PlayState extends FlxTransitionableState {
 
 		FlxEcho.listen(playerGroup, objects, {
 			condition: Collide.colorBodiesInteract,
+			correction_threshold: .025, // not sure if this actually helps, but it seems to result in less snagging
 			enter: (a, b, o) -> {
 				if (Std.isOfType(a.object, ColorCollideSprite)) {
 					cast(a.object, ColorCollideSprite).handleEnter(b, o);
@@ -336,14 +343,18 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	public function playerDied() {
+		// TODO(SFX): Death detected. Time begins slowing, player begins death animation
 		player.beginDie();
 		FlxTween.tween(this, {deltaMod: deathDeltaMod}, 0.2, {
+			// TODO(SFX): Time has fully slowed down, brief pause before player pops
 			onComplete: (tween1) -> {
 				new FlxTimer().start(.7, (timer) -> {
+					// TODO(SFX): Player bursts, screen flashes
 					player.kill();
 					DeathParticles.create(player.body.x, player.body.y, !player.grounded, [EMPTY, RED, BLUE]);
 					FlxG.cameras.flash(0.5);
 					new FlxTimer().start(1, (timer2) -> {
+						// TODO(SFX): Time returns to normal speed
 						FlxTween.tween(this, {deltaMod: 1}, 1, {
 							onComplete: (tween2) -> {
 								new FlxTimer().start(1.5, (timer3) -> {
@@ -392,18 +403,13 @@ class PlayState extends FlxTransitionableState {
 		alignCameras();
 	}
 
-	var deathGraceFrames = 1;
-
 	var boundAdjust = 10;
 	var playerBounds:AABB = null;
 	function checkPlayerOffScreen() {
 		if (!player.inControl) {
 			return;
 		}
-		trace(playerBounds);
 		playerBounds = player.body.bounds(playerBounds);
-		trace(playerBounds);
-		trace(objectCam.getViewMarginRect());
 		if (!camSeesWorldPoint(objectCam, playerBounds.min_x - boundAdjust, playerBounds.min_y - boundAdjust) &&
 			!camSeesWorldPoint(objectCam, playerBounds.max_x + boundAdjust, playerBounds.min_y - boundAdjust) &&
 			!camSeesWorldPoint(objectCam, playerBounds.max_x + boundAdjust, playerBounds.max_y + boundAdjust) &&

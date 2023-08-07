@@ -25,7 +25,7 @@ class UpgradeCutscene extends FlxSubState {
 	override function create() {
 		super.create();
 
-		FlxG.camera.fade(FlxColor.BLACK, .3, true);
+		FlxG.cameras.fade(FlxColor.BLACK, .3, true);
 
 		player = new DummyPlayer(0,0);
 		player.scrollFactor.set();
@@ -45,11 +45,11 @@ class UpgradeCutscene extends FlxSubState {
 	}
 
 	function done() {
-		FlxG.camera.fade(FlxColor.BLACK, 0.5, () -> {
+		FlxG.cameras.fade(FlxColor.BLACK, 0.5, () -> {
 			power.kill();
 			player.kill();
 			bgColor = FlxColor.TRANSPARENT;
-			FlxG.camera.fade(FlxColor.BLACK, 0.1, true, () -> {
+			FlxG.cameras.fade(FlxColor.BLACK, 0.1, true, () -> {
 				close();
 				if (finishCb != null) {
 					finishCb();

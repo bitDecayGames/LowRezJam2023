@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.tweens.FlxTween;
 import states.substate.UpgradeCutscene;
 import flixel.util.FlxColor;
 import flixel.FlxG;
@@ -24,6 +25,7 @@ class ColorUpgrade extends ColorCollideSprite {
 		super(data.pixelX, data.pixelY - data.height/2, EMPTY);
 
 		colorToUnlock = Color.fromEnum(data.f_Color);
+		color = cast colorToUnlock;
 
 		Aseprite.loadAllAnimations(this, AssetPaths.pixel__json);
 		animation.play(anims.float);
@@ -49,14 +51,20 @@ class ColorUpgrade extends ColorCollideSprite {
 		FlxEcho.updates = false;
 		FlxEcho.instance.active = false;
 
+		var scrollSave = PlayState.ME.baseTerrainCam.scroll.copyTo();
 		PlayState.ME.hardFollowPlayer(.1);
 
-		FlxG.camera.fade(FlxColor.BLACK, 1, () -> {
+		FlxG.cameras.fade(FlxColor.BLACK, 1, () -> {
 			kill();
 			FlxG.state.openSubState(new UpgradeCutscene(colorToUnlock, () -> {
-				FlxEcho.updates = true;
-				FlxEcho.instance.active = true;
-				PlayState.ME.softFollowPlayer();
+				PlayState.ME.baseTerrainCam.follow(null);
+				FlxTween.tween(PlayState.ME.baseTerrainCam.scroll, {x: scrollSave.x, y: scrollSave.y}, 0.5, {
+					onComplete: (t) -> {
+						FlxEcho.updates = true;
+						FlxEcho.instance.active = true;
+						PlayState.ME.softFollowPlayer();
+					}
+				});
 			}));
 		});
 

@@ -15,7 +15,7 @@ class ColorCollideSprite extends FlxSprite {
 	var lastColor:Int;
 	public var interactColor:Color;
 	var colorTime = 0.0;
-	var transitionLength = 0.25;
+	var transitionLength = 0.15;
 
 	public function new(X:Float, Y:Float, initialColor:Color) {
 		super(X, Y);
