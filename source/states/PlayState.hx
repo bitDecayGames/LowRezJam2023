@@ -86,10 +86,6 @@ class PlayState extends FlxTransitionableState {
 
 		setupColorCameras();
 
-		dbgCam = new FlxCamera();
-		dbgCam.bgColor = FlxColor.TRANSPARENT;
-		FlxG.cameras.add(dbgCam, false);
-
 		objectCam = makeShaderCamera(EMPTY);
 		FlxG.cameras.add(objectCam, false);
 		
@@ -100,6 +96,9 @@ class PlayState extends FlxTransitionableState {
 		FlxEcho.draw_debug = true;
 		#end
 		
+		dbgCam = new FlxCamera();
+		dbgCam.bgColor = FlxColor.TRANSPARENT;
+		FlxG.cameras.add(dbgCam, false);
 
 		add(terrainGroup);
 		add(objects);
@@ -219,6 +218,7 @@ class PlayState extends FlxTransitionableState {
 					if (t.doorID == spawn.iid) {
 						// this is the door we are coming into, so open it
 						t.open();
+						break;
 					}
 				}
 			}

@@ -51,8 +51,10 @@ class Player extends ColorCollideSprite {
 	var COYOTE_TIME = #if debug 0.1 #else 0.2 #end;
 	var JUMP_WINDOW = .5;
 	var MIN_JUMP_WINDOW = 0.1;
-	var INITIAL_JUMP_STRENGTH = -7.5 * Constants.BLOCK_SIZE;
-	var JUMP_MODIFIER = -16 * Constants.BLOCK_SIZE;
+	var INITIAL_JUMP_STRENGTH = -11.5 * Constants.BLOCK_SIZE;
+	var MAX_JUMP_RELEASE_VELOCITY = -5 * Constants.BLOCK_SIZE;
+
+	var MAX_VELOCITY = 15 * Constants.BLOCK_SIZE;
 
 	// how many "Min jump windows" of duration we transition to full jump strength
 	var JUMP_TRANSITION_MOD = 2;
@@ -112,6 +114,7 @@ class Player extends ColorCollideSprite {
 			x: X,
 			y: Y,
 			max_velocity_x: maxSpeed,
+			max_velocity_length: MAX_VELOCITY,
 			drag_x: decel,
 			mass: PLAYER_WEIGHT,
 			shapes: [
@@ -227,8 +230,7 @@ class Player extends ColorCollideSprite {
 			updateCurrentAnimation();
 		}
 
-		DebugDraw.ME.drawWorldCircle(body.x, body.y, 2, null, FlxColor.GREEN);
-		DebugDraw.ME.drawWorldCircle(x, y, 2, null, FlxColor.BLUE);
+		DebugDraw.ME.drawWorldCircle(PlayState.ME.dbgCam, body.x, body.y, 1, PLAYER, FlxColor.BLUE);
 	}
 
 	function handleInput(delta:Float) {
@@ -302,25 +304,8 @@ class Player extends ColorCollideSprite {
 			FlxG.watch.addQuick('jump timer: ', jumpHigherTimer);
 			if (!SimpleController.pressed(A) || bonkedHead) {
 				jumping = false;
-			// } else if (jumpHigherTimer > 0) {
-			} else if (jumpHigherTimer > 0) {
-				if (jumpHigherTimer > (JUMP_WINDOW - MIN_JUMP_WINDOW)) {
-					// still in our min jump window, and holding jump button.
-				} else {
-					// keep reseting our velocity while they hold JUMP down
-					// first, figure out how far we are through our min jump window
-					var dynamicMod = Math.min(1, (JUMP_WINDOW - MIN_JUMP_WINDOW - jumpHigherTimer) / (MIN_JUMP_WINDOW * JUMP_TRANSITION_MOD));
-					FlxG.watch.addQuick('dyn Mod: ', dynamicMod);
-					
-					// then use that to lerp between our min jump and our max jump strength
-					var jumpMod = FlxMath.lerp(INITIAL_JUMP_STRENGTH, JUMP_MODIFIER, dynamicMod);
-					FlxG.watch.addQuick('jump Mod: ', jumpMod);
-	
-					// then finally use lerp to have our jump decay as we get to the end of our jump window
-					body.velocity.y = FlxMath.lerp(0, jumpMod, jumpHigherTimer / JUMP_WINDOW);
-				}
+				body.velocity.y = Math.max(body.velocity.y, MAX_JUMP_RELEASE_VELOCITY);
 			}
-
 		}
 
 		var velScaler = 20;
@@ -343,11 +328,25 @@ class Player extends ColorCollideSprite {
 			FlxColor.ORANGE);
 		DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam,
 			body.x - 20,
-			body.y + JUMP_MODIFIER / velScaler,
+			body.y + MAX_JUMP_RELEASE_VELOCITY / velScaler,
 			body.x - 10,
-			body.y + JUMP_MODIFIER / velScaler,
+			body.y + MAX_JUMP_RELEASE_VELOCITY / velScaler,
 			PLAYER,
 			FlxColor.RED);
+		DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam,
+			body.x - 23,
+			body.y,
+			body.x - 7,
+			body.y,
+			PLAYER,
+			FlxColor.GRAY);
+		DebugDraw.ME.drawWorldRect(PlayState.ME.dbgCam,
+			body.x - 23,
+			body.y - MAX_VELOCITY / velScaler,
+			13,
+			MAX_VELOCITY / velScaler * 2,
+			PLAYER,
+			FlxColor.GRAY);
 
 
 		if ((grounded || (unGroundedTime < COYOTE_TIME)) && SimpleController.just_pressed(A)) {
@@ -449,6 +448,7 @@ class Player extends ColorCollideSprite {
 		if (grounded) {
 			animState.add(GROUNDED);
 		}
+
 	}
 
 	function updateCurrentAnimation() {

@@ -1,5 +1,6 @@
 package states.substate;
 
+import flixel.math.FlxPoint;
 import flixel.FlxSprite;
 import collision.Color;
 import entities.DummyPlayer;
@@ -8,54 +9,64 @@ import flixel.FlxG;
 import entities.UnlockParticle;
 import flixel.FlxSubState;
 
+using bitdecay.flixel.extensions.FlxObjectExt;
+
 class UpgradeCutscene extends FlxSubState {
 	var finishCb:Void->Void = null;
 
 	var upgradeColor:Color;
 
+	var screenPoint:FlxPoint;
+	var offset = FlxPoint.get(2, -2);
+
 	var power:FlxSprite;
 	var player:FlxSprite;
 
-	public function new(upgradeColor:Color, ?cb:Void->Void) {
-		super(FlxColor.BLACK);
+	public function new(playerPoint:FlxPoint, upgradeColor:Color, ?cb:Void->Void) {
+		super();
+		screenPoint = offset.copyTo().addPoint(playerPoint);
 		this.upgradeColor = upgradeColor;
 		finishCb = cb;
-		
-		// render this to all cameras
-		_bgSprite.cameras = FlxG.cameras.list;
 
-		// render this substate ONLY to the top camera
 		camera = PlayState.ME.objectCam;
 	}
 
 	override function create() {
 		super.create();
 
-		FlxG.cameras.fade(FlxColor.BLACK, .3, true);
+		PlayState.ME.objectCam.fade(FlxColor.BLACK, .3, true);
+
+		var bg = new FlxSprite();
+		bg.makeGraphic(1, 1, FlxColor.BLACK);
+		bg.scale.set(FlxG.width + 32, FlxG.height + 32);
+		bg.screenCenter();
+		bg.scrollFactor.set();
+		add(bg);
 
 		player = new DummyPlayer(0,0);
 		player.scrollFactor.set();
-		player.screenCenter();
+		player.setPositionMidpoint(screenPoint.x, screenPoint.y);
 		add(player);
 
 		power = new UnlockParticle(0,0, done, () -> {
-			FlxG.cameras.flash(cast upgradeColor, 0.1);
-			FlxG.cameras.shake(0.01, 0.4);
+			PlayState.ME.objectCam.flash(cast upgradeColor, 0.1);
+			PlayState.ME.objectCam.shake(0.01, 0.4);
 			player.color = cast upgradeColor;
 		});
 
 		power.color = cast upgradeColor;
 		power.scrollFactor.set();
-		power.screenCenter();
+		power.setPositionMidpoint(screenPoint.x, screenPoint.y);
+
 		add(power);
 	}
 
 	function done() {
-		FlxG.cameras.fade(FlxColor.BLACK, 0.5, () -> {
+		PlayState.ME.objectCam.fade(FlxColor.BLACK, 0.5, () -> {
 			power.kill();
 			player.kill();
 			bgColor = FlxColor.TRANSPARENT;
-			FlxG.cameras.fade(FlxColor.BLACK, 0.1, true, () -> {
+			PlayState.ME.objectCam.fade(FlxColor.BLACK, 0.1, true, () -> {
 				close();
 				if (finishCb != null) {
 					finishCb();
