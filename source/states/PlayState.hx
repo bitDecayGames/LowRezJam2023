@@ -39,6 +39,7 @@ import flixel.FlxSprite;
 import flixel.FlxG;
 import bitdecay.flixel.debug.DebugDraw;
 
+using bitdecay.flixel.extensions.FlxCameraExt;
 using states.FlxStateExt;
 using echo.FlxEcho;
 
@@ -86,7 +87,7 @@ class PlayState extends FlxTransitionableState {
 		Collected.initialize();
 
 		baseTerrainCam = FlxG.camera;
-		baseTerrainCam.bgColor = FlxColor.TRANSPARENT;
+		baseTerrainCam.bgColor = backgroundColor;
 
 		setupColorCameras();
 
@@ -381,7 +382,40 @@ class PlayState extends FlxTransitionableState {
 
 		}
 
+		// on initial spawn, player is in the wrong place
+		if (deathGraceFrames > 0) {
+			deathGraceFrames--;
+		} else {
+			checkPlayerOffScreen();
+		}
+
 		alignCameras();
+	}
+
+	var deathGraceFrames = 1;
+
+	var boundAdjust = 10;
+	var playerBounds:AABB = null;
+	function checkPlayerOffScreen() {
+		if (!player.inControl) {
+			return;
+		}
+		trace(playerBounds);
+		playerBounds = player.body.bounds(playerBounds);
+		trace(playerBounds);
+		trace(objectCam.getViewMarginRect());
+		if (!camSeesWorldPoint(objectCam, playerBounds.min_x - boundAdjust, playerBounds.min_y - boundAdjust) &&
+			!camSeesWorldPoint(objectCam, playerBounds.max_x + boundAdjust, playerBounds.min_y - boundAdjust) &&
+			!camSeesWorldPoint(objectCam, playerBounds.max_x + boundAdjust, playerBounds.max_y + boundAdjust) &&
+			!camSeesWorldPoint(objectCam, playerBounds.min_x - boundAdjust, playerBounds.max_y + boundAdjust)) {
+				playerDied();
+		}
+	}
+
+	var tmpScreenPoint = FlxPoint.get();
+	function camSeesWorldPoint(cam:FlxCamera, x:Float, y:Float):Bool {
+		tmpScreenPoint = objectCam.project(FlxPoint.weak(x, y));
+		return objectCam.containsPoint(tmpScreenPoint);
 	}
 
 	function alignCameras() {

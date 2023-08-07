@@ -67,6 +67,7 @@ class Player extends ColorCollideSprite {
 
 	var animState = new AnimationState();
 
+	@:access(echo.FlxEcho)
 	public function new(X:Float, Y:Float) {
 		Y -= 20;
 		super(X, Y, EMPTY);
@@ -126,6 +127,9 @@ class Player extends ColorCollideSprite {
 		groundCircle = body.shapes[2];
 
 		bodyOffset = FlxPoint.get(body.x - x, body.y - y);
+		
+		// XXX: We want to force position and rotation immediately
+		body.update_body_object();
 	}
 
 	public function forceStand() {
