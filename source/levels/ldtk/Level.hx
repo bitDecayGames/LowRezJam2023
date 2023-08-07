@@ -1,14 +1,15 @@
 package levels.ldtk;
 
+import entities.enemy.LaserStationary;
 import helpers.CardinalMaker;
 import bitdecay.flixel.spacial.Cardinal;
 import collision.Color;
 import progress.Collected;
 import entities.ColorUpgrade;
 import entities.Transition;
-import entities.LaserTurret;
+import entities.enemy.LaserTurret;
 import flixel.math.FlxRect;
-import entities.LaserRail;
+import entities.enemy.LaserRail;
 import entities.Player;
 import flixel.effects.particles.FlxEmitter;
 import flixel.FlxObject;
@@ -78,6 +79,27 @@ class Level {
 			}
 		}
 
+		parseLaserRails(level);
+		parseLaserTurrets(level);
+		parseLaserStationary(level);
+		
+
+		for (door in level.l_Objects.all_Door) {
+			var d = new Transition(door);
+			objects.add(d);
+		}
+
+		for (u in level.l_Objects.all_Color_upgrade) {
+			if (Collected.has(Color.fromEnum(u.f_Color))) {
+				// they already have collected this
+				continue;
+			}
+			var upgrader = new ColorUpgrade(u);
+			objects.add(upgrader);
+		}
+	}
+
+	function parseLaserRails(level:LDTKProject_Level) {
 		var laserOps:Array<LaserOptions> = [];
 		for (l in level.l_Objects.all_Laser_rail_up) {
 			laserOps.push({
@@ -129,7 +151,9 @@ class Level {
 			objects.add(laser);
 			emitters.push(laser.emitter);
 		}
+	}
 
+	function parseLaserTurrets(level:LDTKProject_Level) {
 		for (laser_turret in level.l_Objects.all_Laser_turret) {
 			var spawnPoint = FlxPoint.get(laser_turret.pixelX, laser_turret.pixelY);
 			var adjust = FlxPoint.get(-16, -16);
@@ -140,19 +164,56 @@ class Level {
 			objects.add(laser);
 			emitters.push(laser.emitter);
 		}
+	}
 
-		for (door in level.l_Objects.all_Door) {
-			var d = new Transition(door);
-			objects.add(d);
+	function parseLaserStationary(level:LDTKProject_Level) {
+		var laserOps:Array<LaserStationaryOptions> = [];
+
+		for (l in level.l_Objects.all_Laser_mount_up) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.N,
+				rest: l.f_Rest,
+				laserTime: l.f_Laser_time,
+			});
+		}
+		for (l in level.l_Objects.all_Laser_mount_down) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.S,
+				rest: l.f_Rest,
+				laserTime: l.f_Laser_time,
+			});
+		}
+		for (l in level.l_Objects.all_Laser_mount_left) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.W,
+				rest: l.f_Rest,
+				laserTime: l.f_Laser_time,
+			});
+		}
+		for (l in level.l_Objects.all_Laser_mount_right) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.E,
+				rest: l.f_Rest,
+				laserTime: l.f_Laser_time,
+			});
 		}
 
-		for (u in level.l_Objects.all_Color_upgrade) {
-			if (Collected.has(Color.fromEnum(u.f_Color))) {
-				// they already have collected this
-				continue;
-			}
-			var upgrader = new ColorUpgrade(u);
-			objects.add(upgrader);
+		for (l_config in laserOps) {
+			var laser = new LaserStationary(l_config);
+			objects.add(laser);
+			emitters.push(laser.emitter);
 		}
 	}
 }

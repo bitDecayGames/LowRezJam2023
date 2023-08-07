@@ -72,4 +72,22 @@ class Collected {
 			default: false;
 		}
 	}
+
+	public static function unlockedColors():Array<Color> {
+		var colors = [ EMPTY ];
+
+		if (has(RED)) {
+			colors.push(RED);
+		}
+		
+		if (has(YELLOW)) {
+			colors.push(YELLOW);
+		}
+		
+		if (has(BLUE)) {
+			colors.push(BLUE);
+		}
+
+		return colors;
+	}
 }

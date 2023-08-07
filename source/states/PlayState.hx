@@ -8,12 +8,10 @@ import flixel.tweens.FlxTween;
 import flixel.FlxBasic;
 import flixel.math.FlxRect;
 import entities.Transition;
-import openfl.display.BlendMode;
 import collision.TileTypes;
 import progress.Collected;
-import haxe.CallStack.StackItem;
 import helpers.CardinalMaker;
-import entities.LaserBeam;
+import entities.enemy.LaserBeam;
 import flixel.math.FlxPoint;
 import collision.Collide;
 import collision.ColorCollideSprite;
@@ -25,17 +23,11 @@ import echo.FlxEcho;
 import collision.Constants;
 import collision.Color;
 import flixel.FlxObject;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import entities.Platform;
 import flixel.FlxCamera;
-import entities.Item;
 import flixel.util.FlxColor;
-import debug.DebugLayers;
-import achievements.Achievements;
 import flixel.addons.transition.FlxTransitionableState;
 import signals.Lifecycle;
 import entities.Player;
-import flixel.FlxSprite;
 import flixel.FlxG;
 import bitdecay.flixel.debug.DebugDraw;
 
@@ -58,6 +50,8 @@ class PlayState extends FlxTransitionableState {
 	public var colorCams:Map<Color, FlxCamera> = [];
 	public var objectCam:FlxCamera;
 	public var dbgCam:FlxCamera;
+
+	var shaders:Array<PixelateShader> = [];
 	
 	public var pendingObjects = new Array<FlxObject>();
 	public var pendingLasers = new Array<FlxObject>();
@@ -128,6 +122,7 @@ class PlayState extends FlxTransitionableState {
 
 	function setupColorCameras() {
 		var pixelShader = new PixelateShader(Color.EMPTY);
+		shaders.push(pixelShader);
 		baseTerrainCam.setFilters( [new ShaderFilter(pixelShader)] ); 
 
 		for (color in Color.asList()) {
@@ -140,6 +135,7 @@ class PlayState extends FlxTransitionableState {
 	function makeShaderCamera(c:Color):FlxCamera {
 		var cam = new FlxCamera();
 		var shader = new PixelateShader(c);
+		shaders.push(shader);
 		cam.setFilters( [new ShaderFilter(shader)]);
 		cam.bgColor = FlxColor.TRANSPARENT;
 		return cam;
@@ -189,10 +185,12 @@ class PlayState extends FlxTransitionableState {
 
 		var level = new levels.ldtk.Level(levelID);
 
-		terrainGroup.add(level.terrainGfx);
+		// terrainGroup.add(level.terrainGfx);
 
 		softFocusBounds = FlxRect.get(0, 0, level.bounds.width, level.bounds.height);
 		FlxEcho.instance.world.set(0, 0, level.bounds.width, level.bounds.height);
+
+		// TileMap.generate()
 
 		var tileObjs = TileTypes.buildTiles(level);
 		for (t in tileObjs) {
@@ -238,15 +236,22 @@ class PlayState extends FlxTransitionableState {
 					t.close();
 				});
 			}
+		#if tune_movement
+		} else if (level.raw.l_Objects.all_Dev_spawn.length > 0) {
+			var devSpawn = level.raw.l_Objects.all_Dev_spawn[0];
+			spawnPoint.set(devSpawn.pixelX, devSpawn.pixelY);
+		#else
 		} else if (level.raw.l_Objects.all_Spawn.length > 0) {
 			var rawSpawn = level.raw.l_Objects.all_Spawn[0];
 			spawnPoint.set(rawSpawn.pixelX, rawSpawn.pixelY);
+		#end
 		} else {
 			QuickLog.critical('no spawn found, and no entity provided. Cannot spawn player');
 		}
 
 		player = new Player(spawnPoint.x, spawnPoint.y);
 		player.add_to_group(playerGroup);
+		player.camera = objectCam;
 		deltaModIgnorers.add(player);
 		if (extraSpawnLogic != null) {
 			extraSpawnLogic();
@@ -342,6 +347,10 @@ class PlayState extends FlxTransitionableState {
 		baseTerrainCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
 	}
 
+	public function freezeCamera() {
+		baseTerrainCam.follow(null);
+	}
+
 	public function playerDied() {
 		// TODO(SFX): Death detected. Time begins slowing, player begins death animation
 		player.beginDie();
@@ -351,7 +360,7 @@ class PlayState extends FlxTransitionableState {
 				new FlxTimer().start(.7, (timer) -> {
 					// TODO(SFX): Player bursts, screen flashes
 					player.kill();
-					DeathParticles.create(player.body.x, player.body.y, !player.grounded, [EMPTY, RED, BLUE]);
+					DeathParticles.create(player.body.x, player.body.y, !player.grounded, Collected.unlockedColors());
 					FlxG.cameras.flash(0.5);
 					new FlxTimer().start(1, (timer2) -> {
 						// TODO(SFX): Time returns to normal speed
@@ -401,6 +410,10 @@ class PlayState extends FlxTransitionableState {
 		}
 
 		alignCameras();
+		
+		for (s in shaders) {
+			s.update(elapsed);
+		}
 	}
 
 	var boundAdjust = 10;

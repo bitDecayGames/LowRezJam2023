@@ -20,6 +20,12 @@ class UpgradeCutscene extends FlxSubState {
 		super(FlxColor.BLACK);
 		this.upgradeColor = upgradeColor;
 		finishCb = cb;
+		
+		// render this to all cameras
+		_bgSprite.cameras = FlxG.cameras.list;
+
+		// render this substate ONLY to the top camera
+		camera = PlayState.ME.objectCam;
 	}
 
 	override function create() {

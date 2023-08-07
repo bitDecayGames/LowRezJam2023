@@ -89,6 +89,7 @@ class Transition extends ColorCollideSprite {
 			player.forceStand();
 
 			transitionCb = () -> {
+				PlayState.ME.freezeCamera();
 				player.transitionWalk(CardinalMaker.fromString(data.f_access_dir.getName()).opposite(), () -> {
 					PlayState.ME.loadLevel(data.f_Entity_ref.levelIid, data.f_Entity_ref.entityIid);
 				});

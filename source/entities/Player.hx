@@ -47,10 +47,23 @@ class Player extends ColorCollideSprite {
 	var bottomShape:echo.Shape.Shape;
 	var groundCircle:echo.Shape.Shape;
 
-	var JUMP_STRENGTH = -11 * Constants.BLOCK_SIZE;
+	// if we are playing it in debug, make it harder for us. Be nice to players
+	var COYOTE_TIME = #if debug 0.1 #else 0.2 #end;
+	var JUMP_WINDOW = .5;
+	var MIN_JUMP_WINDOW = 0.1;
+	var INITIAL_JUMP_STRENGTH = -7.5 * Constants.BLOCK_SIZE;
+	var JUMP_MODIFIER = -16 * Constants.BLOCK_SIZE;
+
+	// how many "Min jump windows" of duration we transition to full jump strength
+	var JUMP_TRANSITION_MOD = 2;
+
+	var bonkedHead = false;
+	var jumping = false;
+	var jumpHigherTimer = 0.0;
+
 	var turnAccelBoost:Float = 3;
 	var accel:Float = Constants.BLOCK_SIZE * 3125;
-	var airAccel:Float = Constants.BLOCK_SIZE * 1800;
+	var airAccel:Float = Constants.BLOCK_SIZE * 3125; // 1800
 	var decel:Float = Constants.BLOCK_SIZE * 9;
 	var maxSpeed:Float = Constants.BLOCK_SIZE * 4;
 	var playerNum = 0;
@@ -59,7 +72,6 @@ class Player extends ColorCollideSprite {
 	var checkGrounded = true;
 	public var grounded = false;
 	var unGroundedTime = 0.0;
-	var coyoteTime = 0.2;
 
 	var tmp:FlxPoint = FlxPoint.get();
 	var tmpAABB:AABB = AABB.get();
@@ -167,6 +179,8 @@ class Player extends ColorCollideSprite {
 
 		if (data[0].normal.y > 0) {
 			checkGrounded = true;
+		} else if (data[0].normal.y < 0) {
+			bonkedHead = true;
 		}
 	}
 
@@ -270,25 +284,81 @@ class Player extends ColorCollideSprite {
 		}
 
 		if (!grounded) {
-			unGroundedTime = Math.min(unGroundedTime + delta, coyoteTime);
+			unGroundedTime = Math.min(unGroundedTime + delta, COYOTE_TIME);
 
-			if (unGroundedTime < coyoteTime) {
+			if (unGroundedTime < COYOTE_TIME) {
 				DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam,
 					body.x - 5,
 					body.y - 25,
-					body.x + 5 - (unGroundedTime / coyoteTime * 10),
+					body.x + 5 - (unGroundedTime / COYOTE_TIME * 10),
 					body.y - 25, PLAYER, FlxColor.LIME);
 			}
 		} else {
 			unGroundedTime = 0.0;
 		}
 
-		if ((grounded || (unGroundedTime < coyoteTime)) && SimpleController.just_pressed(A)) {
+		if (jumping) {
+			jumpHigherTimer = Math.max(0, jumpHigherTimer - delta);
+			FlxG.watch.addQuick('jump timer: ', jumpHigherTimer);
+			if (!SimpleController.pressed(A) || bonkedHead) {
+				jumping = false;
+			// } else if (jumpHigherTimer > 0) {
+			} else if (jumpHigherTimer > 0) {
+				if (jumpHigherTimer > (JUMP_WINDOW - MIN_JUMP_WINDOW)) {
+					// still in our min jump window, and holding jump button.
+				} else {
+					// keep reseting our velocity while they hold JUMP down
+					// first, figure out how far we are through our min jump window
+					var dynamicMod = Math.min(1, (JUMP_WINDOW - MIN_JUMP_WINDOW - jumpHigherTimer) / (MIN_JUMP_WINDOW * JUMP_TRANSITION_MOD));
+					FlxG.watch.addQuick('dyn Mod: ', dynamicMod);
+					
+					// then use that to lerp between our min jump and our max jump strength
+					var jumpMod = FlxMath.lerp(INITIAL_JUMP_STRENGTH, JUMP_MODIFIER, dynamicMod);
+					FlxG.watch.addQuick('jump Mod: ', jumpMod);
+	
+					// then finally use lerp to have our jump decay as we get to the end of our jump window
+					body.velocity.y = FlxMath.lerp(0, jumpMod, jumpHigherTimer / JUMP_WINDOW);
+				}
+			}
+
+		}
+
+		var velScaler = 20;
+		var color = jumping ? FlxColor.CYAN : FlxColor.MAGENTA;
+
+		FlxG.watch.addQuick('Player y velocity: ', body.velocity.y);
+		DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam,
+			body.x - 15,
+			body.y,
+			body.x - 15,
+			body.y + (body.velocity.y / 20),
+			PLAYER,
+			color);
+		DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam,
+			body.x - 20,
+			body.y + INITIAL_JUMP_STRENGTH / velScaler,
+			body.x - 10,
+			body.y + INITIAL_JUMP_STRENGTH / velScaler,
+			PLAYER,
+			FlxColor.ORANGE);
+		DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam,
+			body.x - 20,
+			body.y + JUMP_MODIFIER / velScaler,
+			body.x - 10,
+			body.y + JUMP_MODIFIER / velScaler,
+			PLAYER,
+			FlxColor.RED);
+
+
+		if ((grounded || (unGroundedTime < COYOTE_TIME)) && SimpleController.just_pressed(A)) {
 			FmodManager.PlaySoundOneShot(FmodSFX.PlayerJump4);
 			y--;
-			body.velocity.y = JUMP_STRENGTH;
-			unGroundedTime = coyoteTime;
+			body.velocity.y = INITIAL_JUMP_STRENGTH;
+			unGroundedTime = COYOTE_TIME;
 			grounded = false;
+			jumpHigherTimer = JUMP_WINDOW;
+			jumping = true;
+			bonkedHead = false;
 		}
 
 		// TODO: Need to prevent running (x-accel) when crouching
@@ -413,7 +483,7 @@ class Player extends ColorCollideSprite {
 				} else {
 					if (body.velocity.x != 0) {
 						// FmodManager.PlaySoundOneShot(FmodSFX.PlayerSkidShort);
-						playAnimIfNotAlready(anims.skid);
+						playAnimIfNotAlready(anims.run);
 					} else {
 						playAnimIfNotAlready(anims.stand);
 					}
