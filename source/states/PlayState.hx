@@ -52,8 +52,9 @@ class PlayState extends FlxTransitionableState {
 
 	public var player:Player;
 
-	public var mainCam:FlxCamera;
+	public var baseTerrainCam:FlxCamera;
 	public var colorCams:Map<Color, FlxCamera> = [];
+	public var objectCam:FlxCamera;
 	public var dbgCam:FlxCamera;
 	
 	public var pendingObjects = new Array<FlxObject>();
@@ -84,15 +85,8 @@ class PlayState extends FlxTransitionableState {
 		// main will do this, but if we are dev'ing and going straight to the play screen, it may not be done yet
 		Collected.initialize();
 
-		FlxEcho.init({width: FlxG.width, height: FlxG.height, gravity_y: 24 * Constants.BLOCK_SIZE});
-
-		#if debug
-		FlxEcho.draw_debug = true;
-		#end
-
-		mainCam = FlxG.camera;
-
-		mainCam.bgColor = backgroundColor;
+		baseTerrainCam = FlxG.camera;
+		baseTerrainCam.bgColor = FlxColor.TRANSPARENT;
 
 		setupColorCameras();
 
@@ -100,13 +94,15 @@ class PlayState extends FlxTransitionableState {
 		dbgCam.bgColor = FlxColor.TRANSPARENT;
 		FlxG.cameras.add(dbgCam, false);
 
-		for (c in FlxG.cameras.list) {
-			FlxG.cameras.setDefaultDrawTarget(c, false);
-		}
+		objectCam = makeShaderCamera(EMPTY);
+		FlxG.cameras.add(objectCam, false);
+		
+		// Set up echo last so it draws on top of all of our cameras
+		FlxEcho.init({width: FlxG.width, height: FlxG.height, gravity_y: 24 * Constants.BLOCK_SIZE});
 
-		FlxG.cameras.setDefaultDrawTarget(mainCam, true);
-
-		// TODO: These don't seem to be rendering in the order we define them...
+		#if debug
+		FlxEcho.draw_debug = true;
+		#end
 		
 
 		add(terrainGroup);
@@ -126,20 +122,28 @@ class PlayState extends FlxTransitionableState {
 
 	function setupColorCameras() {
 		var pixelShader = new PixelateShader(Color.EMPTY);
-		mainCam.setFilters( [new ShaderFilter(pixelShader)] ); 
+		baseTerrainCam.setFilters( [new ShaderFilter(pixelShader)] ); 
 
 		for (color in Color.asList()) {
-			var colorCam = new FlxCamera();
-			// colorCam.visible = false;
-			var shader = new PixelateShader(color);
-			colorCam.setFilters( [new ShaderFilter(shader)]);
-			colorCam.bgColor = FlxColor.TRANSPARENT;
+			var colorCam = makeShaderCamera(color);
 			colorCams.set(color, colorCam);
-			FlxG.cameras.add(colorCam, true);
+			FlxG.cameras.add(colorCam, false);
 		};
 	}
 
-	function setCamera(ccs:ColorCollideSprite) {
+	function makeShaderCamera(c:Color):FlxCamera {
+		var cam = new FlxCamera();
+		var shader = new PixelateShader(c);
+		cam.setFilters( [new ShaderFilter(shader)]);
+		cam.bgColor = FlxColor.TRANSPARENT;
+		return cam;
+	}
+
+	function setCamera(o:FlxBasic) {
+		if (o == null || !(o is ColorCollideSprite)) {
+			return;
+		}
+		var ccs:ColorCollideSprite = cast o;
 		if (ccs.interactColor != EMPTY) {
 			if (colorCams.exists(ccs.interactColor)) {
 				ccs.cameras = [colorCams.get(ccs.interactColor)];
@@ -175,7 +179,6 @@ class PlayState extends FlxTransitionableState {
 		playerGroup.forEach((f) -> f.destroy());
 		playerGroup.clear();
 		player = null;
-		add(objects);
 
 		var level = new levels.ldtk.Level(levelID);
 
@@ -184,18 +187,15 @@ class PlayState extends FlxTransitionableState {
 		softFocusBounds = FlxRect.get(0, 0, level.bounds.width, level.bounds.height);
 		FlxEcho.instance.world.set(0, 0, level.bounds.width, level.bounds.height);
 
-		TileTypes.buildTiles(level, objects);
+		var tileObjs = TileTypes.buildTiles(level);
+		for (t in tileObjs) {
+			t.add_to_group(objects);
+			setCamera(t);
+		}
 		
 		for (o in level.objects) {
 			o.add_to_group(objects);
-		}
-
-		trace('scanning ${objects.members.length}');
-		for (o in objects.members) {
-			if (o != null && o is ColorCollideSprite) {
-				var ccs:ColorCollideSprite = cast o;
-				setCamera(ccs);
-			}
+			o.camera = objectCam;
 		}
 
 		var extraSpawnLogic:Void->Void = null;
@@ -245,8 +245,8 @@ class PlayState extends FlxTransitionableState {
 			extraSpawnLogic();
 		}
 
-		mainCam.focusOn(player.getGraphicMidpoint());
-		dbgCam.scroll.copyFrom(mainCam.scroll);
+		baseTerrainCam.focusOn(player.getGraphicMidpoint());
+		dbgCam.scroll.copyFrom(baseTerrainCam.scroll);
 
 		softFollowPlayer();
 
@@ -311,11 +311,13 @@ class PlayState extends FlxTransitionableState {
 
 	public function addLaser(laser:LaserBeam) {
 		laser.add_to_group(lasers);
-		setCamera(laser);
+		laser.camera = objectCam;
 	}
 
 	public function addParticle(o:FlxBasic, bypassDelta:Bool = false) {
 		particles.add(o);
+		particles.camera = objectCam;
+
 
 		if (bypassDelta) {
 			deltaModIgnorers.add(o);
@@ -323,24 +325,23 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	public function softFollowPlayer() {
-		mainCam.setScrollBoundsRect(0, 0, softFocusBounds.width, softFocusBounds.height);
-		mainCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
+		baseTerrainCam.setScrollBoundsRect(0, 0, softFocusBounds.width, softFocusBounds.height);
+		baseTerrainCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
 	}
 
 	public function hardFollowPlayer(lerp:Float) {
-		mainCam.setScrollBounds(null, null, null, null);
-		mainCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
+		baseTerrainCam.setScrollBounds(null, null, null, null);
+		baseTerrainCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
 	}
 
 	public function playerDied() {
 		player.beginDie();
-		// TODO: Tie in player animation for timing somehow
 		FlxTween.tween(this, {deltaMod: deathDeltaMod}, 0.2, {
 			onComplete: (tween1) -> {
 				new FlxTimer().start(.7, (timer) -> {
 					player.kill();
 					DeathParticles.create(player.body.x, player.body.y, !player.grounded, [EMPTY, RED, BLUE]);
-					mainCam.flash(0.5);
+					FlxG.cameras.flash(0.5);
 					new FlxTimer().start(1, (timer2) -> {
 						FlxTween.tween(this, {deltaMod: 1}, 1, {
 							onComplete: (tween2) -> {
@@ -375,17 +376,21 @@ class PlayState extends FlxTransitionableState {
 			deltaModIgnorers.update(originalDelta * (1 - deltaMod));
 		}
 
-		DebugDraw.ME.drawCameraCircle(FlxG.width/2, FlxG.height/2, 2);
+		for (i in 0...FlxG.cameras.list.length) {
+			DebugDraw.ME.drawCameraCircle(FlxG.cameras.list[i], 10, 10 * i, 5, null, FlxColor.WHITE);
+
+		}
 
 		alignCameras();
 	}
 
 	function alignCameras() {
 		for (c in colorCams) {
-			c.scroll.copyFrom(mainCam.scroll);
+			c.scroll.copyFrom(baseTerrainCam.scroll);
 		}
 
-		dbgCam.scroll.copyFrom(mainCam.scroll);
+		dbgCam.scroll.copyFrom(baseTerrainCam.scroll);
+		objectCam.scroll.copyFrom(baseTerrainCam.scroll);
 	}
 
 	override public function onFocusLost() {

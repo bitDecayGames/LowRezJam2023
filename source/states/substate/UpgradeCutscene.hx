@@ -33,8 +33,8 @@ class UpgradeCutscene extends FlxSubState {
 		add(player);
 
 		power = new UnlockParticle(0,0, done, () -> {
-			FlxG.camera.flash(cast upgradeColor, 0.1);
-			FlxG.camera.shake(0.01, 0.4);
+			FlxG.cameras.flash(cast upgradeColor, 0.1);
+			FlxG.cameras.shake(0.01, 0.4);
 			player.color = cast upgradeColor;
 		});
 

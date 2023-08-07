@@ -1,5 +1,6 @@
 package collision;
 
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import levels.ldtk.Level;
 import flixel.group.FlxGroup;
@@ -22,19 +23,19 @@ class TileTypes {
 	];
 
 
-	public static function buildTiles(level:Level, target:FlxGroup) {
-		buildForLayer(level.raw.l_Terrain_coarse, target, level.raw.l_TerrainColor);
-		buildForLayer(level.raw.l_Terrain_fine, target, level.raw.l_TerrainColor);
-		return;
+	public static function buildTiles(level:Level):Array<FlxObject> {
+		var objs = buildForLayer(level.raw.l_Terrain_coarse, level.raw.l_TerrainColor);
+		return objs.concat(buildForLayer(level.raw.l_Terrain_fine, level.raw.l_TerrainColor));
 	}
 
 	// This is taken from the ldtk codebase so that we can augment it to add color and attach echo bodies
 	@:access(ldtk.Layer_Tiles)
 	@:access(echo.FlxEcho)
-	static function buildForLayer(layer:Layer_Tiles, target:FlxGroup, colorLayer:Layer_TerrainColor) {
-		for( cy in 0...layer.cHei )
-			for( cx in 0...layer.cWid )
-				if( layer.hasAnyTileAt(cx,cy) )
+	static function buildForLayer(layer:Layer_Tiles, colorLayer:Layer_TerrainColor):Array<FlxObject> {
+		var tiles:Array<FlxObject> = [];
+		for( cy in 0...layer.cHei ) {
+			for( cx in 0...layer.cWid ) {
+				if( layer.hasAnyTileAt(cx,cy) ) {
 					for( tile in layer.getTileStackAt(cx,cy) ) {
 						if (tile.tileId == 0) {
 							continue;
@@ -70,9 +71,14 @@ class TileTypes {
 						s.width = layer.gridSize;
 						s.height = layer.gridSize;
 						s.set_body(b);
-						s.add_to_group(target);
 						b.update_body_object();
+						tiles.push(s);
 					}
+				}
+			}
+		}
+		
+		return tiles;
 	}
 
 	public static function getColorFromTile(cX:Int, cY:Int, gridSize:Int, colors:Layer_TerrainColor):Color {

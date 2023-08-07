@@ -111,7 +111,7 @@ class LaserRail extends FlxSprite {
 				// TODO(SFX): laser fires
 				var laser = new LaserBeam(emitterPoint.x, emitterPoint.y, laserAngle, laserLength, laserColor);
 				PlayState.ME.addLaser(laser); 
-				FlxG.camera.shake(.01, .5);
+				FlxG.cameras.shake(.01, .5);
 				new FlxTimer().start(0.5, (t) -> {
 					emitter.emitting = false;
 					laser.kill();
