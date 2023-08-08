@@ -26,7 +26,7 @@ typedef LaserStationaryOptions = {
 }
 
 class LaserStationary extends FlxSprite {
-	private static var anims = AsepriteMacros.tagNames("assets/aseprite/crawlingTurret.json");
+	private static var anims = AsepriteMacros.tagNames("assets/aseprite/stationaryTurret.json");
 
 	public var emitter:FlxEmitter;
 	var emitterPoint = FlxPoint.get();
@@ -45,11 +45,11 @@ class LaserStationary extends FlxSprite {
 		var spawnPoint = FlxPoint.get(options.spawnX, options.spawnY);
 		super(spawnPoint.x, spawnPoint.y);
 		this.laserColor = options.color;
-		angle = options.dir + 180;
+		angle = options.dir - 90;
 		laserAngle = options.dir + 270;
 
-		Aseprite.loadAllAnimations(this, AssetPaths.crawlingTurret__json);
-		animation.play(anims.move);
+		Aseprite.loadAllAnimations(this, AssetPaths.stationaryTurret__json);
+		animation.frameIndex = 0;
 
 		COOLDOWN_TIME = options.rest;
 		LASER_TIME = options.laserTime;
@@ -69,7 +69,7 @@ class LaserStationary extends FlxSprite {
 				// TODO(SFX): laser begins charging
 			}
 
-			emitterPoint.set(0, 8).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
+			emitterPoint.set(0, 8).pivotDegrees(FlxPoint.weak(), angle - 90).add(x + width/2, y + height/2);
 			emitter.setPosition(emitterPoint.x, emitterPoint.y);
 		} else {
 			charging += elapsed;
