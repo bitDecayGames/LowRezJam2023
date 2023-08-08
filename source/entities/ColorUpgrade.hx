@@ -31,7 +31,9 @@ class ColorUpgrade extends ColorCollideSprite {
 
 		colorToUnlock = Color.fromEnum(data.f_Color);
 		color = cast colorToUnlock;
-
+	}
+	
+	override function configSprite() {
 		Aseprite.loadAllAnimations(this, AssetPaths.pixel__json);
 		animation.play(anims.float);
 	}

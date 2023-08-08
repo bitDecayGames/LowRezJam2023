@@ -1,5 +1,7 @@
 package entities;
 
+import flixel.FlxObject;
+import flixel.util.FlxTimer;
 import progress.Collected;
 import flixel.tweens.FlxTween;
 import bitdecay.flixel.spacial.Cardinal;
@@ -35,8 +37,6 @@ class Player extends ColorCollideSprite {
 	private static inline var PLAYER_WEIGHT = 500;
 
 	public var inControl:Bool = true;
-
-	var bodyOffset:FlxPoint;
 
 	var groundedCastLeft:Bool = false;
 	var groundedCastMiddle:Bool = false;
@@ -80,11 +80,16 @@ class Player extends ColorCollideSprite {
 
 	var animState = new AnimationState();
 
-	@:access(echo.FlxEcho)
 	public function new(X:Float, Y:Float) {
 		Y -= 20;
 		super(X, Y, EMPTY);
 
+		bottomShape = body.shapes[0];
+		topShape = body.shapes[1];
+		groundCircle = body.shapes[2];
+	}
+
+	override function configSprite() {
 		// This call can be used once https://github.com/HaxeFlixel/flixel/pull/2860 is merged
 		// FlxAsepriteUtil.loadAseAtlasAndTags(this, AssetPaths.player__png, AssetPaths.player__json);
 		Aseprite.loadAllAnimations(this, AssetPaths.player__json);
@@ -108,15 +113,6 @@ class Player extends ColorCollideSprite {
 		// scrolling
 		setSize(32, 32);
 		offset.set(0, 2);
-
-		bottomShape = body.shapes[0];
-		topShape = body.shapes[1];
-		groundCircle = body.shapes[2];
-
-		bodyOffset = FlxPoint.get(body.x - x, body.y - y);
-
-		// XXX: We want to force position and rotation immediately
-		body.update_body_object();
 	}
 
 	override function makeBody():Body {
@@ -190,31 +186,39 @@ class Player extends ColorCollideSprite {
 	}
 
 	@:access(echo.FlxEcho)
-	public function transitionWalk(dir:Cardinal, cb:Void->Void) {
+	public function transitionWalk(arrive:Bool, dir:Cardinal, cb:Void->Void) {
 		playAnimIfNotAlready(anims.run);
 		animation.curAnim.frameRate = 10;
+		inControl = false;
 
 		var transitionDistance = 72;
-		// XXX: Make sure we are aligned with our physics body
+		// // // XXX: Make sure we are aligned with our physics body
 		body.update_body_object();
 		// body.active = false;
-		inControl = false;
 		var curPos = getPosition();
 		var destPos = curPos.copyTo();
-		animation.play(anims.run);
 		switch(dir) {
 			case E:
-				destPos.x += transitionDistance;
+				if (arrive) {
+					curPos.x -= transitionDistance;
+				} else {
+					destPos.x += transitionDistance;
+				}
 			case W:
-				destPos.x -= transitionDistance;	
+				if (arrive) {
+					curPos.x += transitionDistance;
+				} else {
+					destPos.x -= transitionDistance;	
+				}
 			default:
 		}
 		flipX = curPos.x < destPos.x;
 		FlxTween.linearMotion(this, curPos.x, curPos.y, destPos.x, destPos.y, 1.5, {
 			onComplete: (t) -> {
+				inControl = true;
+				body.active = true;
 				body.set_position(x + origin.x, y + origin.y);
 				cb();
-				inControl = true;
 			}
 		});
 	}

@@ -155,7 +155,7 @@ class PlayState extends FlxTransitionableState {
 		loadLevel(lastLevel, lastSpawnEntity);
 	}
 
-	@:access(echo.FlxEcho)
+	// @:access(echo.FlxEcho)
 	public function loadLevel(levelID:String, ?entityID:String) {
 		lastLevel = levelID;
 		lastSpawnEntity = entityID;
@@ -185,6 +185,8 @@ class PlayState extends FlxTransitionableState {
 		// terrainGroup.add(level.terrainGfx);
 
 		softFocusBounds = FlxRect.get(0, 0, level.bounds.width, level.bounds.height);
+		baseTerrainCam.setScrollBoundsRect(0, 0, level.bounds.width, level.bounds.height);
+
 		FlxEcho.instance.world.set(0, 0, level.bounds.width, level.bounds.height);
 
 		// TileMap.generate()
@@ -223,12 +225,12 @@ class PlayState extends FlxTransitionableState {
 			var spawnDir = CardinalMaker.fromString(spawn.f_access_dir.getName());
 			spawnPoint.set(spawn.pixelX, spawn.pixelY - 2); // TODO: Adjust this so player walks out at correct height
 			// TODO: find a better way to calculate this offset
-			spawnPoint.addPoint(spawnDir.asVector().scale(-48));
+			spawnPoint.addPoint(spawnDir.asVector().scale(16));
 
-			FlxEcho.updates = false;
-			FlxEcho.instance.active = false;
+			// FlxEcho.updates = false;
+			// FlxEcho.instance.active = false;
 			extraSpawnLogic = () -> {
-				player.transitionWalk(spawnDir, () -> {
+				player.transitionWalk(true, spawnDir, () -> {
 					FlxEcho.updates = true;
 					FlxEcho.instance.active = true;
 					t.close();
@@ -255,6 +257,7 @@ class PlayState extends FlxTransitionableState {
 			extraSpawnLogic();
 		}
 
+
 		for (_ => zone in level.camZones) {
 			if (zone.containsPoint(spawnPoint)) {
 				setCameraBounds(zone);
@@ -265,7 +268,7 @@ class PlayState extends FlxTransitionableState {
 			camTransition.add_to_group(objects);
 		}
 
-		baseTerrainCam.focusOn(player.getGraphicMidpoint());
+		baseTerrainCam.focusOn(player.getPosition());
 		dbgCam.scroll.copyFrom(baseTerrainCam.scroll);
 
 		softFollowPlayer();
@@ -352,13 +355,13 @@ class PlayState extends FlxTransitionableState {
 
 	public function softFollowPlayer() {
 		// baseTerrainCam.setScrollBoundsRect(0, 0, softFocusBounds.width, softFocusBounds.height);
-		baseTerrainCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
+		baseTerrainCam.follow(player, FlxCameraFollowStyle.PLATFORMER, 1);
 	}
 
-	// public function hardFollowPlayer(lerp:Float) {
-	// 	// baseTerrainCam.setScrollBounds(null, null, null, null);
-	// 	baseTerrainCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
-	// }
+	public function hardFollowPlayer(lerp:Float) {
+		// baseTerrainCam.setScrollBounds(null, null, null, null);
+		baseTerrainCam.follow(player, FlxCameraFollowStyle.LOCKON, 1);
+	}
 
 	public function freezeCamera() {
 		baseTerrainCam.follow(null);
@@ -410,16 +413,13 @@ class PlayState extends FlxTransitionableState {
 			deltaModIgnorers.update(originalDelta * (1 - deltaMod));
 		}
 
-		for (i in 0...FlxG.cameras.list.length) {
-			DebugDraw.ME.drawCameraCircle(FlxG.cameras.list[i], 10, 10 * i, 5, null, FlxColor.WHITE);
-
-		}
-
 		alignCameras();
 
 		for (s in shaders) {
 			s.update(elapsed);
 		}
+
+		FlxG.watch.addQuick('camScroll: ', ${baseTerrainCam.scroll});
 	}
 
 	var tmpScreenPoint = FlxPoint.get();

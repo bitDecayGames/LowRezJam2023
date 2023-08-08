@@ -31,11 +31,15 @@ class ColorCollideSprite extends FlxSprite {
 
 		body = makeBody();
 
+		configSprite();
+
 		// XXX: We want to force position and rotation immediately
 		if (body != null) {
 			body.update_body_object();
 		}
 	}
+
+	public function configSprite() {}
 
 	public function makeBody():Body {
 		return null;

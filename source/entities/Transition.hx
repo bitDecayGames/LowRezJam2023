@@ -4,14 +4,12 @@ import helpers.CardinalMaker;
 import states.PlayState;
 import echo.Body;
 import echo.data.Data.CollisionData;
-import flixel.util.FlxColor;
 import collision.ColorCollideSprite;
 import loaders.Aseprite;
 import loaders.AsepriteMacros;
 
 using echo.FlxEcho;
 
-@:access(echo.FlxEcho)
 class Transition extends ColorCollideSprite {
 	private static var anims = AsepriteMacros.tagNames("assets/aseprite/door.json");
 
@@ -23,9 +21,11 @@ class Transition extends ColorCollideSprite {
 
 	public function new(data:Entity_Door) {
 		this.data = data;
-		super(data.pixelX, data.pixelY, Color.fromStr(data.f_Color.getName()));
+		super(data.pixelX - data.width / 2, data.pixelY - data.height, Color.fromStr(data.f_Color.getName()));
 		doorID = data.iid;
-		
+	}
+
+	override function configSprite() {
 		Aseprite.loadAllAnimations(this, AssetPaths.door__json);
 
 		animation.callback = (name, frameNumber, frameIndex) -> {
@@ -36,8 +36,6 @@ class Transition extends ColorCollideSprite {
 
 		animation.finishCallback = animFinished;
 		animation.play(anims.closed);
-
-		body.update_body_object();
 	}
 
 	override function makeBody():Body {
@@ -82,6 +80,9 @@ class Transition extends ColorCollideSprite {
 				return;
 			}
 
+			// remove control so player animates nicely from here
+			player.inControl = false;
+
 			FlxEcho.updates = false;
 			FlxEcho.instance.active = false;
 
@@ -91,7 +92,7 @@ class Transition extends ColorCollideSprite {
 
 			transitionCb = () -> {
 				PlayState.ME.freezeCamera();
-				player.transitionWalk(CardinalMaker.fromString(data.f_access_dir.getName()).opposite(), () -> {
+				player.transitionWalk(false, CardinalMaker.fromString(data.f_access_dir.getName()).opposite(), () -> {
 					PlayState.ME.loadLevel(data.f_Entity_ref.levelIid, data.f_Entity_ref.entityIid);
 				});
 			}
