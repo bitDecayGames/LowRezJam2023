@@ -36,7 +36,6 @@ class Player extends ColorCollideSprite {
 
 	public var inControl:Bool = true;
 
-	public var body:echo.Body;
 	var bodyOffset:FlxPoint;
 
 	var groundedCastLeft:Bool = false;
@@ -110,9 +109,20 @@ class Player extends ColorCollideSprite {
 		setSize(32, 32);
 		offset.set(0, 2);
 
-		body = this.add_body({
-			x: X,
-			y: Y,
+		bottomShape = body.shapes[0];
+		topShape = body.shapes[1];
+		groundCircle = body.shapes[2];
+
+		bodyOffset = FlxPoint.get(body.x - x, body.y - y);
+
+		// XXX: We want to force position and rotation immediately
+		body.update_body_object();
+	}
+
+	override function makeBody():Body {
+		return this.add_body({
+			x: x,
+			y: y,
 			max_velocity_x: maxSpeed,
 			max_velocity_length: MAX_VELOCITY,
 			drag_x: decel,
@@ -149,14 +159,6 @@ class Player extends ColorCollideSprite {
 				// }
 			]
 		});
-		bottomShape = body.shapes[0];
-		topShape = body.shapes[1];
-		groundCircle = body.shapes[2];
-
-		bodyOffset = FlxPoint.get(body.x - x, body.y - y);
-
-		// XXX: We want to force position and rotation immediately
-		body.update_body_object();
 	}
 
 	public function forceStand() {
@@ -231,6 +233,18 @@ class Player extends ColorCollideSprite {
 		}
 
 		DebugDraw.ME.drawWorldCircle(PlayState.ME.dbgCam, body.x, body.y, 1, PLAYER, FlxColor.BLUE);
+
+		#if debug
+		if (FlxG.keys.justPressed.ONE) {
+			Collected.unlockBlue();
+		}
+		if (FlxG.keys.justPressed.TWO) {
+			Collected.unlockYellow();
+		}
+		if (FlxG.keys.justPressed.THREE) {
+			Collected.unlockRed();
+		}
+		#end
 	}
 
 	function handleInput(delta:Float) {

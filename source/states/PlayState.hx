@@ -42,7 +42,6 @@ class PlayState extends FlxTransitionableState {
 
 	var lastLevel:String;
 	var lastSpawnEntity:String;
-	var deathGraceFrames = 1;
 
 	public var player:Player;
 
@@ -158,7 +157,6 @@ class PlayState extends FlxTransitionableState {
 
 	@:access(echo.FlxEcho)
 	public function loadLevel(levelID:String, ?entityID:String) {
-		deathGraceFrames = 1;
 		lastLevel = levelID;
 		lastSpawnEntity = entityID;
 
@@ -257,6 +255,16 @@ class PlayState extends FlxTransitionableState {
 			extraSpawnLogic();
 		}
 
+		for (_ => zone in level.camZones) {
+			if (zone.containsPoint(spawnPoint)) {
+				setCameraBounds(zone);
+			}
+		}
+
+		for (camTransition in level.camTransitionZones) {
+			camTransition.add_to_group(objects);
+		}
+
 		baseTerrainCam.focusOn(player.getGraphicMidpoint());
 		dbgCam.scroll.copyFrom(baseTerrainCam.scroll);
 
@@ -337,15 +345,20 @@ class PlayState extends FlxTransitionableState {
 		}
 	}
 
+	public function setCameraBounds(bounds:FlxRect) {
+		// baseTerrainCam.setScrollBounds(bounds.x, bounds.y, bounds.width, bounds.height);
+		baseTerrainCam.setScrollBoundsRect(bounds.x, bounds.y, bounds.width, bounds.height);
+	}
+
 	public function softFollowPlayer() {
-		baseTerrainCam.setScrollBoundsRect(0, 0, softFocusBounds.width, softFocusBounds.height);
+		// baseTerrainCam.setScrollBoundsRect(0, 0, softFocusBounds.width, softFocusBounds.height);
 		baseTerrainCam.follow(player, FlxCameraFollowStyle.PLATFORMER, .5);
 	}
 
-	public function hardFollowPlayer(lerp:Float) {
-		baseTerrainCam.setScrollBounds(null, null, null, null);
-		baseTerrainCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
-	}
+	// public function hardFollowPlayer(lerp:Float) {
+	// 	// baseTerrainCam.setScrollBounds(null, null, null, null);
+	// 	baseTerrainCam.follow(player, FlxCameraFollowStyle.LOCKON, lerp);
+	// }
 
 	public function freezeCamera() {
 		baseTerrainCam.follow(null);
@@ -402,32 +415,10 @@ class PlayState extends FlxTransitionableState {
 
 		}
 
-		// on initial spawn, player is in the wrong place
-		if (deathGraceFrames > 0) {
-			deathGraceFrames--;
-		} else {
-			checkPlayerOffScreen();
-		}
-
 		alignCameras();
-		
+
 		for (s in shaders) {
 			s.update(elapsed);
-		}
-	}
-
-	var boundAdjust = 10;
-	var playerBounds:AABB = null;
-	function checkPlayerOffScreen() {
-		if (!player.inControl) {
-			return;
-		}
-		playerBounds = player.body.bounds(playerBounds);
-		if (!camSeesWorldPoint(objectCam, playerBounds.min_x - boundAdjust, playerBounds.min_y - boundAdjust) &&
-			!camSeesWorldPoint(objectCam, playerBounds.max_x + boundAdjust, playerBounds.min_y - boundAdjust) &&
-			!camSeesWorldPoint(objectCam, playerBounds.max_x + boundAdjust, playerBounds.max_y + boundAdjust) &&
-			!camSeesWorldPoint(objectCam, playerBounds.min_x - boundAdjust, playerBounds.max_y + boundAdjust)) {
-				playerDied();
 		}
 	}
 

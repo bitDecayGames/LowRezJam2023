@@ -20,11 +20,10 @@ class Transition extends ColorCollideSprite {
 	var transitionCb:Void->Void = null;
 
 	var data:Entity_Door;
-	var body:Body;
 
 	public function new(data:Entity_Door) {
-		super(data.pixelX, data.pixelY, Color.fromStr(data.f_Color.getName()));
 		this.data = data;
+		super(data.pixelX, data.pixelY, Color.fromStr(data.f_Color.getName()));
 		doorID = data.iid;
 		
 		Aseprite.loadAllAnimations(this, AssetPaths.door__json);
@@ -38,7 +37,11 @@ class Transition extends ColorCollideSprite {
 		animation.finishCallback = animFinished;
 		animation.play(anims.closed);
 
-		body = this.add_body({
+		body.update_body_object();
+	}
+
+	override function makeBody():Body {
+		return this.add_body({
 			x: data.pixelX,
 			y: data.pixelY - data.height/2,
 			kinematic: true,
@@ -50,8 +53,6 @@ class Transition extends ColorCollideSprite {
 				// solid: false,
 			}
 		});
-
-		body.update_body_object();
 	}
 
 	public function open(?cb:Void->Void) {

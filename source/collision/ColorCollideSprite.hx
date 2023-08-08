@@ -10,13 +10,17 @@ import echo.data.Data.CollisionData;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 
+using echo.FlxEcho;
 
 class ColorCollideSprite extends FlxSprite {
+	public var body:Body;
+
 	var lastColor:Int;
 	public var interactColor:Color;
 	var colorTime = 0.0;
 	var transitionLength = 0.15;
 
+	@:access(echo.FlxEcho)
 	public function new(X:Float, Y:Float, initialColor:Color) {
 		super(X, Y);
 		lastColor = initialColor;
@@ -24,6 +28,17 @@ class ColorCollideSprite extends FlxSprite {
 		if (initialColor != Color.EMPTY) {
 			// color = cast initialColor;
 		}
+
+		body = makeBody();
+
+		// XXX: We want to force position and rotation immediately
+		if (body != null) {
+			body.update_body_object();
+		}
+	}
+
+	public function makeBody():Body {
+		return null;
 	}
 
 	override function update(elapsed:Float) {

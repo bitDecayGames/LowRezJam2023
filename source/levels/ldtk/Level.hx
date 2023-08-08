@@ -1,5 +1,7 @@
 package levels.ldtk;
 
+import collision.ColorCollideSprite;
+import entities.camera.CameraTransitionZone;
 import entities.enemy.LaserStationary;
 import helpers.CardinalMaker;
 import bitdecay.flixel.spacial.Cardinal;
@@ -40,6 +42,9 @@ class Level {
 	public var objects = new FlxTypedGroup<FlxObject>();
 	public var emitters = new Array<FlxEmitter>();
 	public var playerSpawn:Entity_Spawn;
+
+	public var camZones:Map<String, FlxRect>;
+	public var camTransitionZones:Array<CameraTransitionZone>;
 
 	public function new(nameOrIID:String) {
 		var level = project.all_worlds.Default.getLevel(nameOrIID);
@@ -82,7 +87,8 @@ class Level {
 		parseLaserRails(level);
 		parseLaserTurrets(level);
 		parseLaserStationary(level);
-		
+		parseCameraAreas(level);
+		parseCameraTransitions(level);
 
 		for (door in level.l_Objects.all_Door) {
 			var d = new Transition(door);
@@ -214,6 +220,25 @@ class Level {
 			var laser = new LaserStationary(l_config);
 			objects.add(laser);
 			emitters.push(laser.emitter);
+		}
+	}
+
+	function parseCameraAreas(level:LDTKProject_Level) {
+		camZones = new Map<String, FlxRect>();
+		for (guide in level.l_Objects.all_Camera_guide) {
+			camZones.set(guide.iid, FlxRect.get(guide.pixelX, guide.pixelY, guide.width, guide.height));
+		}
+	}
+
+	function parseCameraTransitions(level:LDTKProject_Level) {
+		camTransitionZones = new Array<CameraTransitionZone>();
+		for (zone in level.l_Objects.all_Camera_transition) {
+			var transArea = FlxRect.get(zone.pixelX, zone.pixelY, zone.width, zone.height);
+			var camTrigger = new CameraTransitionZone(transArea);
+			for (i in 0...zone.f_dir.length) {
+				camTrigger.addGuideTrigger(CardinalMaker.fromString(zone.f_dir[i].getName()), camZones.get(zone.f_areas[i].entityIid));
+			}
+			camTransitionZones.push(camTrigger);
 		}
 	}
 }

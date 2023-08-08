@@ -21,10 +21,12 @@ using bitdecay.flixel.extensions.FlxCameraExt;
 class ColorUpgrade extends ColorCollideSprite {
 	private static var anims = AsepriteMacros.tagNames("assets/aseprite/pixel.json");
 
-	public var body:Body;
+	var data:Entity_Color_upgrade;
+
 	var colorToUnlock:Color;
 
 	public function new(data:Entity_Color_upgrade) {
+		this.data = data;
 		super(data.pixelX, data.pixelY - data.height/2, EMPTY);
 
 		colorToUnlock = Color.fromEnum(data.f_Color);
@@ -32,8 +34,10 @@ class ColorUpgrade extends ColorCollideSprite {
 
 		Aseprite.loadAllAnimations(this, AssetPaths.pixel__json);
 		animation.play(anims.float);
+	}
 
-		body = this.add_body({
+	override function makeBody():Body {
+		return this.add_body({
 			x: data.pixelX,
 			y: data.pixelY - data.height/2,
 			kinematic: true,
