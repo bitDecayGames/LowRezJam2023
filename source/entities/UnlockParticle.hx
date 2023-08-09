@@ -20,6 +20,7 @@ class UnlockParticle extends FlxSprite {
 
 		Aseprite.loadAllAnimations(this, AssetPaths.powerUp__json);
 		animation.play(anims.power);
+		FmodManager.PlaySoundOneShot(FmodSFX.ColorStart);
 		animation.finishCallback = finished;
 
 		animation.callback = (anim, frame, index) -> {
@@ -29,7 +30,8 @@ class UnlockParticle extends FlxSprite {
 				}
 				
 				if (StringTools.contains(eventData.get(index), "flash")) {
-					// upgrade hits player
+					FmodManager.PlaySoundOneShot(FmodSFX.ColorFlash2);
+					FmodManager.PlaySoundOneShot(FmodSFX.ColorCharge2);
 				}
 
 				
@@ -38,7 +40,7 @@ class UnlockParticle extends FlxSprite {
 				}
 				
 				if (StringTools.contains(eventData.get(index), "shoot")) {
-					// upgrade hits player
+					FmodManager.PlaySoundOneShot(FmodSFX.ColorShoot);
 				}
 			}
 		};
