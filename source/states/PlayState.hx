@@ -1,5 +1,6 @@
 package states;
 
+import states.substate.UpgradeCutscene;
 import openfl.filters.ShaderFilter;
 import shaders.PixelateShader;
 import flixel.util.FlxTimer;
@@ -395,6 +396,13 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	override public function update(elapsed:Float) {
+
+		if(FlxG.keys.justPressed.LBRACKET) {
+			FlxG.state.openSubState(new UpgradeCutscene(FlxPoint.get(FlxG.width/2, FlxG.height/2), Color.BLUE, () -> {
+				
+			}));
+		}
+
 		var originalDelta = elapsed;
 		elapsed *= deltaMod;
 		super.update(elapsed);

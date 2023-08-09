@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{e9ce5742-fdc6-445c-9c81-482e7b8a1810}">
+		<property name="assetPath">
+			<value>laser_stationary_blast2.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.2355833333333335</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8437bb97-ead8-45e7-929a-eda2e732a050}</destination>
+		</relationship>
+	</object>
+</objects>

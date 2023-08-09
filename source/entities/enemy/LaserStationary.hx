@@ -66,7 +66,7 @@ class LaserStationary extends FlxSprite {
 			if (cooldown >= COOLDOWN_TIME) {
 				emitter.emitting = true;
 				velocity.set();
-				// TODO(SFX): laser begins charging
+				// FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryCharge);
 			}
 
 			emitterPoint.set(0, 8).pivotDegrees(FlxPoint.weak(), angle - 90).add(x + width/2, y + height/2);
@@ -75,6 +75,7 @@ class LaserStationary extends FlxSprite {
 			charging += elapsed;
 			
 			if (charging >= CHARGE_TIME) {
+				// FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryBlast2);
 				var laserLength:Float = FlxG.width;
 				var laserCast = Line.get_from_vector(new Vector2(emitterPoint.x, emitterPoint.y), laserAngle, FlxG.width);
 				var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
@@ -90,7 +91,6 @@ class LaserStationary extends FlxSprite {
 					}
 				}
 
-				// TODO(SFX): laser fires
 				var laser = new LaserBeam(emitterPoint.x, emitterPoint.y, laserAngle, laserLength, laserColor);
 				PlayState.ME.addLaser(laser); 
 				FlxG.cameras.shake(.01, .5);

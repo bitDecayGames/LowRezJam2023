@@ -10,8 +10,12 @@ class FmodSongs {
 }
 
 class FmodSFX {
+    public static inline var LaserStationaryBlast:String = "event:/SFX/Enemies/LaserStationary/LaserStationaryBlast";
+    public static inline var LaserStationaryBlast2:String = "event:/SFX/Enemies/LaserStationary/LaserStationaryBlast2";
+    public static inline var LaserStationaryCharge:String = "event:/SFX/Enemies/LaserStationary/LaserStationaryCharge";
     public static inline var LaserTurretBlast:String = "event:/SFX/Enemies/LaserTurret/LaserTurretBlast";
     public static inline var LaserTurretBlast2:String = "event:/SFX/Enemies/LaserTurret/LaserTurretBlast2";
+    public static inline var LaserTurretBlast3:String = "event:/SFX/Enemies/LaserTurret/LaserTurretBlast3";
     public static inline var LaserTurretCharge:String = "event:/SFX/Enemies/LaserTurret/LaserTurretCharge";
     public static inline var LaserTurretCharge2:String = "event:/SFX/Enemies/LaserTurret/LaserTurretCharge2";
     public static inline var DoorTick:String = "event:/SFX/Level/Door/DoorTick";

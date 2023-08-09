@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="UiMixerView" id="{64f1df01-e63b-4bd5-bbb8-f2ac8fa8ce83}">
+		<property name="name">
+			<value>Lasers</value>
+		</property>
+		<relationship name="assignedStrips">
+			<destination>{f0180d31-4f21-4895-8dfe-059905561a20}</destination>
+			<destination>{51b6a964-0e05-4d4f-ae13-34dcb52aa173}</destination>
+			<destination>{b85c8f97-98b9-4d9b-827c-308ca9204623}</destination>
+			<destination>{757fd84e-f103-4fef-aff0-40826d161218}</destination>
+			<destination>{de47e2e0-034a-48d9-83f5-9ff7aed4fb23}</destination>
+		</relationship>
+		<relationship name="mixer">
+			<destination>{f3084d97-e99e-4dd1-aa55-72c51cee82a3}</destination>
+		</relationship>
+	</object>
+</objects>
