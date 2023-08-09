@@ -21,6 +21,13 @@ class FmodSFX {
     public static inline var DoorTick:String = "event:/SFX/Level/Door/DoorTick";
     public static inline var MenuHover:String = "event:/SFX/Menu/MenuHover";
     public static inline var MenuSelect:String = "event:/SFX/Menu/MenuSelect";
+    public static inline var ColorCharge:String = "event:/SFX/Player/Color/ColorCharge";
+    public static inline var ColorCharge2:String = "event:/SFX/Player/Color/ColorCharge2";
+    public static inline var ColorFlash:String = "event:/SFX/Player/Color/ColorFlash";
+    public static inline var ColorFlash2:String = "event:/SFX/Player/Color/ColorFlash2";
+    public static inline var ColorShoot:String = "event:/SFX/Player/Color/ColorShoot";
+    public static inline var ColorStart:String = "event:/SFX/Player/Color/ColorStart";
+    public static inline var ColorTouch:String = "event:/SFX/Player/Color/ColorTouch";
     public static inline var PlayerJump1:String = "event:/SFX/Player/Jump/PlayerJump1";
     public static inline var PlayerJump2:String = "event:/SFX/Player/Jump/PlayerJump2";
     public static inline var PlayerJump3:String = "event:/SFX/Player/Jump/PlayerJump3";

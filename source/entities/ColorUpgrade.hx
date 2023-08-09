@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.util.FlxTimer;
 import flixel.math.FlxPoint;
 import flixel.tweens.FlxTween;
 import states.substate.UpgradeCutscene;
@@ -63,16 +64,20 @@ class ColorUpgrade extends ColorCollideSprite {
 		var scrollSave = PlayState.ME.baseTerrainCam.scroll.copyTo();
 		var screenPoint = PlayState.ME.objectCam.project(FlxPoint.get(PlayState.ME.player.body.x, PlayState.ME.player.body.y));
 
+		
+		FmodManager.PlaySoundOneShot(FmodSFX.ColorTouch);
 		PlayState.ME.objectCam.fade(FlxColor.BLACK, 1, () -> {
 			kill();
-			FlxG.state.openSubState(new UpgradeCutscene(screenPoint, colorToUnlock, () -> {
-				FlxTween.tween(PlayState.ME.baseTerrainCam.scroll, {x: scrollSave.x, y: scrollSave.y}, 0.5, {
-					onComplete: (t) -> {
-						FlxEcho.updates = true;
-						FlxEcho.instance.active = true;
-					}
-				});
-			}));
+			new FlxTimer().start(1, (t) -> {
+				FlxG.state.openSubState(new UpgradeCutscene(screenPoint, colorToUnlock, () -> {
+					FlxTween.tween(PlayState.ME.baseTerrainCam.scroll, {x: scrollSave.x, y: scrollSave.y}, 0.5, {
+						onComplete: (t) -> {
+							FlxEcho.updates = true;
+							FlxEcho.instance.active = true;
+						}
+					});
+				}));
+			});
 		});
 
 		if (other.object is Player) {
