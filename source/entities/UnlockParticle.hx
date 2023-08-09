@@ -27,6 +27,19 @@ class UnlockParticle extends FlxSprite {
 				if (StringTools.contains(eventData.get(index), "start_tint")) {
 					tintCB();
 				}
+				
+				if (StringTools.contains(eventData.get(index), "flash")) {
+					// upgrade hits player
+				}
+
+				
+				if (StringTools.contains(eventData.get(index), "charge_end")) {
+					// upgrade hits player
+				}
+				
+				if (StringTools.contains(eventData.get(index), "shoot")) {
+					// upgrade hits player
+				}
 			}
 		};
 
