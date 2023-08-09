@@ -1,5 +1,6 @@
 package states;
 
+import ldtk.Level;
 import states.substate.UpgradeCutscene;
 import openfl.filters.ShaderFilter;
 import shaders.PixelateShader;
@@ -106,17 +107,24 @@ class PlayState extends FlxTransitionableState {
 		add(lasers);
 		add(particles);
 
+		#if dev_spawn
+		var devSpawnLevel = levels.ldtk.Level.project.all_worlds.Default.levels.filter((l) -> return l.l_Objects.all_Dev_spawn.length > 0);
+		if (devSpawnLevel.length > 0) {
+			loadLevel(devSpawnLevel[0].iid);
+		} else {
+			QuickLog.error('no dev spawn found');
+			loadLevel("Level_3");
+		}
+		#else
 		var checkpointRoom = Collected.getCheckpointLevel();
 		if (checkpointRoom != null) {
 			var checkpointEntity = Collected.getCheckpointEntity();
 			loadLevel(checkpointRoom, checkpointEntity);
 		} else {
-			#if tune_movement
-			loadLevel("Level_0");
-			#else
 			loadLevel("Level_3");
-			#end
 		}
+		#end
+
 	}
 
 	function setupColorCameras() {
@@ -183,18 +191,15 @@ class PlayState extends FlxTransitionableState {
 
 		var level = new levels.ldtk.Level(levelID);
 
-		// terrainGroup.add(level.terrainGfx);
-
 		softFocusBounds = FlxRect.get(0, 0, level.bounds.width, level.bounds.height);
 		baseTerrainCam.setScrollBoundsRect(0, 0, level.bounds.width, level.bounds.height);
 
 		FlxEcho.instance.world.set(0, 0, level.bounds.width, level.bounds.height);
 
-		// TileMap.generate()
-
 		var tileObjs = TileTypes.buildTiles(level);
 		for (t in tileObjs) {
 			t.add_to_group(objects);
+			t.add_to_group(terrainGroup);
 			setCamera(t);
 		}
 		
@@ -237,7 +242,7 @@ class PlayState extends FlxTransitionableState {
 					t.close();
 				});
 			}
-		#if tune_movement
+		#if dev_spawn
 		} else if (level.raw.l_Objects.all_Dev_spawn.length > 0) {
 			var devSpawn = level.raw.l_Objects.all_Dev_spawn[0];
 			spawnPoint.set(devSpawn.pixelX, devSpawn.pixelY);

@@ -86,9 +86,11 @@ class LaserTurret extends BaseLaser {
 		super.chargeUpdate();
 		angle = FlxMath.lerp(startLockAngle, aimAngle, Math.min(.8, charging / CHARGE_TIME));
 		laserAngle = angle;
+	}
 
-		emitterPoint.set(16, 0).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
-		emitter.setPosition(emitterPoint.x, emitterPoint.y);
+	override function updateEmitterPoint() {
+		laserStartPoint.set(16, 0).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
+		emitter.setPosition(laserStartPoint.x, laserStartPoint.y);
 	}
 
 	override function laserFired() {

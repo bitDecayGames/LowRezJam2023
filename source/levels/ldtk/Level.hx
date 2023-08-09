@@ -1,5 +1,7 @@
 package levels.ldtk;
 
+import states.PlayState;
+import entities.enemy.PermaLaser;
 import entities.enemy.BaseLaser.LaserStationaryOptions;
 import entities.enemy.BaseLaser.LaserRailOptions;
 import collision.ColorCollideSprite;
@@ -119,6 +121,7 @@ class Level {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
 				rest: 3,
+				delay: 0,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_down) {
@@ -131,6 +134,7 @@ class Level {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
 				rest: 3,
+				delay: 0,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_left) {
@@ -143,6 +147,7 @@ class Level {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
 				rest: 3,
+				delay: 0,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_right) {
@@ -155,6 +160,7 @@ class Level {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
 				rest: 3,
+				delay: 0,
 			});
 		}
 
@@ -178,6 +184,7 @@ class Level {
 				color: Color.fromEnum(laser_turret.f_Color),
 				dir: N,
 				rest: 3,
+				delay: 0,
 			});
 			objects.add(laser);
 			emitters.push(laser.emitter);
@@ -195,6 +202,7 @@ class Level {
 				dir: Cardinal.N,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
+				delay: 0,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_down) {
@@ -205,6 +213,7 @@ class Level {
 				dir: Cardinal.S,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
+				delay: 0,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_left) {
@@ -215,6 +224,7 @@ class Level {
 				dir: Cardinal.W,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
+				delay: l.f_Delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_right) {
@@ -225,6 +235,7 @@ class Level {
 				dir: Cardinal.E,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
+				delay: l.f_Delay,
 			});
 		}
 
@@ -232,6 +243,11 @@ class Level {
 			var laser = new LaserStationary(l_config);
 			objects.add(laser);
 			emitters.push(laser.emitter);
+		}
+
+		for (l in level.l_Objects.all_Perma_laser) {
+			var laser = new PermaLaser(l.pixelX, l.pixelY, CardinalMaker.fromString(l.f_Direction.getName()), Color.fromEnum(l.f_Color));
+			objects.add(laser);
 		}
 	}
 

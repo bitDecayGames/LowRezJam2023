@@ -22,6 +22,7 @@ typedef BaseLaserOptions = {
 	dir: Cardinal,
 	color: Color,
 	rest: Float,
+	delay:Float,
 }
 
 typedef LaserStationaryOptions = BaseLaserOptions & {
@@ -33,12 +34,13 @@ typedef LaserRailOptions = BaseLaserOptions & {
 }
 
 class BaseLaser extends ColorCollideSprite {
-	private static inline var MAX_CAM_SHAKE = .01;
+	public static inline var MAX_CAM_SHAKE = .01;
+	public static inline var MAX_CAST_DISTANCE = 600;
 
 	var tmp = FlxPoint.get();
 
 	public var emitter:FlxEmitter;
-	var emitterPoint = FlxPoint.get();
+	var laserStartPoint = FlxPoint.get();
 
 	var laserColor:Color;
 	var laserAngle:Float;
@@ -68,14 +70,14 @@ class BaseLaser extends ColorCollideSprite {
 
 		COOLDOWN_TIME = options.rest;
 
-		emitter = new LaserParticle(options.spawnX + emitterPoint.x, options.spawnY + emitterPoint.y, laserColor);
+		emitter = new LaserParticle(options.spawnX + laserStartPoint.x, options.spawnY + laserStartPoint.y, laserColor);
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		if (!shooting) {
-			if (cooldown < COOLDOWN_TIME) {
+			if (cooldown <= COOLDOWN_TIME) {
 				cooldown += elapsed;
 				cooldownUpdate();
 
@@ -84,17 +86,18 @@ class BaseLaser extends ColorCollideSprite {
 					cooldownEnd();
 				}
 
-				emitterPoint.set(0, 8).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
-				emitter.setPosition(emitterPoint.x, emitterPoint.y);
+				updateEmitterPoint();
 			} else {
 				charging += elapsed;
 
 				chargeUpdate();
 				
 				if (charging >= CHARGE_TIME) {
-					var laserLength:Float = FlxG.width;
-					var laserCast = Line.get_from_vector(new Vector2(emitterPoint.x, emitterPoint.y), laserAngle, FlxG.width);
-					var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
+					updateEmitterPoint();
+
+					var laserLength:Float = MAX_CAST_DISTANCE;
+					var laserCast = Line.get_from_vector(new Vector2(laserStartPoint.x, laserStartPoint.y), laserAngle, MAX_CAST_DISTANCE);
+					var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.terrainGroup));
 					if (intersects.length > 0) {
 						for (i in intersects) {
 							if (Collide.bodyInteractsWithColor(i.body, laserColor)) {
@@ -109,7 +112,7 @@ class BaseLaser extends ColorCollideSprite {
 
 					updateDistances();
 
-					var laser = new LaserBeam(emitterPoint.x, emitterPoint.y, laserAngle, laserLength, laserColor);
+					var laser = new LaserBeam(laserStartPoint.x, laserStartPoint.y, laserAngle, laserLength, laserColor);
 					PlayState.ME.addLaser(laser);
 					if (volume > 0) {
 						FlxG.cameras.shake(MAX_CAM_SHAKE * volume, .5);
@@ -123,14 +126,21 @@ class BaseLaser extends ColorCollideSprite {
 					});
 					shooting = true;
 					// active = false;
-					cooldown = 0;
-					charging = 0;
+					
+					// this keeps any remainder flowing so theystay in sync
+					cooldown -= COOLDOWN_TIME;
+					charging -= CHARGE_TIME;
 					laserFired();
 				}
 			}
 		}
 
 		updateDistances();
+	}
+
+	function updateEmitterPoint() {
+		laserStartPoint.set(0, 8).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
+		emitter.setPosition(laserStartPoint.x, laserStartPoint.y);
 	}
 
 	function updateDistances() {

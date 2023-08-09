@@ -9,6 +9,7 @@ class LaserStationary extends BaseLaser {
 
 	public function new(options:BaseLaserOptions) {
 		super(options);
+		cooldown -= options.delay;
 	}
 
 	override function configSprite() {
