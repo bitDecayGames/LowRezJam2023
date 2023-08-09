@@ -16,6 +16,7 @@ class LaserBeam extends ColorCollideSprite {
 	var beamColor:Color;
 	var laserAngle:Float;
 
+	// TODO: See the normal and have particles only shoot off the surface the right direction
 	public function new(X:Float, Y:Float, angle:Float, length:Float, color:Color) {
 		spawn = FlxPoint.get(X, Y).addPoint(FlxPoint.get(1, 0).scale(length/2.0).pivotDegrees(FlxPoint.weak(), angle));
 		this.length = length;
@@ -25,12 +26,9 @@ class LaserBeam extends ColorCollideSprite {
 	}
 
 	override function configSprite() {
-		// XXX: just make this long enough to cover screen
-		// TODO: Do a ray cast and see what the laser would hit in the world
-		// TODO: See the normal and have particles only shoot off the surface the right direction
+		// XXX: just make this long enough to cover screen?
 		makeGraphic(Math.ceil(length), 8, beamColor.toFlxColor());
-		alpha = 0.8;
-		// offset.set(0, 4);
+		alpha = 0.5;
 	}
 
 	override function makeBody():Body {
@@ -57,7 +55,6 @@ class LaserBeam extends ColorCollideSprite {
 		super.handleEnter(other, data);
 
 		if (other.object is Player) {
-			// TODO: Drama / death sequence
 			PlayState.ME.playerDied();
 		}
 	}

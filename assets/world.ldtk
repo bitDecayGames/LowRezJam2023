@@ -1902,23 +1902,21 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "Laser_turret",
-							"__grid": [35,5],
-							"__pivot": [0.5,0.5],
+							"__identifier": "Laser_mount_right",
+							"__grid": [32,6],
+							"__pivot": [0,0],
 							"__tags": [],
-							"__tile": { "tilesetUid": 4, "x": 0, "y": 0, "w": 32, "h": 32 },
-							"__smartColor": "#FF5555",
-							"iid": "f2864040-1460-11ee-8829-3d76aefafff9",
+							"__tile": { "tilesetUid": 16, "x": 304, "y": 80, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "d47f53b0-1460-11ee-8829-e5b7cda076ce",
 							"width": 32,
 							"height": 32,
-							"defUid": 3,
-							"px": [568,88],
+							"defUid": 111,
+							"px": [512,104],
 							"fieldInstances": [
-								{ "__identifier": "range", "__type": "Float", "__value": 128, "__tile": null, "defUid": 9, "realEditorValues": [] },
-								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 73, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["RED"]
-								}] }
+								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 112, "realEditorValues": [] },
+								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 113, "realEditorValues": [] },
+								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 114, "realEditorValues": [] }
 							]
 						}
 					]

@@ -14,6 +14,8 @@ import flixel.math.FlxPoint;
 import flixel.effects.particles.FlxEmitter;
 import collision.ColorCollideSprite;
 
+using extension.CamExt;
+
 typedef BaseLaserOptions = {
 	spawnX: Float,
 	spawnY: Float,
@@ -31,6 +33,8 @@ typedef LaserRailOptions = BaseLaserOptions & {
 }
 
 class BaseLaser extends ColorCollideSprite {
+	var tmp = FlxPoint.get();
+
 	public var emitter:FlxEmitter;
 	var emitterPoint = FlxPoint.get();
 
@@ -43,6 +47,13 @@ class BaseLaser extends ColorCollideSprite {
 	var charging = 0.0;
 
 	var LASER_TIME = 1.0;
+
+	var maxDistanceToHear = 100;
+	var volume = 1.0;
+	var distanceFromCam = 0.0;
+	var emitterDistanceFromCam = 0.0;
+
+	var shooting = false;
 
 	public function new(options:BaseLaserOptions) {
 		super(options.spawnX, options.spawnY, EMPTY);
@@ -59,53 +70,67 @@ class BaseLaser extends ColorCollideSprite {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (cooldown < COOLDOWN_TIME) {
-			cooldown += elapsed;
-			cooldownUpdate();
+		if (!shooting) {
+			if (cooldown < COOLDOWN_TIME) {
+				cooldown += elapsed;
+				cooldownUpdate();
 
-			if (cooldown >= COOLDOWN_TIME) {
-				emitter.emitting = true;
-				cooldownEnd();
-			}
-
-			emitterPoint.set(0, 8).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
-			emitter.setPosition(emitterPoint.x, emitterPoint.y);
-		} else {
-			charging += elapsed;
-
-			chargeUpdate();
-			
-			if (charging >= CHARGE_TIME) {
-				var laserLength:Float = FlxG.width;
-				var laserCast = Line.get_from_vector(new Vector2(emitterPoint.x, emitterPoint.y), laserAngle, FlxG.width);
-				var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
-				if (intersects.length > 0) {
-					for (i in intersects) {
-						if (Collide.bodyInteractsWithColor(i.body, laserColor)) {
-							if (i.closest.distance < laserLength) {
-								laserLength = i.closest.distance;
-								emitter.setPosition(i.closest.hit.x, i.closest.hit.y);
-							}
-						}
-						i.put();
-					}
+				if (cooldown >= COOLDOWN_TIME) {
+					emitter.emitting = true;
+					cooldownEnd();
 				}
 
-				var laser = new LaserBeam(emitterPoint.x, emitterPoint.y, laserAngle, laserLength, laserColor);
-				PlayState.ME.addLaser(laser); 
-				FlxG.cameras.shake(.01, .5);
-				new FlxTimer().start(LASER_TIME, (t) -> {
-					emitter.emitting = false;
-					laser.kill();
-					active = true;
-					laserFinished();
-				});
-				active = false;
-				cooldown = 0;
-				charging = 0;
-				laserFired();
+				emitterPoint.set(0, 8).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
+				emitter.setPosition(emitterPoint.x, emitterPoint.y);
+			} else {
+				charging += elapsed;
+
+				chargeUpdate();
+				
+				if (charging >= CHARGE_TIME) {
+					var laserLength:Float = FlxG.width;
+					var laserCast = Line.get_from_vector(new Vector2(emitterPoint.x, emitterPoint.y), laserAngle, FlxG.width);
+					var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
+					if (intersects.length > 0) {
+						for (i in intersects) {
+							if (Collide.bodyInteractsWithColor(i.body, laserColor)) {
+								if (i.closest.distance < laserLength) {
+									laserLength = i.closest.distance;
+									emitter.setPosition(i.closest.hit.x, i.closest.hit.y);
+								}
+							}
+							i.put();
+						}
+					}
+
+					var laser = new LaserBeam(emitterPoint.x, emitterPoint.y, laserAngle, laserLength, laserColor);
+					PlayState.ME.addLaser(laser); 
+					FlxG.cameras.shake(.01, .5);
+					new FlxTimer().start(LASER_TIME, (t) -> {
+						emitter.emitting = false;
+						laser.kill();
+						shooting = false;
+						// active = true;
+						laserFinished();
+					});
+					shooting = true;
+					// active = false;
+					cooldown = 0;
+					charging = 0;
+					laserFired();
+				}
 			}
 		}
+
+		getGraphicMidpoint(tmp);
+		distanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
+		tmp.set(emitter.x, emitter.y);
+		emitterDistanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
+		FlxG.watch.addQuick('dfc: ', distanceFromCam);
+		FlxG.watch.addQuick('dfc E: ', emitterDistanceFromCam);
+
+		volume = Math.max(0, (maxDistanceToHear - Math.min(distanceFromCam, emitterDistanceFromCam))) / maxDistanceToHear;
+		FlxG.watch.addQuick('laserVolume: ', volume);
 	}
 
 	function cooldownUpdate() {}
