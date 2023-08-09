@@ -14,11 +14,13 @@ class LaserBeam extends ColorCollideSprite {
 	var spawn:FlxPoint;
 	var length:Float;
 	var beamColor:Color;
+	var laserAngle:Float;
 
 	public function new(X:Float, Y:Float, angle:Float, length:Float, color:Color) {
 		spawn = FlxPoint.get(X, Y).addPoint(FlxPoint.get(1, 0).scale(length/2.0).pivotDegrees(FlxPoint.weak(), angle));
 		this.length = length;
 		this.beamColor = color;
+		this.laserAngle = angle;
 		super(spawn.x, spawn.y, color);
 	}
 
@@ -37,7 +39,7 @@ class LaserBeam extends ColorCollideSprite {
 			y: spawn.y,
 			// mass: STATIC,
 			kinematic: true,
-			rotation: angle,
+			rotation: laserAngle,
 			shape: {
 				type: RECT,
 				width: length,

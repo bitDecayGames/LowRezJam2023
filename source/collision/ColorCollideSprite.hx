@@ -29,9 +29,9 @@ class ColorCollideSprite extends FlxSprite {
 			// color = cast initialColor;
 		}
 
+		configSprite();
 		body = makeBody();
 
-		configSprite();
 
 		// XXX: We want to force position and rotation immediately
 		if (body != null) {

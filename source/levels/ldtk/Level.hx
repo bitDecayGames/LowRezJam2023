@@ -1,5 +1,7 @@
 package levels.ldtk;
 
+import entities.enemy.BaseLaser.LaserStationaryOptions;
+import entities.enemy.BaseLaser.LaserRailOptions;
 import collision.ColorCollideSprite;
 import entities.camera.CameraTransitionZone;
 import entities.enemy.LaserStationary;
@@ -106,7 +108,7 @@ class Level {
 	}
 
 	function parseLaserRails(level:LDTKProject_Level) {
-		var laserOps:Array<LaserOptions> = [];
+		var laserOps:Array<LaserRailOptions> = [];
 		for (l in level.l_Objects.all_Laser_rail_up) {
 			laserOps.push({
 				spawnX: l.pixelX,
@@ -115,7 +117,8 @@ class Level {
 				dir: Cardinal.N,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
+				}],
+				rest: 3,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_down) {
@@ -126,7 +129,8 @@ class Level {
 				dir: Cardinal.S,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
+				}],
+				rest: 3,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_left) {
@@ -137,7 +141,8 @@ class Level {
 				dir: Cardinal.W,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
+				}],
+				rest: 3,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_right) {
@@ -148,7 +153,8 @@ class Level {
 				dir: Cardinal.E,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
+				}],
+				rest: 3,
 			});
 		}
 
@@ -166,7 +172,13 @@ class Level {
 			spawnPoint.addPoint(adjust);
 			var path = new Array<FlxPoint>();
 			path.push(spawnPoint);
-			var laser = new LaserTurret(spawnPoint.x, spawnPoint.y, Color.fromStr(laser_turret.f_Color.getName()));
+			var laser = new LaserTurret({
+				spawnX: spawnPoint.x,
+				spawnY: spawnPoint.y,
+				color: Color.fromEnum(laser_turret.f_Color),
+				dir: N,
+				rest: 3,
+			});
 			objects.add(laser);
 			emitters.push(laser.emitter);
 		}
