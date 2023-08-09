@@ -33,6 +33,8 @@ typedef LaserRailOptions = BaseLaserOptions & {
 }
 
 class BaseLaser extends ColorCollideSprite {
+	private static inline var MAX_CAM_SHAKE = .01;
+
 	var tmp = FlxPoint.get();
 
 	public var emitter:FlxEmitter;
@@ -48,6 +50,8 @@ class BaseLaser extends ColorCollideSprite {
 
 	var LASER_TIME = 1.0;
 
+	// controls how far off-screen we can hear things. `volume` curve 
+	// is directly based on this value
 	var maxDistanceToHear = 100;
 	var volume = 1.0;
 	var distanceFromCam = 0.0;
@@ -103,9 +107,13 @@ class BaseLaser extends ColorCollideSprite {
 						}
 					}
 
+					updateDistances();
+
 					var laser = new LaserBeam(emitterPoint.x, emitterPoint.y, laserAngle, laserLength, laserColor);
-					PlayState.ME.addLaser(laser); 
-					FlxG.cameras.shake(.01, .5);
+					PlayState.ME.addLaser(laser);
+					if (volume > 0) {
+						FlxG.cameras.shake(MAX_CAM_SHAKE * volume, .5);
+					}
 					new FlxTimer().start(LASER_TIME, (t) -> {
 						emitter.emitting = false;
 						laser.kill();
@@ -122,6 +130,10 @@ class BaseLaser extends ColorCollideSprite {
 			}
 		}
 
+		updateDistances();
+	}
+
+	function updateDistances() {
 		getGraphicMidpoint(tmp);
 		distanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
 		tmp.set(emitter.x, emitter.y);

@@ -224,12 +224,12 @@ class PlayState extends FlxTransitionableState {
 				}
 			}
 			var spawnDir = CardinalMaker.fromString(spawn.f_access_dir.getName());
-			spawnPoint.set(spawn.pixelX, spawn.pixelY - 2); // TODO: Adjust this so player walks out at correct height
+			spawnPoint.set(spawn.pixelX, spawn.pixelY);
 			// TODO: find a better way to calculate this offset
 			spawnPoint.addPoint(spawnDir.asVector().scale(16));
 
-			// FlxEcho.updates = false;
-			// FlxEcho.instance.active = false;
+			FlxEcho.updates = false;
+			FlxEcho.instance.active = false;
 			extraSpawnLogic = () -> {
 				player.transitionWalk(true, spawnDir, () -> {
 					FlxEcho.updates = true;

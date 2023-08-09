@@ -74,6 +74,7 @@ class LaserTurret extends BaseLaser {
 	override function cooldownEnd() {
 		super.cooldownEnd();
 		startLockAngle = angle;
+		FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryCharge);
 	}
 
 	override function cooldownUpdate() {

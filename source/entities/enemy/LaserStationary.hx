@@ -20,4 +20,9 @@ class LaserStationary extends BaseLaser {
 		super.cooldownEnd();
 		FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryCharge);
 	}
+
+	override function laserFired() {
+		super.laserFired();
+		FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryBlast);
+	}
 }

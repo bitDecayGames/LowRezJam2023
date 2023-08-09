@@ -55,11 +55,16 @@ class LaserRail extends BaseLaser {
 		super.cooldownEnd();
 		velocity.set();
 		this.path.active = false;
+		FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryCharge);
+	}
+
+	override function laserFired() {
+		super.laserFired();
+		FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryBlast2);
 	}
 
 	override function laserFinished() {
 		super.laserFinished();
-		FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryBlast2);
 		path.active = true;
 	}
 
