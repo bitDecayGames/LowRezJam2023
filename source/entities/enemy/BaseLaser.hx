@@ -31,6 +31,7 @@ typedef LaserStationaryOptions = BaseLaserOptions & {
 
 typedef LaserRailOptions = BaseLaserOptions & {
 	path: Array<FlxPoint>,
+	pauseOnFire: Bool,
 }
 
 class BaseLaser extends ColorCollideSprite {
@@ -41,7 +42,9 @@ class BaseLaser extends ColorCollideSprite {
 
 	public var emitter:FlxEmitter;
 	var laserStartPoint = FlxPoint.get();
+	var laserStartOffset = FlxPoint.get(0, 8);
 
+	public var beam:LaserBeam = null;
 	var laserColor:Color;
 	var laserAngle:Float;
 
@@ -70,6 +73,10 @@ class BaseLaser extends ColorCollideSprite {
 
 		COOLDOWN_TIME = options.rest;
 
+		beam = new LaserBeam(laserStartPoint.x, laserStartPoint.y, laserAngle, 1, laserColor);
+		beam.visible = false;
+		beam.body.active = false;
+
 		emitter = new LaserParticle(options.spawnX + laserStartPoint.x, options.spawnY + laserStartPoint.y, laserColor);
 	}
 
@@ -85,15 +92,12 @@ class BaseLaser extends ColorCollideSprite {
 					emitter.emitting = true;
 					cooldownEnd();
 				}
-
-				updateEmitterPoint();
 			} else {
 				charging += elapsed;
 
 				chargeUpdate();
 				
 				if (charging >= CHARGE_TIME) {
-					updateEmitterPoint();
 
 					var laserLength:Float = MAX_CAST_DISTANCE;
 					var laserCast = Line.get_from_vector(new Vector2(laserStartPoint.x, laserStartPoint.y), laserAngle, MAX_CAST_DISTANCE);
@@ -112,20 +116,19 @@ class BaseLaser extends ColorCollideSprite {
 
 					updateDistances();
 
-					var laser = new LaserBeam(laserStartPoint.x, laserStartPoint.y, laserAngle, laserLength, laserColor);
-					PlayState.ME.addLaser(laser);
 					if (volume > 0) {
 						FlxG.cameras.shake(MAX_CAM_SHAKE * volume, .5);
 					}
 					new FlxTimer().start(LASER_TIME, (t) -> {
 						emitter.emitting = false;
-						laser.kill();
 						shooting = false;
-						// active = true;
+						beam.body.active = false;
+						beam.visible = false;
 						laserFinished();
 					});
 					shooting = true;
-					// active = false;
+					beam.body.active = true;
+					beam.visible = true;
 					
 					// this keeps any remainder flowing so theystay in sync
 					cooldown -= COOLDOWN_TIME;
@@ -133,13 +136,21 @@ class BaseLaser extends ColorCollideSprite {
 					laserFired();
 				}
 			}
+		} else {
+			laserFiringUpdate();
 		}
 
+		updateEmitterPoint();
+		beam.updatePosition(laserStartPoint.x, laserStartPoint.y, laserAngle);
+			
+		if (shooting) {
+			emitter.setPosition(beam.impactPoint.x, beam.impactPoint.y);
+		}
 		updateDistances();
 	}
 
 	function updateEmitterPoint() {
-		laserStartPoint.set(0, 8).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
+		laserStartPoint.copyFrom(laserStartOffset).pivotDegrees(FlxPoint.weak(), angle).add(x + width/2, y + height/2);
 		emitter.setPosition(laserStartPoint.x, laserStartPoint.y);
 	}
 
@@ -162,6 +173,8 @@ class BaseLaser extends ColorCollideSprite {
 	function cooldownEnd() {}
 
 	function laserFired() {}
+
+	function laserFiringUpdate() {}
 
 	function laserFinished() {}
 }

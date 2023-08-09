@@ -18,7 +18,7 @@ class DeathParticles {
 		emitter.loadParticles(AssetPaths.simple_round__png);
 		emitter.color.set(cast color, cast color);
 		emitter.lifespan.set(1.25, 2.5);
-		emitter.scale.set(.1, .1, .5, .5, .8, .8, 1.5, 1.5);
+		emitter.scale.set(.8, .8, 1.5, 1.5, .1, .1, .5, .5);
 		emitter.alpha.set(.1, 1, 0, 0);
 		emitter.acceleration.set(0, 10, 0, 20, 0, -70, 0, -120);
 		emitter.angularVelocity.set(100, 1000);

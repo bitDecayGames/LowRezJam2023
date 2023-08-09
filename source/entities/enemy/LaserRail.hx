@@ -31,6 +31,7 @@ class LaserRail extends BaseLaser {
 	var destPointIndex = 0;
 	var pathPoints:Array<FlxPoint>;
 	var speed:Float;
+	var pauseOnFire:Bool;
 
 	public function new(options:LaserRailOptions) {
 		super(options);
@@ -44,6 +45,8 @@ class LaserRail extends BaseLaser {
 		pathPoints.push(spawnPoint.addPoint(adjust));
 		this.path = new FlxPath();
 		this.path.start(pathPoints, 50, FlxPathType.YOYO);
+
+		pauseOnFire = options.pauseOnFire;
 	}
 
 	override function configSprite() {
@@ -54,7 +57,9 @@ class LaserRail extends BaseLaser {
 	override function cooldownEnd() {
 		super.cooldownEnd();
 		velocity.set();
-		this.path.active = false;
+		if (pauseOnFire) {
+			this.path.active = false;
+		}
 		FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryCharge);
 	}
 

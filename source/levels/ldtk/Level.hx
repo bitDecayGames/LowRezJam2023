@@ -120,8 +120,9 @@ class Level {
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
+				pauseOnFire: l.f_Pause_on_fire,
 				rest: 3,
-				delay: 0,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_down) {
@@ -133,8 +134,9 @@ class Level {
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
+				pauseOnFire: l.f_Pause_on_fire,
 				rest: 3,
-				delay: 0,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_left) {
@@ -146,8 +148,9 @@ class Level {
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
+				pauseOnFire: l.f_Pause_on_fire,
 				rest: 3,
-				delay: 0,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_right) {
@@ -159,14 +162,16 @@ class Level {
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
+				pauseOnFire: l.f_Pause_on_fire,
 				rest: 3,
-				delay: 0,
+				delay: l.f_Initial_delay,
 			});
 		}
 
 		for (l_config in laserOps) {
 			var laser = new LaserRail(l_config);
 			objects.add(laser);
+			objects.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
 	}
@@ -187,6 +192,7 @@ class Level {
 				delay: 0,
 			});
 			objects.add(laser);
+			objects.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
 	}
@@ -202,7 +208,7 @@ class Level {
 				dir: Cardinal.N,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
-				delay: 0,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_down) {
@@ -213,7 +219,7 @@ class Level {
 				dir: Cardinal.S,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
-				delay: 0,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_left) {
@@ -224,7 +230,7 @@ class Level {
 				dir: Cardinal.W,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
-				delay: l.f_Delay,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_right) {
@@ -235,13 +241,14 @@ class Level {
 				dir: Cardinal.E,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
-				delay: l.f_Delay,
+				delay: l.f_Initial_delay,
 			});
 		}
 
 		for (l_config in laserOps) {
 			var laser = new LaserStationary(l_config);
 			objects.add(laser);
+			objects.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
 
