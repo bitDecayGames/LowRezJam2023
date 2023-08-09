@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="EventFolder" id="{1c3bb061-563d-4218-a8dd-d1619e7f5bb8}">
+		<property name="name">
+			<value>LaserTurret</value>
+		</property>
+		<relationship name="folder">
+			<destination>{2f5724b9-17aa-4b20-90ed-d6ae8499f999}</destination>
+		</relationship>
+	</object>
+</objects>

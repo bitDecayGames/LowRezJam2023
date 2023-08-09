@@ -96,13 +96,14 @@ class LaserTurret extends FlxSprite {
 			if (cooldown >= COOLDOWN_TIME) {
 				startLockAngle = angle;
 				emitter.emitting = true;
-				// TODO(SFX): laser begins charging
+				FmodManager.PlaySoundOneShot(FmodSFX.LaserTurretCharge2);
 			}
 		} else {
 			charging += elapsed;
 			angle = FlxMath.lerp(startLockAngle, aimAngle, Math.min(.8, charging / CHARGE_TIME));
 
 			if (charging >= CHARGE_TIME) {
+				FmodManager.PlaySoundOneShot(FmodSFX.LaserTurretBlast2);
 				var laserLength:Float = FlxG.width;
 				var laserCast = Line.get_from_vector(new Vector2(emitterPoint.x, emitterPoint.y), angle, FlxG.width);
 				var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));

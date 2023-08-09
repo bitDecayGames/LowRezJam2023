@@ -10,6 +10,10 @@ class FmodSongs {
 }
 
 class FmodSFX {
+    public static inline var LaserTurretBlast:String = "event:/SFX/Enemies/LaserTurret/LaserTurretBlast";
+    public static inline var LaserTurretBlast2:String = "event:/SFX/Enemies/LaserTurret/LaserTurretBlast2";
+    public static inline var LaserTurretCharge:String = "event:/SFX/Enemies/LaserTurret/LaserTurretCharge";
+    public static inline var LaserTurretCharge2:String = "event:/SFX/Enemies/LaserTurret/LaserTurretCharge2";
     public static inline var DoorTick:String = "event:/SFX/Level/Door/DoorTick";
     public static inline var MenuHover:String = "event:/SFX/Menu/MenuHover";
     public static inline var MenuSelect:String = "event:/SFX/Menu/MenuSelect";
