@@ -3,7 +3,8 @@ package collision;
 import flixel.util.FlxColor;
 
 enum abstract Color(Int) from Int to Int {
-	var EMPTY = FlxColor.WHITE & 0xFFFFFF;
+	// Full white behaves oddly with certain things... so one off
+	var EMPTY = FlxColor.WHITE & 0xFFFFFE;
 	
 	// Primary
 	var BLUE = 0x8888FF;
@@ -221,5 +222,11 @@ enum abstract Color(Int) from Int to Int {
 
 	public static function fromEnum(e:Enum_Color) {
 		return fromStr(e.getName());
+	}
+
+
+	public static function asList() {
+		// TODO: Expand to all colors
+		return [RED, YELLOW, BLUE];
 	}
 }

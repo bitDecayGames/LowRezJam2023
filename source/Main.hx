@@ -1,5 +1,6 @@
 package;
 
+import collision.Color;
 import progress.Collected;
 import shaders.ShaderUpdater;
 import shaders.PixelateShader;
@@ -76,16 +77,16 @@ class Main extends Sprite {
 		// force chunky pixel appearance
 		var shaderUpdater = new ShaderUpdater();
 		FlxG.plugins.add(shaderUpdater);
-		var setCameraShader = () -> {
-			var pixelShader = new PixelateShader();
-			FlxG.camera.setFilters( [new ShaderFilter(pixelShader)] ); 
-			shaderUpdater.setShader(pixelShader);
-		};
+		// var setCameraShader = () -> {
+		// 	var pixelShader = new PixelateShader(Color.EMPTY);
+		// 	FlxG.camera.setFilters( [new ShaderFilter(pixelShader)] ); 
+		// 	shaderUpdater.setShader(pixelShader);
+		// };
 
-		// call it once on startup
-		setCameraShader();
-		// then every time we switch states
-		FlxG.signals.preStateSwitch.add(setCameraShader);
+		// // call it once on startup
+		// setCameraShader();
+		// // then every time we switch states
+		// FlxG.signals.preStateSwitch.add(setCameraShader);
 		
 		// FlxG.game.stage.quality = StageQuality.LOW;
 

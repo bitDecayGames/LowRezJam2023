@@ -10,19 +10,39 @@ import echo.data.Data.CollisionData;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 
+using echo.FlxEcho;
+
 class ColorCollideSprite extends FlxSprite {
+	public var body:Body;
+
 	var lastColor:Int;
 	public var interactColor:Color;
 	var colorTime = 0.0;
-	var transitionLength = 0.25;
+	var transitionLength = 0.15;
 
+	@:access(echo.FlxEcho)
 	public function new(X:Float, Y:Float, initialColor:Color) {
 		super(X, Y);
 		lastColor = initialColor;
 		interactColor = initialColor;
 		if (initialColor != Color.EMPTY) {
-			color = cast initialColor;
+			// color = cast initialColor;
 		}
+
+		body = makeBody();
+
+		configSprite();
+
+		// XXX: We want to force position and rotation immediately
+		if (body != null) {
+			body.update_body_object();
+		}
+	}
+
+	public function configSprite() {}
+
+	public function makeBody():Body {
+		return null;
 	}
 
 	override function update(elapsed:Float) {
@@ -30,7 +50,7 @@ class ColorCollideSprite extends FlxSprite {
 		colorTime = Math.min(transitionLength, colorTime + elapsed);
 		
 		if (lastColor == interactColor) {
-			color = interactColor.toFlxColor();
+			// color = interactColor.toFlxColor();
 		} else {
 			var val = FlxColor.interpolate(cast lastColor, cast interactColor, colorTime / transitionLength);
 			// if (this is Player) {
@@ -65,6 +85,10 @@ class ColorCollideSprite extends FlxSprite {
 	}
 
 	public function handleEnter(other:Body, data:Array<CollisionData>) {
+
+	}
+
+	public function handleStay(other:Body, data:Array<CollisionData>) {
 
 	}
 

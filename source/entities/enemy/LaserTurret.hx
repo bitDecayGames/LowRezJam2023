@@ -1,4 +1,4 @@
-package entities;
+package entities.enemy;
 
 import echo.Body;
 import collision.Collide;
@@ -122,7 +122,7 @@ class LaserTurret extends FlxSprite {
 				// TODO(SFX): laser fires
 				var laser = new LaserBeam(emitterPoint.x, emitterPoint.y, angle, laserLength, laserColor);
 				PlayState.ME.addLaser(laser);
-				FlxG.camera.shake(.01, .5);
+				FlxG.cameras.shake(.01, .5);
 				new FlxTimer().start((t) -> {
 					emitter.emitting = false;
 					laser.kill();

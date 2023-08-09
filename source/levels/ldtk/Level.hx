@@ -1,14 +1,17 @@
 package levels.ldtk;
 
+import collision.ColorCollideSprite;
+import entities.camera.CameraTransitionZone;
+import entities.enemy.LaserStationary;
 import helpers.CardinalMaker;
 import bitdecay.flixel.spacial.Cardinal;
 import collision.Color;
 import progress.Collected;
 import entities.ColorUpgrade;
 import entities.Transition;
-import entities.LaserTurret;
+import entities.enemy.LaserTurret;
 import flixel.math.FlxRect;
-import entities.LaserRail;
+import entities.enemy.LaserRail;
 import entities.Player;
 import flixel.effects.particles.FlxEmitter;
 import flixel.FlxObject;
@@ -39,6 +42,9 @@ class Level {
 	public var objects = new FlxTypedGroup<FlxObject>();
 	public var emitters = new Array<FlxEmitter>();
 	public var playerSpawn:Entity_Spawn;
+
+	public var camZones:Map<String, FlxRect>;
+	public var camTransitionZones:Array<CameraTransitionZone>;
 
 	public function new(nameOrIID:String) {
 		var level = project.all_worlds.Default.getLevel(nameOrIID);
@@ -78,68 +84,11 @@ class Level {
 			}
 		}
 
-		var laserOps:Array<LaserOptions> = [];
-		for (l in level.l_Objects.all_Laser_rail_up) {
-			laserOps.push({
-				spawnX: l.pixelX,
-				spawnY: l.pixelY,
-				color: Color.fromEnum(l.f_Color),
-				dir: CardinalMaker.fromString(l.f_Direction.getName()),
-				path: [for (point in l.f_path) {
-					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
-			});
-		}
-		for (l in level.l_Objects.all_Laser_rail_down) {
-			laserOps.push({
-				spawnX: l.pixelX,
-				spawnY: l.pixelY,
-				color: Color.fromEnum(l.f_Color),
-				dir: CardinalMaker.fromString(l.f_Direction.getName()),
-				path: [for (point in l.f_path) {
-					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
-			});
-		}
-		for (l in level.l_Objects.all_Laser_rail_left) {
-			laserOps.push({
-				spawnX: l.pixelX,
-				spawnY: l.pixelY,
-				color: Color.fromEnum(l.f_Color),
-				dir: CardinalMaker.fromString(l.f_Direction.getName()),
-				path: [for (point in l.f_path) {
-					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
-			});
-		}
-		for (l in level.l_Objects.all_Laser_rail_right) {
-			laserOps.push({
-				spawnX: l.pixelX,
-				spawnY: l.pixelY,
-				color: Color.fromEnum(l.f_Color),
-				dir: CardinalMaker.fromString(l.f_Direction.getName()),
-				path: [for (point in l.f_path) {
-					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
-			});
-		}
-
-		for (l_config in laserOps) {
-			var laser = new LaserRail(l_config);
-			objects.add(laser);
-			emitters.push(laser.emitter);
-		}
-
-		for (laser_turret in level.l_Objects.all_Laser_turret) {
-			var spawnPoint = FlxPoint.get(laser_turret.pixelX, laser_turret.pixelY);
-			var adjust = FlxPoint.get(-16, -16);
-			spawnPoint.addPoint(adjust);
-			var path = new Array<FlxPoint>();
-			path.push(spawnPoint);
-			var laser = new LaserTurret(spawnPoint.x, spawnPoint.y, Color.fromStr(laser_turret.f_Color.getName()));
-			objects.add(laser);
-			emitters.push(laser.emitter);
-		}
+		parseLaserRails(level);
+		parseLaserTurrets(level);
+		parseLaserStationary(level);
+		parseCameraAreas(level);
+		parseCameraTransitions(level);
 
 		for (door in level.l_Objects.all_Door) {
 			var d = new Transition(door);
@@ -153,6 +102,143 @@ class Level {
 			}
 			var upgrader = new ColorUpgrade(u);
 			objects.add(upgrader);
+		}
+	}
+
+	function parseLaserRails(level:LDTKProject_Level) {
+		var laserOps:Array<LaserOptions> = [];
+		for (l in level.l_Objects.all_Laser_rail_up) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.N,
+				path: [for (point in l.f_path) {
+					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
+				}]
+			});
+		}
+		for (l in level.l_Objects.all_Laser_rail_down) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.S,
+				path: [for (point in l.f_path) {
+					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
+				}]
+			});
+		}
+		for (l in level.l_Objects.all_Laser_rail_left) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.W,
+				path: [for (point in l.f_path) {
+					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
+				}]
+			});
+		}
+		for (l in level.l_Objects.all_Laser_rail_right) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.E,
+				path: [for (point in l.f_path) {
+					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
+				}]
+			});
+		}
+
+		for (l_config in laserOps) {
+			var laser = new LaserRail(l_config);
+			objects.add(laser);
+			emitters.push(laser.emitter);
+		}
+	}
+
+	function parseLaserTurrets(level:LDTKProject_Level) {
+		for (laser_turret in level.l_Objects.all_Laser_turret) {
+			var spawnPoint = FlxPoint.get(laser_turret.pixelX, laser_turret.pixelY);
+			var adjust = FlxPoint.get(-16, -16);
+			spawnPoint.addPoint(adjust);
+			var path = new Array<FlxPoint>();
+			path.push(spawnPoint);
+			var laser = new LaserTurret(spawnPoint.x, spawnPoint.y, Color.fromStr(laser_turret.f_Color.getName()));
+			objects.add(laser);
+			emitters.push(laser.emitter);
+		}
+	}
+
+	function parseLaserStationary(level:LDTKProject_Level) {
+		var laserOps:Array<LaserStationaryOptions> = [];
+
+		for (l in level.l_Objects.all_Laser_mount_up) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.N,
+				rest: l.f_Rest,
+				laserTime: l.f_Laser_time,
+			});
+		}
+		for (l in level.l_Objects.all_Laser_mount_down) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.S,
+				rest: l.f_Rest,
+				laserTime: l.f_Laser_time,
+			});
+		}
+		for (l in level.l_Objects.all_Laser_mount_left) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.W,
+				rest: l.f_Rest,
+				laserTime: l.f_Laser_time,
+			});
+		}
+		for (l in level.l_Objects.all_Laser_mount_right) {
+			laserOps.push({
+				spawnX: l.pixelX,
+				spawnY: l.pixelY,
+				color: Color.fromEnum(l.f_Color),
+				dir: Cardinal.E,
+				rest: l.f_Rest,
+				laserTime: l.f_Laser_time,
+			});
+		}
+
+		for (l_config in laserOps) {
+			var laser = new LaserStationary(l_config);
+			objects.add(laser);
+			emitters.push(laser.emitter);
+		}
+	}
+
+	function parseCameraAreas(level:LDTKProject_Level) {
+		camZones = new Map<String, FlxRect>();
+		for (guide in level.l_Objects.all_Camera_guide) {
+			camZones.set(guide.iid, FlxRect.get(guide.pixelX, guide.pixelY, guide.width, guide.height));
+		}
+	}
+
+	function parseCameraTransitions(level:LDTKProject_Level) {
+		camTransitionZones = new Array<CameraTransitionZone>();
+		for (zone in level.l_Objects.all_Camera_transition) {
+			var transArea = FlxRect.get(zone.pixelX, zone.pixelY, zone.width, zone.height);
+			var camTrigger = new CameraTransitionZone(transArea);
+			for (i in 0...zone.f_dir.length) {
+				camTrigger.addGuideTrigger(CardinalMaker.fromString(zone.f_dir[i].getName()), camZones.get(zone.f_areas[i].entityIid));
+			}
+			camTransitionZones.push(camTrigger);
 		}
 	}
 }

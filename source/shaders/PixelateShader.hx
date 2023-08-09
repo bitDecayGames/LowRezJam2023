@@ -1,5 +1,6 @@
 package shaders;
 
+import collision.Color;
 import flixel.FlxG;
 
 class PixelateShader extends flixel.system.FlxAssets.FlxShader
@@ -19,6 +20,8 @@ class PixelateShader extends flixel.system.FlxAssets.FlxShader
 
         // size of pixels along x/y axes
         uniform vec2 iPixelSize;
+
+        uniform vec3 iColorMultiplier;
 
         uniform float iSampleDistance;
 
@@ -63,16 +66,19 @@ class PixelateShader extends flixel.system.FlxAssets.FlxShader
                 }
             }
 
+            col.xyz = col.xyz * iColorMultiplier;
+
             gl_FragColor = col;
         }
     ')
 
-    public function new() {
+    public function new(color:Color) {
         super();
         this.iPixelSize.value = [1 / 64, 1 / 64];
         this.iDebug.value = [debug];
         this.iEnabled.value = [enabled];
         this.iSampleDistance.value = [sampleDistance];
+        this.iColorMultiplier.value = [color.red()/255.0, color.green()/255.0, color.blue()/255.0];
     }
 
     public function update(elapsed:Float)

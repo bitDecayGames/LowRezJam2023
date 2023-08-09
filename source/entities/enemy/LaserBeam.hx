@@ -1,5 +1,6 @@
-package entities;
+package entities.enemy;
 
+import entities.particles.DeathParticles;
 import states.PlayState;
 import echo.data.Data.CollisionData;
 import flixel.math.FlxPoint;
@@ -10,23 +11,28 @@ import collision.ColorCollideSprite;
 using echo.FlxEcho;
 
 class LaserBeam extends ColorCollideSprite {
+	var spawn:FlxPoint;
+	var length:Float;
+	var beamColor:Color;
 
-	public var body:Body;
-
-	@:access(echo.FlxEcho)
 	public function new(X:Float, Y:Float, angle:Float, length:Float, color:Color) {
-		var spawn = FlxPoint.get(X, Y).addPoint(FlxPoint.get(1, 0).scale(length/2.0).pivotDegrees(FlxPoint.weak(), angle));
-		
+		spawn = FlxPoint.get(X, Y).addPoint(FlxPoint.get(1, 0).scale(length/2.0).pivotDegrees(FlxPoint.weak(), angle));
+		this.length = length;
+		this.beamColor = color;
 		super(spawn.x, spawn.y, color);
+	}
 
+	override function configSprite() {
 		// XXX: just make this long enough to cover screen
 		// TODO: Do a ray cast and see what the laser would hit in the world
 		// TODO: See the normal and have particles only shoot off the surface the right direction
-		makeGraphic(Math.ceil(length), 8, color.toFlxColor());
+		makeGraphic(Math.ceil(length), 8, beamColor.toFlxColor());
 		alpha = 0.8;
 		// offset.set(0, 4);
+	}
 
-		body = this.add_body({
+	override function makeBody():Body {
+		return this.add_body({
 			x: spawn.x,
 			y: spawn.y,
 			// mass: STATIC,
@@ -39,9 +45,6 @@ class LaserBeam extends ColorCollideSprite {
 				solid: false,
 			}
 		});
-
-		// XXX: We want to force position and rotation immediately
-		body.update_body_object();
 	}
 
 	override function update(elapsed:Float) {
@@ -53,7 +56,7 @@ class LaserBeam extends ColorCollideSprite {
 
 		if (other.object is Player) {
 			// TODO: Drama / death sequence
-			PlayState.ME.resetLevel();
+			PlayState.ME.playerDied();
 		}
 	}
 

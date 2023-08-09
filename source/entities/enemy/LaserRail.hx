@@ -1,5 +1,6 @@
-package entities;
+package entities.enemy;
 
+import collision.Collide;
 import bitdecay.flixel.spacial.Cardinal;
 import loaders.Aseprite;
 import loaders.AsepriteMacros;
@@ -46,18 +47,17 @@ class LaserRail extends FlxSprite {
 
 	public function new(options:LaserOptions) {
 		var spawnPoint = FlxPoint.get(options.spawnX, options.spawnY);
-		var adjust = FlxPoint.get(16, 16);
-		spawnPoint.addPoint(adjust);
 		super(spawnPoint.x, spawnPoint.y);
 		this.laserColor = options.color;
 		angle = options.dir + 180;
 		laserAngle = options.dir + 270;
 
+		var adjust = FlxPoint.get(16, 16);
 		this.pathPoints = options.path;
 		for (p in pathPoints) {
 			p.addPoint(adjust);
 		}
-		pathPoints.push(spawnPoint);
+		pathPoints.push(spawnPoint.addPoint(adjust));
 		this.path = new FlxPath();
 		this.path.start(pathPoints, 50, FlxPathType.YOYO);
 
@@ -100,9 +100,11 @@ class LaserRail extends FlxSprite {
 				var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
 				if (intersects.length > 0) {
 					for (i in intersects) {
-						if (i.closest.distance < laserLength) {
-							laserLength = i.closest.distance;
-							emitter.setPosition(i.closest.hit.x, i.closest.hit.y);
+						if (Collide.bodyInteractsWithColor(i.body, laserColor)) {
+							if (i.closest.distance < laserLength) {
+								laserLength = i.closest.distance;
+								emitter.setPosition(i.closest.hit.x, i.closest.hit.y);
+							}
 						}
 						i.put();
 					}
@@ -111,7 +113,7 @@ class LaserRail extends FlxSprite {
 				// TODO(SFX): laser fires
 				var laser = new LaserBeam(emitterPoint.x, emitterPoint.y, laserAngle, laserLength, laserColor);
 				PlayState.ME.addLaser(laser); 
-				FlxG.camera.shake(.01, .5);
+				FlxG.cameras.shake(.01, .5);
 				new FlxTimer().start(0.5, (t) -> {
 					emitter.emitting = false;
 					laser.kill();

@@ -1,5 +1,6 @@
 package entities;
 
+import echo.Body;
 import collision.ColorCollideSprite;
 import collision.Constants;
 import flixel.util.FlxColor;
@@ -10,12 +11,16 @@ using echo.FlxEcho;
 class Platform extends ColorCollideSprite {
 	public function new(X:Float, Y:Float) {
 		super(X, Y, EMPTY);
+	}
 
+	override function configSprite() {
 		makeGraphic(32, 32, FlxColor.GRAY, true);
+	}
 
-		this.add_body({
-			x: X,
-			y: Y,
+	override function makeBody():Body {
+		return this.add_body({
+			x: x,
+			y: y,
 			kinematic: true,
 			shape: {
 				type: RECT,
