@@ -189,14 +189,14 @@ class Player extends ColorCollideSprite {
 			checkGrounded = true;
 		} else if (data[0].normal.y < 0) {
 			bonkedHead = true;
-			// TODO(SFX): head bonk
+			FmodManager.PlaySoundOneShot(FmodSFX.PlayerBonk);
 		}
 
 		if (data[0].normal.x != 0 && previousVelocity.length > WALL_COLLIDE_SFX_THRESHOLD) {
 			if (grounded) {
 				// TODO(SFX): grounded wall smack
 			} else {
-				// TODO(SFX): airborne wall smack
+				// FmodManager.PlaySoundOneShot(FmodSFX.PlayerBonkWall2);
 			}
 		}
 	}

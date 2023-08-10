@@ -79,7 +79,7 @@ class LaserTurret extends BaseLaser {
 	override function cooldownEnd() {
 		super.cooldownEnd();
 		startLockAngle = angle;
-		// FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryCharge);
+		chargeSoundId = FmodManager.PlaySoundWithReference(FmodSFX.LaserTurretCharge2);
 	}
 
 	override function cooldownUpdate() {
@@ -95,7 +95,7 @@ class LaserTurret extends BaseLaser {
 
 	override function laserFired() {
 		super.laserFired();
-		// FmodManager.PlaySoundOneShot(FmodSFX.LaserTurretBlast3);
+		blastSoundId = FmodManager.PlaySoundWithReference(FmodSFX.LaserTurretBlast3);
 		startLockAngle = angle;
 		forceAngularUpdate = true;
 		angleUpdate = angle - lastAngle;
