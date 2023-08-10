@@ -123,6 +123,7 @@ class Level {
 				pauseOnFire: l.f_Pause_on_fire,
 				rest: 3,
 				delay: l.f_Initial_delay,
+				shootOnNode: l.f_Shoot_on_node,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_down) {
@@ -137,6 +138,7 @@ class Level {
 				pauseOnFire: l.f_Pause_on_fire,
 				rest: 3,
 				delay: l.f_Initial_delay,
+				shootOnNode: l.f_Shoot_on_node,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_left) {
@@ -151,6 +153,7 @@ class Level {
 				pauseOnFire: l.f_Pause_on_fire,
 				rest: 3,
 				delay: l.f_Initial_delay,
+				shootOnNode: l.f_Shoot_on_node,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_right) {
@@ -165,6 +168,7 @@ class Level {
 				pauseOnFire: l.f_Pause_on_fire,
 				rest: 3,
 				delay: l.f_Initial_delay,
+				shootOnNode: l.f_Shoot_on_node,
 			});
 		}
 

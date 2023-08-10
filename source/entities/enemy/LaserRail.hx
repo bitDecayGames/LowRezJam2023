@@ -17,14 +17,6 @@ import flixel.effects.particles.FlxEmitter;
 import collision.Color;
 import flixel.FlxSprite;
 
-typedef LaserOptions = {
-	spawnX: Float,
-	spawnY: Float,
-	dir: Cardinal,
-	path: Array<FlxPoint>,
-	color: Color,
-}
-
 class LaserRail extends BaseLaser {
 	private static var anims = AsepriteMacros.tagNames("assets/aseprite/crawlingTurret.json");
 
@@ -32,6 +24,7 @@ class LaserRail extends BaseLaser {
 	var pathPoints:Array<FlxPoint>;
 	var speed:Float;
 	var pauseOnFire:Bool;
+	var shootOnNode:Bool;
 
 	public function new(options:LaserRailOptions) {
 		super(options);
@@ -47,6 +40,7 @@ class LaserRail extends BaseLaser {
 		this.path.start(pathPoints, 50, FlxPathType.YOYO);
 
 		pauseOnFire = options.pauseOnFire;
+		shootOnNode = options.shootOnNode;
 	}
 
 	override function configSprite() {

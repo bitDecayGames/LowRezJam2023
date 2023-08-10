@@ -78,6 +78,8 @@ class Player extends ColorCollideSprite {
 	var tmpAABB:AABB = AABB.get();
 	var echoTmp:Vector2 = new Vector2(0, 0);
 
+	var mixColors = false;
+
 	var animState = new AnimationState();
 
 	public function new(X:Float, Y:Float) {
@@ -182,7 +184,10 @@ class Player extends ColorCollideSprite {
 			checkGrounded = true;
 		} else if (data[0].normal.y < 0) {
 			bonkedHead = true;
+			// TODO(SFX): head bonk
 		}
+
+		// if (data[0].normal.x >)
 	}
 
 	@:access(echo.FlxEcho)
@@ -285,9 +290,13 @@ class Player extends ColorCollideSprite {
 		}
 
 		if (body.velocity.x == 0) {
-			removeColor(RED);
+			if (mixColors) {
+				removeColor(RED);
+			}
 		} else {
-			addColorIfUnlocked(RED);
+			if (mixColors) {
+				addColorIfUnlocked(RED);
+			}
 		}
 
 		if (body.acceleration.x > 0) {
@@ -382,10 +391,14 @@ class Player extends ColorCollideSprite {
 		if (SimpleController.pressed(DOWN)) {
 			animState.add(CROUCHED);
 			topShape.solid = false;
-			addColorIfUnlocked(YELLOW);
+			if (mixColors) {
+				addColorIfUnlocked(YELLOW);
+			}
 		} else {
 			topShape.solid = true;
-			removeColor(YELLOW);
+			if (mixColors) {
+				removeColor(YELLOW);
+			}
 		}
 		
 		body.bounds(tmpAABB);
@@ -455,18 +468,53 @@ class Player extends ColorCollideSprite {
 					FmodManager.PlaySoundOneShot(FmodSFX.PlayerLand1);
 				}
 				grounded = true;
-				removeColor(BLUE);
+				if (mixColors) {
+					removeColor(BLUE);
+				}
 			}
 		} else if (!groundedCastLeft && !groundedCastMiddle && !groundedCastRight) {
 			checkGrounded = false;
 			grounded = false;
-			addColorIfUnlocked(BLUE);
+			if (mixColors) {
+				addColorIfUnlocked(BLUE);
+			}
 		}
 
 		if (grounded) {
 			animState.add(GROUNDED);
 		}
 
+		if (!mixColors) {
+			var tmpColor = interactColor;
+
+			interactColor = EMPTY;
+
+			// moving means red
+			if (Math.abs(body.velocity.x) > 0 || (SimpleController.pressed(LEFT) || SimpleController.pressed(RIGHT))) {
+				if (Collected.has(RED)) {
+					interactColor = RED;
+				}
+			}
+
+			// airborn blue takes priority over red
+			if (!grounded) {
+				if (Collected.has(BLUE)) {
+					interactColor = BLUE;
+				}
+			}
+
+			// crouching  takes priority over blue and red
+			if (SimpleController.pressed(DOWN)) {
+				if (Collected.has(YELLOW)) {
+					interactColor = YELLOW;
+				}
+			}
+
+			if (interactColor != tmpColor) {
+				lastColor = tmpColor;
+				colorTime = 0.0;
+			}
+		}
 	}
 
 	function updateCurrentAnimation() {
@@ -538,6 +586,12 @@ class Player extends ColorCollideSprite {
 	function addColorIfUnlocked(c:Color) {
 		if (Collected.has(c)) {
 			addColor(c);
+		}
+	}
+
+	function setColorIfUnlocked(c:Color) {
+		if (Collected.has(c)) {
+			interactColor = c;
 		}
 	}
 }

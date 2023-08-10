@@ -32,6 +32,7 @@ typedef LaserStationaryOptions = BaseLaserOptions & {
 typedef LaserRailOptions = BaseLaserOptions & {
 	path: Array<FlxPoint>,
 	pauseOnFire: Bool,
+	shootOnNode: Bool,
 }
 
 class BaseLaser extends ColorCollideSprite {
