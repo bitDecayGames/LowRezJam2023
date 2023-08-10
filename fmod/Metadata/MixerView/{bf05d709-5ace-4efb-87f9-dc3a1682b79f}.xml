@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="UiMixerView" id="{bf05d709-5ace-4efb-87f9-dc3a1682b79f}">
+		<property name="name">
+			<value>LaserCharge</value>
+		</property>
+		<relationship name="assignedStrips">
+			<destination>{84a51fc5-afa1-41c6-8686-6810890a6743}</destination>
+			<destination>{d0f4b39e-5457-4002-b882-fa39ff0d166e}</destination>
+			<destination>{b9efa988-9d53-48d9-819d-1b4a191462c0}</destination>
+		</relationship>
+		<relationship name="mixer">
+			<destination>{f3084d97-e99e-4dd1-aa55-72c51cee82a3}</destination>
+		</relationship>
+	</object>
+</objects>

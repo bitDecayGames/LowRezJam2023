@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="UiMixerView" id="{64f1df01-e63b-4bd5-bbb8-f2ac8fa8ce83}">
 		<property name="name">
-			<value>Lasers</value>
+			<value>LaserBlast</value>
 		</property>
 		<relationship name="assignedStrips">
 			<destination>{f0180d31-4f21-4895-8dfe-059905561a20}</destination>

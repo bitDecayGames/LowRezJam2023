@@ -59,6 +59,8 @@ class BaseLaser extends ColorCollideSprite {
 	// controls how far off-screen we can hear things. `volume` curve 
 	// is directly based on this value
 	var maxDistanceToHear = 100;
+	var chargeSoundId = "";
+	var blastSoundId = "";
 	var volume = 1.0;
 	var distanceFromCam = 0.0;
 	var emitterDistanceFromCam = 0.0;
@@ -83,6 +85,14 @@ class BaseLaser extends ColorCollideSprite {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		if (chargeSoundId != "") {
+			FmodManager.SetEventParameterOnSound(chargeSoundId, "volume", volume);
+		}
+
+		if (blastSoundId != "") {
+			FmodManager.SetEventParameterOnSound(blastSoundId, "volume", volume);
+		}
 
 		if (!shooting) {
 			if (cooldown <= COOLDOWN_TIME) {
@@ -123,10 +133,14 @@ class BaseLaser extends ColorCollideSprite {
 					new FlxTimer().start(LASER_TIME, (t) -> {
 						emitter.emitting = false;
 						shooting = false;
+						FmodManager.StopSoundImmediately(blastSoundId);
+						blastSoundId = "";
 						beam.body.active = false;
 						beam.visible = false;
 						laserFinished();
 					});
+					FmodManager.StopSoundImmediately(chargeSoundId);
+					chargeSoundId = "";
 					shooting = true;
 					beam.body.active = true;
 					beam.visible = true;
