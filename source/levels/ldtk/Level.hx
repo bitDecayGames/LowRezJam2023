@@ -1,5 +1,9 @@
 package levels.ldtk;
 
+import states.PlayState;
+import entities.enemy.PermaLaser;
+import entities.enemy.BaseLaser.LaserStationaryOptions;
+import entities.enemy.BaseLaser.LaserRailOptions;
 import collision.ColorCollideSprite;
 import entities.camera.CameraTransitionZone;
 import entities.enemy.LaserStationary;
@@ -106,7 +110,7 @@ class Level {
 	}
 
 	function parseLaserRails(level:LDTKProject_Level) {
-		var laserOps:Array<LaserOptions> = [];
+		var laserOps:Array<LaserRailOptions> = [];
 		for (l in level.l_Objects.all_Laser_rail_up) {
 			laserOps.push({
 				spawnX: l.pixelX,
@@ -115,7 +119,10 @@ class Level {
 				dir: Cardinal.N,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
+				}],
+				pauseOnFire: l.f_Pause_on_fire,
+				rest: 3,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_down) {
@@ -126,7 +133,10 @@ class Level {
 				dir: Cardinal.S,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
+				}],
+				pauseOnFire: l.f_Pause_on_fire,
+				rest: 3,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_left) {
@@ -137,7 +147,10 @@ class Level {
 				dir: Cardinal.W,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
+				}],
+				pauseOnFire: l.f_Pause_on_fire,
+				rest: 3,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_right) {
@@ -148,13 +161,17 @@ class Level {
 				dir: Cardinal.E,
 				path: [for (point in l.f_path) {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
-				}]
+				}],
+				pauseOnFire: l.f_Pause_on_fire,
+				rest: 3,
+				delay: l.f_Initial_delay,
 			});
 		}
 
 		for (l_config in laserOps) {
 			var laser = new LaserRail(l_config);
 			objects.add(laser);
+			objects.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
 	}
@@ -166,8 +183,16 @@ class Level {
 			spawnPoint.addPoint(adjust);
 			var path = new Array<FlxPoint>();
 			path.push(spawnPoint);
-			var laser = new LaserTurret(spawnPoint.x, spawnPoint.y, Color.fromStr(laser_turret.f_Color.getName()));
+			var laser = new LaserTurret({
+				spawnX: spawnPoint.x,
+				spawnY: spawnPoint.y,
+				color: Color.fromEnum(laser_turret.f_Color),
+				dir: N,
+				rest: 3,
+				delay: 0,
+			});
 			objects.add(laser);
+			objects.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
 	}
@@ -183,6 +208,7 @@ class Level {
 				dir: Cardinal.N,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_down) {
@@ -193,6 +219,7 @@ class Level {
 				dir: Cardinal.S,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_left) {
@@ -203,6 +230,7 @@ class Level {
 				dir: Cardinal.W,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
+				delay: l.f_Initial_delay,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_right) {
@@ -213,13 +241,20 @@ class Level {
 				dir: Cardinal.E,
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
+				delay: l.f_Initial_delay,
 			});
 		}
 
 		for (l_config in laserOps) {
 			var laser = new LaserStationary(l_config);
 			objects.add(laser);
+			objects.add(laser.beam);
 			emitters.push(laser.emitter);
+		}
+
+		for (l in level.l_Objects.all_Perma_laser) {
+			var laser = new PermaLaser(l.pixelX, l.pixelY, CardinalMaker.fromString(l.f_Direction.getName()), Color.fromEnum(l.f_Color));
+			objects.add(laser);
 		}
 	}
 
