@@ -532,7 +532,11 @@ class Player extends ColorCollideSprite {
 		inControl = false;
 		body.velocity.set(0, 0);
 		body.active = false;
-		playAnimIfNotAlready(anims.death);
+		FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieHit);
+		new FlxTimer().start(.25, (t) -> {
+			FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieSwell4);
+			playAnimIfNotAlready(anims.death);
+		});
 	}
 
 	function addColorIfUnlocked(c:Color) {

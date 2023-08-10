@@ -28,6 +28,13 @@ class FmodSFX {
     public static inline var ColorShoot:String = "event:/SFX/Player/Color/ColorShoot";
     public static inline var ColorStart:String = "event:/SFX/Player/Color/ColorStart";
     public static inline var ColorTouch:String = "event:/SFX/Player/Color/ColorTouch";
+    public static inline var PlayerDieBurst:String = "event:/SFX/Player/Die/PlayerDieBurst";
+    public static inline var PlayerDieBurst2:String = "event:/SFX/Player/Die/PlayerDieBurst2";
+    public static inline var PlayerDieHit:String = "event:/SFX/Player/Die/PlayerDieHit";
+    public static inline var PlayerDieSwell:String = "event:/SFX/Player/Die/PlayerDieSwell";
+    public static inline var PlayerDieSwell2:String = "event:/SFX/Player/Die/PlayerDieSwell2";
+    public static inline var PlayerDieSwell3:String = "event:/SFX/Player/Die/PlayerDieSwell3";
+    public static inline var PlayerDieSwell4:String = "event:/SFX/Player/Die/PlayerDieSwell4";
     public static inline var PlayerJump1:String = "event:/SFX/Player/Jump/PlayerJump1";
     public static inline var PlayerJump2:String = "event:/SFX/Player/Jump/PlayerJump2";
     public static inline var PlayerJump3:String = "event:/SFX/Player/Jump/PlayerJump3";

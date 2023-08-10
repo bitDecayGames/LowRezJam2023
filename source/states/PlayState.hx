@@ -369,13 +369,12 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	public function playerDied() {
-		// TODO(SFX): Death detected. Time begins slowing, player begins death animation
 		player.beginDie();
-		FlxTween.tween(this, {deltaMod: deathDeltaMod}, 0.2, {
+		FlxTween.tween(this, {deltaMod: deathDeltaMod}, .7, {
 			// TODO(SFX): Time has fully slowed down, brief pause before player pops
 			onComplete: (tween1) -> {
-				new FlxTimer().start(.7, (timer) -> {
-					// TODO(SFX): Player bursts, screen flashes
+				new FlxTimer().start(.45, (timer) -> {
+					FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieBurst2);
 					player.kill();
 					DeathParticles.create(player.body.x, player.body.y, !player.grounded, Collected.unlockedColors());
 					FlxG.cameras.flash(0.5);
