@@ -55,6 +55,10 @@ class Player extends ColorCollideSprite {
 
 	var MAX_VELOCITY = 15 * Constants.BLOCK_SIZE;
 
+	var WALL_COLLIDE_SFX_THRESHOLD = 100;
+
+	var previousVelocity:Vector2 = new Vector2(0, 0);
+
 	// how many "Min jump windows" of duration we transition to full jump strength
 	var JUMP_TRANSITION_MOD = 2;
 
@@ -187,7 +191,13 @@ class Player extends ColorCollideSprite {
 			// TODO(SFX): head bonk
 		}
 
-		// if (data[0].normal.x >)
+		if (data[0].normal.x != 0 && previousVelocity.length > WALL_COLLIDE_SFX_THRESHOLD) {
+			if (grounded) {
+				// TODO(SFX): grounded wall smack
+			} else {
+				// TODO(SFX): airborne wall smack
+			}
+		}
 	}
 
 	@:access(echo.FlxEcho)
@@ -230,6 +240,8 @@ class Player extends ColorCollideSprite {
 
 	override public function update(delta:Float) {
 		super.update(delta);
+
+		previousVelocity.set(body.velocity.x, body.velocity.y);
 
 		animState.reset();
 
