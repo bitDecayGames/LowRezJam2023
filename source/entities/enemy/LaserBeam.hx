@@ -28,6 +28,7 @@ class LaserBeam extends ColorCollideSprite {
 		this.beamColor = color;
 		this.laserAngle = angle;
 		super(spawn.x, spawn.y, color);
+		scale.set(length, 1);
 	}
 
 	override function configSprite() {

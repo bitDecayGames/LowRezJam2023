@@ -597,6 +597,10 @@ class Player extends ColorCollideSprite {
 	}
 
 	public function beginDie() {
+		// force our color to even out for our death freeze frame
+		lastColor = interactColor;
+		color = cast interactColor;
+
 		inControl = false;
 		body.velocity.set(0, 0);
 		body.active = false;
