@@ -1,5 +1,6 @@
 package entities;
 
+import flixel.util.FlxSpriteUtil;
 import flixel.FlxObject;
 import flixel.util.FlxTimer;
 import progress.Collected;
@@ -245,8 +246,9 @@ class Player extends ColorCollideSprite {
 
 		animState.reset();
 
+		#if debug_time
 		FlxG.watch.addQuick("Player anim: ", '${animation.curAnim.name}:${animation.curAnim.curFrame+1}/${animation.curAnim.numFrames}');
-		FlxG.watch.addQuick("Player grounded: ", '${grounded}');
+		#end
 
 		if (inControl) {
 			handleInput(delta);
@@ -317,11 +319,15 @@ class Player extends ColorCollideSprite {
 			animState.add(ACCEL_LEFT);
 		}
 
+		#if debug_player
 		FlxG.watch.addQuick("Player X Accel: ", body.acceleration.x);
+		#end
 
 		if (animation.curAnim != null) {
 			animation.curAnim.frameRate = FlxMath.minInt(Std.int(Math.abs(body.velocity.x) / maxSpeed * 30), 30);
+			#if debug_player
 			FlxG.watch.addQuick("Player frame rate: ", animation.curAnim.frameRate);
+			#end
 		}
 
 		if (!grounded) {
@@ -340,7 +346,9 @@ class Player extends ColorCollideSprite {
 
 		if (jumping) {
 			jumpHigherTimer = Math.max(0, jumpHigherTimer - delta);
+			#if debug_player
 			FlxG.watch.addQuick('jump timer: ', jumpHigherTimer);
+			#end
 			if (!SimpleController.pressed(A) || bonkedHead) {
 				jumping = false;
 				body.velocity.y = Math.max(body.velocity.y, MAX_JUMP_RELEASE_VELOCITY);
@@ -350,7 +358,9 @@ class Player extends ColorCollideSprite {
 		var velScaler = 20;
 		var color = jumping ? FlxColor.CYAN : FlxColor.MAGENTA;
 
+		#if debug_player
 		FlxG.watch.addQuick('Player y velocity: ', body.velocity.y);
+		#end
 		DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam,
 			body.x - 15,
 			body.y,
@@ -578,8 +588,6 @@ class Player extends ColorCollideSprite {
 				}
 			}
 		}
-
-		// FlxG.watch.addQuick("Player Anim: ", animation.curAnim.name);
 	}
 
 	function playAnimIfNotAlready(name:String) {
@@ -592,10 +600,15 @@ class Player extends ColorCollideSprite {
 		inControl = false;
 		body.velocity.set(0, 0);
 		body.active = false;
+		FlxSpriteUtil.flicker(this, 1, 0.1);
 		FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieHit);
+		playAnimIfNotAlready(anims.death);
+	}
+
+	public function finishDeath() {
+		PlayState.ME.deltaModIgnorers.add(this);
 		new FlxTimer().start(.25, (t) -> {
 			FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieSwell4);
-			playAnimIfNotAlready(anims.death);
 		});
 	}
 

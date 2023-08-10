@@ -13,3 +13,6 @@ dump/
 # misc
 .VSCodeCounter/
 .DS_Store
+
+# ldtk backups. no need to push these to remote
+/backups

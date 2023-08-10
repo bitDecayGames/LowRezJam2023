@@ -1,5 +1,8 @@
 package entities.enemy;
 
+import input.SimpleController;
+import flixel.math.FlxMath;
+import flixel.tweens.FlxTween;
 import bitdecay.flixel.spacial.Cardinal;
 import entities.particles.LaserParticle;
 import flixel.util.FlxTimer;
@@ -58,10 +61,12 @@ class BaseLaser extends ColorCollideSprite {
 
 	// controls how far off-screen we can hear things. `volume` curve 
 	// is directly based on this value
-	var maxDistanceToHear = 100;
+	var maxDistanceToHear = 256;
+	var maxDistanceToShake = 128;
 	var chargeSoundId = "";
 	var blastSoundId = "";
 	var volume = 1.0;
+	var shakeAmount = 1.0;
 	var distanceFromCam = 0.0;
 	var emitterDistanceFromCam = 0.0;
 
@@ -127,10 +132,10 @@ class BaseLaser extends ColorCollideSprite {
 
 					updateDistances();
 
-					if (volume > 0) {
-						FlxG.cameras.shake(MAX_CAM_SHAKE * volume, .5);
+					if (shakeAmount > 0) {
+						FlxG.cameras.shake(MAX_CAM_SHAKE * shakeAmount, .5);
 					}
-					new FlxTimer().start(LASER_TIME, (t) -> {
+					new FlxTimer(PlayState.ME.deltaModTimerMgr).start(LASER_TIME, (t) -> {
 						emitter.emitting = false;
 						shooting = false;
 						FmodManager.StopSoundImmediately(blastSoundId);
@@ -174,11 +179,12 @@ class BaseLaser extends ColorCollideSprite {
 		distanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
 		tmp.set(emitter.x, emitter.y);
 		emitterDistanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
-		FlxG.watch.addQuick('dfc: ', distanceFromCam);
-		FlxG.watch.addQuick('dfc E: ', emitterDistanceFromCam);
 
 		volume = Math.max(0, (maxDistanceToHear - Math.min(distanceFromCam, emitterDistanceFromCam))) / maxDistanceToHear;
+		shakeAmount = Math.max(0, (maxDistanceToShake - Math.min(distanceFromCam, emitterDistanceFromCam))) / maxDistanceToShake;
+		#if debug_laser
 		FlxG.watch.addQuick('laserVolume: ', volume);
+		#end
 	}
 
 	function cooldownUpdate() {}
