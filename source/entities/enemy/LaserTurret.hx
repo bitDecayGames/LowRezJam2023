@@ -1,5 +1,6 @@
 package entities.enemy;
 
+import flixel.FlxG;
 import entities.enemy.BaseLaser.BaseLaserOptions;
 import echo.math.Vector2;
 import flixel.math.FlxMath;
@@ -37,8 +38,8 @@ class LaserTurret extends BaseLaser {
 		lastAngle = angle;
 
 		if (forceAngularUpdate) {
-			angle += angleUpdate;
-			laserAngle += angleUpdate;
+			angle += angleUpdate * elapsed;
+			laserAngle += angleUpdate * elapsed;
 		} else {
 			var playerBounds = PlayState.ME.player.body.bounds();
 			var playerCenter = new Vector2((playerBounds.min_x + playerBounds.max_x) / 2, (playerBounds.min_y + playerBounds.max_y) / 2);
@@ -98,7 +99,7 @@ class LaserTurret extends BaseLaser {
 		blastSoundId = FmodManager.PlaySoundWithReference(FmodSFX.LaserTurretBlast3);
 		startLockAngle = angle;
 		forceAngularUpdate = true;
-		angleUpdate = angle - lastAngle;
+		angleUpdate = (angle - lastAngle) / FlxG.elapsed; // an approximation of per-frame angle change
 	}
 
 	override function laserFiringUpdate() {

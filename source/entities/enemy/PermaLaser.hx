@@ -35,25 +35,14 @@ class PermaLaser extends FlxSprite {
 
 			var laserAngle = angle + 90;
 			var castStart = getPosition().add(width / 2, height / 2);
-			var laserLength:Float = BaseLaser.MAX_CAST_DISTANCE;
-			var laserCast = Line.get_from_vector(new Vector2(castStart.x, castStart.y), laserAngle, BaseLaser.MAX_CAST_DISTANCE);
-			var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.terrainGroup));
-			if (intersects.length > 0) {
-				for (i in intersects) {
-					if (Collide.bodyInteractsWithColor(i.body, laserColor)) {
-						if (i.closest.distance < laserLength) {
-							laserLength = i.closest.distance;
-							emitter = new LaserParticle(i.closest.hit.x, i.closest.hit.y, laserColor);
-							emitter.emitting = true;
-							PlayState.ME.addParticle(emitter);
-						}
-					}
-					i.put();
-				}
-			}
-			var laser = new LaserBeam(castStart.x, castStart.y, laserAngle, laserLength, laserColor);
-			
+			var laser = new LaserBeam(castStart.x, castStart.y, laserAngle, 1, laserColor);
+			laser.updatePosition(castStart.x, castStart.y, laserAngle);
+
+			emitter = new LaserParticle(laser.impactPoint.x, laser.impactPoint.y, laserColor);
+			emitter.setImpactAngle(laser.impactNormal.degrees);
+			emitter.emitting = true;
 			PlayState.ME.addLaser(laser);
+			PlayState.ME.addParticle(emitter);
 		}
 	}
 }

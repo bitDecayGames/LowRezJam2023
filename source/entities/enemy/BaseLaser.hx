@@ -44,7 +44,7 @@ class BaseLaser extends ColorCollideSprite {
 
 	var tmp = FlxPoint.get();
 
-	public var emitter:FlxEmitter;
+	public var emitter:LaserParticle;
 	var laserStartPoint = FlxPoint.get();
 	var laserStartOffset = FlxPoint.get(0, 8);
 
@@ -77,7 +77,7 @@ class BaseLaser extends ColorCollideSprite {
 
 		laserColor = options.color;
 		angle = options.dir + 180;
-		laserAngle = options.dir + 270;
+		laserAngle = (options.dir + 270) % 360;
 
 		COOLDOWN_TIME = options.rest;
 
@@ -114,21 +114,7 @@ class BaseLaser extends ColorCollideSprite {
 				chargeUpdate();
 				
 				if (charging >= CHARGE_TIME) {
-
-					var laserLength:Float = MAX_CAST_DISTANCE;
-					var laserCast = Line.get_from_vector(new Vector2(laserStartPoint.x, laserStartPoint.y), laserAngle, MAX_CAST_DISTANCE);
-					var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.terrainGroup));
-					if (intersects.length > 0) {
-						for (i in intersects) {
-							if (Collide.bodyInteractsWithColor(i.body, laserColor)) {
-								if (i.closest.distance < laserLength) {
-									laserLength = i.closest.distance;
-									emitter.setPosition(i.closest.hit.x, i.closest.hit.y);
-								}
-							}
-							i.put();
-						}
-					}
+					beam.updatePosition(laserStartPoint.x, laserStartPoint.y, laserAngle);
 
 					updateDistances();
 
@@ -165,6 +151,7 @@ class BaseLaser extends ColorCollideSprite {
 			
 		if (shooting) {
 			emitter.setPosition(beam.impactPoint.x, beam.impactPoint.y);
+			emitter.setImpactAngle(beam.impactNormal.degrees);
 		}
 		updateDistances();
 	}

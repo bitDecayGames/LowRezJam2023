@@ -37,7 +37,7 @@ class LaserRail extends BaseLaser {
 		}
 		pathPoints.push(spawnPoint.addPoint(adjust));
 		this.path = new FlxPath();
-		this.path.start(pathPoints, 50, FlxPathType.YOYO);
+		this.path.start(pathPoints, 50, FlxPathType.LOOP_FORWARD);
 
 		pauseOnFire = options.pauseOnFire;
 		shootOnNode = options.shootOnNode;

@@ -20,6 +20,7 @@ class LaserBeam extends ColorCollideSprite {
 	var beamColor:Color;
 	var laserAngle:Float;
 	public var impactPoint:FlxPoint = FlxPoint.get();
+	public var impactNormal = FlxPoint.get();
 
 	// TODO: See the normal and have particles only shoot off the surface the right direction
 	public function new(X:Float, Y:Float, angle:Float, length:Float, color:Color) {
@@ -57,14 +58,14 @@ class LaserBeam extends ColorCollideSprite {
 		var laserLength:Float = BaseLaser.MAX_CAST_DISTANCE;
 		var laserCast = Line.get_from_vector(new Vector2(startX, startY), angle, BaseLaser.MAX_CAST_DISTANCE);
 		var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.terrainGroup));
-		impactPoint.set(startX, startY);
+		impactPoint.set(laserCast.end.x, laserCast.end.y);
 		if (intersects.length > 0) {
 			for (i in intersects) {
 				if (Collide.bodyInteractsWithColor(i.body, beamColor)) {
 					if (i.closest.distance < laserLength) {
+						impactNormal.set(i.data[0].normal.x, i.data[0].normal.y);
 						laserLength = i.closest.distance;
 						impactPoint.set(i.closest.hit.x, i.closest.hit.y);
-						// emitter.setPosition(i.closest.hit.x, i.closest.hit.y);
 					}
 				}
 				i.put();
