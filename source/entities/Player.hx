@@ -542,6 +542,8 @@ class Player extends ColorCollideSprite {
 	var slideSoundId = "slideSoundId";
 
 	function updateCurrentAnimation() {
+		var nextAnim = animation.curAnim.name;
+
 		if (body.velocity.x > 0) {
 			flipX = true;
 		} else if (body.velocity.x < 0) {
@@ -552,52 +554,54 @@ class Player extends ColorCollideSprite {
 			if (animState.has(RUNNING)) {
 				if ((animState.has(ACCEL_LEFT) && body.velocity.x > 0) || (animState.has(ACCEL_RIGHT) && body.velocity.x < 0)) {
 					if (animState.has(CROUCHED)) {
-						playAnimIfNotAlready(anims.slide);
+						nextAnim = anims.slide;
 					} else {
 						FmodManager.PlaySoundOneShot(FmodSFX.PlayerSkidShort);
-						playAnimIfNotAlready(anims.skid);
+						nextAnim = anims.skid;
 					}
 				} else {
 					// if (animState.has(CROUCHED)) {
 					// 	animation.play('crawl');
 					// }
-					playAnimIfNotAlready(anims.run);
+					nextAnim = anims.run;
 				}
 			} else { 
 				if (animState.has(CROUCHED)) {
 					if (body.velocity.x != 0) {
 						// FmodManager.PlaySoundAndAssignId(FmodSFX.PlayerSlide2, slideSoundId);
 						FmodManager.PlaySoundOneShot(FmodSFX.PlayerSlide2);
-						playAnimIfNotAlready(anims.slide);
+						nextAnim = anims.slide;
 					} else {
-						playAnimIfNotAlready(anims.crouch);
+						nextAnim = anims.crouch;
 					}
 				} else {
 					if (body.velocity.x != 0) {
 						// FmodManager.PlaySoundOneShot(FmodSFX.PlayerSkidShort);
-						playAnimIfNotAlready(anims.run);
+						nextAnim = anims.run;
 					} else {
-						playAnimIfNotAlready(anims.stand);
+						nextAnim = anims.stand;
 					}
 				}
 			}
 		} else {
 			if (animState.has(CROUCHED)) {
-				playAnimIfNotAlready(anims.jumpCrouch);
+				nextAnim = anims.jumpCrouch;
 			} else {
 				if (body.velocity.y > 0) {
-					playAnimIfNotAlready(anims.fall);
+					nextAnim = anims.fall;
 				} else {
-					playAnimIfNotAlready(anims.jump);
+					nextAnim = anims.jump;
 				}
 			}
 		}
+
+		playAnimIfNotAlready(nextAnim);
 	}
 
 	function playAnimIfNotAlready(name:String) {
 		if (animation.curAnim == null || animation.curAnim.name != name) {
 			if (animation.curAnim.name == anims.slide) {
-				// FmodManager.StopSoundImmediately(slideSoundId);
+				FmodManager.StopSoundImmediately(slideSoundId);
 			}
 			animation.play(name, true);
 		}
