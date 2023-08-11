@@ -52,6 +52,9 @@ class UnlockParticle extends FlxSprite {
 					if (Collected.has(Color.RED)) {
 						FmodManager.SetEventParameterOnSong("Layer3", 1);
 					}
+					if (Collected.has(Color.YELLOW)) {
+						FmodManager.SetEventParameterOnSong("Layer4", 1);
+					}
 				}
 			}
 		};
