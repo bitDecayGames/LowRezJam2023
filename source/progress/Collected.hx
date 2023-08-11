@@ -50,6 +50,23 @@ class Collected {
 		FlxG.save.flush();
 	}
 
+	#if debug
+	public static function remove(c:Color) {
+		if (c == RED) {
+			FlxG.save.data.game.redUnlocked = false;
+			FlxG.save.flush();
+		}
+		if (c == YELLOW) {
+			FlxG.save.data.game.yellowUnlocked = false;
+			FlxG.save.flush();
+		}
+		if (c == BLUE) {
+			FlxG.save.data.game.blueUnlocked = false;
+			FlxG.save.flush();
+		}
+	}
+	#end
+
 	public static function setLastCheckpoint(levelID:String, entityID:String) {
 		FlxG.save.data.game.lastLevelID = levelID;
 		FlxG.save.data.game.lastEntityID = entityID;

@@ -7561,6 +7561,20 @@
 								}] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
 							]
+						},
+						{
+							"__identifier": "Dev_spawn",
+							"__grid": [42,8],
+							"__pivot": [0.5,1],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#FF00FC",
+							"iid": "d5b06720-1460-11ee-9798-95ebc0c5ff6b",
+							"width": 16,
+							"height": 48,
+							"defUid": 118,
+							"px": [680,144],
+							"fieldInstances": []
 						}
 					]
 				},
@@ -8253,20 +8267,6 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 2.5, "__tile": null, "defUid": 134, "realEditorValues": [{ "id": "V_Float", "params": [2.5] }] }
 							]
-						},
-						{
-							"__identifier": "Dev_spawn",
-							"__grid": [3,28],
-							"__pivot": [0.5,1],
-							"__tags": [],
-							"__tile": null,
-							"__smartColor": "#FF00FC",
-							"iid": "d5b06720-1460-11ee-9798-95ebc0c5ff6b",
-							"width": 16,
-							"height": 48,
-							"defUid": 118,
-							"px": [56,464],
-							"fieldInstances": []
 						}
 					]
 				},

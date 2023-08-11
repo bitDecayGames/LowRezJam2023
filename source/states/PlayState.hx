@@ -349,8 +349,8 @@ class PlayState extends FlxTransitionableState {
 			},
 		});
 
-		FlxEcho.instance.update(0.01);
-		update(0.01);
+		// FlxEcho.instance.update(0.01);
+		// update(0.01);
 	}
 
 	public function addLaser(laser:LaserBeam) {

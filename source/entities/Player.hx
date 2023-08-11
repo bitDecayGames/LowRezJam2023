@@ -259,13 +259,25 @@ class Player extends ColorCollideSprite {
 
 		#if debug
 		if (FlxG.keys.justPressed.ONE) {
-			Collected.unlockBlue();
+			if (Collected.has(BLUE)) {
+				Collected.remove(BLUE);
+			} else {
+				Collected.unlockBlue();
+			}
 		}
 		if (FlxG.keys.justPressed.TWO) {
-			Collected.unlockYellow();
+			if (Collected.has(YELLOW)) {
+				Collected.remove(YELLOW);
+			} else {
+				Collected.unlockYellow();
+			}
 		}
 		if (FlxG.keys.justPressed.THREE) {
-			Collected.unlockRed();
+			if (Collected.has(RED)) {
+				Collected.remove(RED);
+			} else {
+				Collected.unlockRed();
+			}
 		}
 		#end
 	}
