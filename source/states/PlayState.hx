@@ -79,6 +79,13 @@ class PlayState extends FlxTransitionableState {
 		super.create();
 		Lifecycle.startup.dispatch();
 
+		FmodManager.PlaySong(FmodSongs.Song1);
+		FmodManager.SetEventParameterOnSong("volume", 0);
+		
+		#if music
+		FmodManager.SetEventParameterOnSong("volume", 1);
+		#end
+
 		// main will do this, but if we are dev'ing and going straight to the play screen, it may not be done yet
 		Collected.initialize();
 
@@ -375,6 +382,7 @@ class PlayState extends FlxTransitionableState {
 
 	public function playerDied() {
 		player.beginDie();
+		FmodManager.SetEventParameterOnSong("LowPass", 1);
 		FlxTween.tween(this, {deltaMod: deathDeltaMod}, .7, {
 			// TODO(SFX): Time has fully slowed down, brief pause before player pops
 			onComplete: (tween1) -> {
@@ -388,6 +396,7 @@ class PlayState extends FlxTransitionableState {
 						FlxTween.tween(this, {deltaMod: 1}, 1, {
 							onComplete: (tween2) -> {
 								new FlxTimer().start(1.5, (timer3) -> {
+									FmodManager.SetEventParameterOnSong("LowPass", 0);
 									resetLevel();
 								});
 							}

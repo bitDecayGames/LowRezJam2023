@@ -58,6 +58,7 @@ class ColorUpgrade extends ColorCollideSprite {
 	override function handleEnter(other:Body, data:Array<CollisionData>) {
 		super.handleEnter(other, data);
 
+
 		FlxEcho.updates = false;
 		FlxEcho.instance.active = false;
 
@@ -67,6 +68,7 @@ class ColorUpgrade extends ColorCollideSprite {
 		
 		FmodManager.PlaySoundOneShot(FmodSFX.ColorTouch);
 		PlayState.ME.objectCam.fade(FlxColor.BLACK, 1, () -> {
+			FmodManager.SetEventParameterOnSong("LowPass", 1);
 			kill();
 			new FlxTimer().start(1, (t) -> {
 				FlxG.state.openSubState(new UpgradeCutscene(screenPoint, colorToUnlock, () -> {
