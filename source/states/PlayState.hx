@@ -41,6 +41,8 @@ class PlayState extends FlxTransitionableState {
 	public static var ME:PlayState;
 
 	public static var backgroundColor = FlxColor.GRAY.getDarkened(0.8);
+	
+	public var deltaModTimerMgr:FlxTimerManager = new FlxTimerManager();
 
 	var lastLevel:String;
 	var lastSpawnEntity:String;
@@ -265,7 +267,7 @@ class PlayState extends FlxTransitionableState {
 		player = new Player(spawnPoint.x, spawnPoint.y);
 		player.add_to_group(playerGroup);
 		player.camera = objectCam;
-		deltaModIgnorers.add(player);
+		// deltaModIgnorers.add(player);
 		if (extraSpawnLogic != null) {
 			extraSpawnLogic();
 		}
@@ -382,30 +384,37 @@ class PlayState extends FlxTransitionableState {
 
 	public function playerDied() {
 		player.beginDie();
-		FmodManager.SetEventParameterOnSong("LowPass", 1);
-		FlxTween.tween(this, {deltaMod: deathDeltaMod}, .7, {
-			// TODO(SFX): Time has fully slowed down, brief pause before player pops
-			onComplete: (tween1) -> {
-				new FlxTimer().start(.45, (timer) -> {
-					FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieBurst2);
-					player.kill();
-					DeathParticles.create(player.body.x, player.body.y, !player.grounded, Collected.unlockedColors());
-					FlxG.cameras.flash(0.5);
-					new FlxTimer().start(1, (timer2) -> {
-						// TODO(SFX): Time returns to normal speed
-						FlxTween.tween(this, {deltaMod: 1}, 1, {
-							onComplete: (tween2) -> {
-								new FlxTimer().start(1.5, (timer3) -> {
-									FmodManager.SetEventParameterOnSong("LowPass", 0);
-									resetLevel();
-								});
-							}
+		// freeze time
+		deltaMod = 0;
+
+		// wait
+		new FlxTimer().start(2, (t) -> {
+			// then bring it back up to slowmo and finish animating the player
+			FmodManager.SetEventParameterOnSong("LowPass", 1);
+			player.finishDeath();
+			FlxTween.tween(this, {deltaMod: deathDeltaMod}, .1, {
+				// TODO(SFX): Time has fully slowed down, brief pause before player pops
+				onComplete: (tween1) -> {
+					new FlxTimer(PlayState.ME.deltaModTimerMgr).start(.15, (timer) -> {
+						FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieBurst2);
+						player.kill();
+						DeathParticles.create(player.body.x, player.body.y, !player.grounded, Collected.unlockedColors());
+						FlxG.cameras.flash(0.5);
+						new FlxTimer().start(.5, (timer2) -> {
+							// TODO(SFX): Time returns to normal speed
+							FlxTween.tween(this, {deltaMod: 1}, .5, {
+								onComplete: (tween2) -> {
+									new FlxTimer(PlayState.ME.deltaModTimerMgr).start(1, (timer3) -> {
+										FmodManager.SetEventParameterOnSong("LowPass", 0);
+										resetLevel();
+									});
+								}
+							});
 						});
 					});
-				});
-			}
+				}
+			});
 		});
-		
 	}
 
 	override public function update(elapsed:Float) {
@@ -416,8 +425,12 @@ class PlayState extends FlxTransitionableState {
 			}));
 		}
 
+		#if debug_time
+		FlxG.watch.addQuick('deltaMod: ', deltaMod);
+		#end
 		var originalDelta = elapsed;
 		elapsed *= deltaMod;
+		deltaModTimerMgr.update(elapsed);
 		super.update(elapsed);
 
 		for (o in pendingObjects) {
@@ -440,7 +453,9 @@ class PlayState extends FlxTransitionableState {
 			s.update(elapsed);
 		}
 
+		#if debug_camera
 		FlxG.watch.addQuick('camScroll: ', ${baseTerrainCam.scroll});
+		#end
 	}
 
 	var tmpScreenPoint = FlxPoint.get();

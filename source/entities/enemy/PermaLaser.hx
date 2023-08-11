@@ -52,6 +52,7 @@ class PermaLaser extends FlxSprite {
 				}
 			}
 			var laser = new LaserBeam(castStart.x, castStart.y, laserAngle, laserLength, laserColor);
+			
 			PlayState.ME.addLaser(laser);
 		}
 	}
