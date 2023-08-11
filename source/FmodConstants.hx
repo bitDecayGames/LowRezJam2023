@@ -47,5 +47,7 @@ class FmodSFX {
     public static inline var PlayerLand1:String = "event:/SFX/Player/Land/PlayerLand1";
     public static inline var PlayerSkidLong:String = "event:/SFX/Player/Skid/PlayerSkidLong";
     public static inline var PlayerSkidShort:String = "event:/SFX/Player/Skid/PlayerSkidShort";
+    public static inline var PlayerSlide:String = "event:/SFX/Player/Slide/PlayerSlide";
+    public static inline var PlayerSlide2:String = "event:/SFX/Player/Slide/PlayerSlide2";
     public static inline var PlayerStep:String = "event:/SFX/Player/Step/PlayerStep";
 }

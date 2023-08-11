@@ -539,6 +539,8 @@ class Player extends ColorCollideSprite {
 		}
 	}
 
+	var slideSoundId = "slideSoundId";
+
 	function updateCurrentAnimation() {
 		if (body.velocity.x > 0) {
 			flipX = true;
@@ -564,6 +566,8 @@ class Player extends ColorCollideSprite {
 			} else { 
 				if (animState.has(CROUCHED)) {
 					if (body.velocity.x != 0) {
+						// FmodManager.PlaySoundAndAssignId(FmodSFX.PlayerSlide2, slideSoundId);
+						FmodManager.PlaySoundOneShot(FmodSFX.PlayerSlide2);
 						playAnimIfNotAlready(anims.slide);
 					} else {
 						playAnimIfNotAlready(anims.crouch);
@@ -592,6 +596,9 @@ class Player extends ColorCollideSprite {
 
 	function playAnimIfNotAlready(name:String) {
 		if (animation.curAnim == null || animation.curAnim.name != name) {
+			if (animation.curAnim.name == anims.slide) {
+				// FmodManager.StopSoundImmediately(slideSoundId);
+			}
 			animation.play(name, true);
 		}
 	}
