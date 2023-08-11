@@ -100,7 +100,7 @@ class BaseLaser extends ColorCollideSprite {
 		}
 
 		if (!shooting) {
-			if (cooldown <= COOLDOWN_TIME) {
+			if (cooldown <= COOLDOWN_TIME || (cooldown == 0 && COOLDOWN_TIME == 0)) {
 				cooldown += elapsed;
 				cooldownUpdate();
 
@@ -115,7 +115,6 @@ class BaseLaser extends ColorCollideSprite {
 				
 				if (charging >= CHARGE_TIME) {
 					beam.updatePosition(laserStartPoint.x, laserStartPoint.y, laserAngle);
-
 					updateDistances();
 
 					if (shakeAmount > 0) {
@@ -136,8 +135,12 @@ class BaseLaser extends ColorCollideSprite {
 					beam.body.active = true;
 					beam.visible = true;
 					
-					// this keeps any remainder flowing so theystay in sync
-					cooldown -= COOLDOWN_TIME;
+					if (COOLDOWN_TIME == 0) {
+						cooldown = 0;
+					} else {
+						// this keeps any remainder flowing so theystay in sync
+						cooldown -= COOLDOWN_TIME;
+					}
 					charging -= CHARGE_TIME;
 					laserFired();
 				}
