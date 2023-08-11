@@ -1,5 +1,6 @@
 package states;
 
+import flixel.addons.ui.FlxUIState;
 import input.SimpleController;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -16,7 +17,12 @@ import haxefmod.flixel.FmodFlxUtilities;
 
 using states.FlxStateExt;
 
-class MainMenuState extends FlxState {
+class MainMenuState extends FlxUIState {
+	var started = false;
+
+	var title:FlxSprite = null;
+	var pressStart:FlxSprite = null;
+
 	override public function create():Void {
 		super.create();
 
@@ -28,7 +34,7 @@ class MainMenuState extends FlxState {
 		bg.screenCenter();
 		add(bg);
 
-		var title = new FlxSprite(AssetPaths.title__png);
+		title = new FlxSprite(AssetPaths.title__png);
 		add(title);
 
 		title.y = 6;
@@ -38,6 +44,15 @@ class MainMenuState extends FlxState {
 		});
 		title.angle = -5;
 		FlxTween.tween(title, {angle: title.angle + 10}, 1.2, {
+			ease: FlxEase.sineInOut,
+			type: FlxTweenType.PINGPONG,
+		});
+
+		pressStart = new FlxSprite(AssetPaths.pressEnter__png);
+		pressStart.setPosition(FlxG.width - pressStart.width - 10, 164);
+		add(pressStart);
+
+		FlxTween.tween(pressStart, {"scale.x": 1.2, "scale.y": 1.2, y: pressStart.y - 8}, 0.7, {
 			ease: FlxEase.sineInOut,
 			type: FlxTweenType.PINGPONG,
 		});
@@ -53,19 +68,19 @@ class MainMenuState extends FlxState {
 			trace("---------- Bitlytics Stopped ----------");
 		}
 
-		if (SimpleController.just_pressed(START)) {
+		if (!started && SimpleController.just_pressed(START)) {
+			started = true;
+			FmodManager.PlaySoundOneShot(FmodSFX.MenuSelect);
+
+			FlxTween.tween(title, {alpha: 0}, 0.75);
+			FlxTween.tween(pressStart, {alpha: 0}, 0.75);
+
 			clickPlay();
 		}
 	}
 
 	function clickPlay():Void {
-		FmodManager.StopSong();
-		var swirlOut = new SwirlTransition(TransitionDirection.OUT, () -> {
-			// make sure our music is stopped;
-			FmodManager.StopSongImmediately();
-			FlxG.switchState(new PlayState());
-		}, FlxColor.GRAY, 0.75);
-		openSubState(swirlOut);
+		FmodFlxUtilities.TransitionToStateAndStopMusic(new PlayState());
 	}
 
 	override public function onFocusLost() {

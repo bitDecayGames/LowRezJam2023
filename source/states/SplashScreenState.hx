@@ -30,7 +30,7 @@ class SplashScreenState extends FlxState {
 		// List splash screen image paths here
 		loadSplashImages([
 			new SplashImage(AssetPaths.splash_bitSplash__png, 64, 64, 0, 10),
-			new SplashImage(AssetPaths.ld_logo__png)
+			new SplashImage(AssetPaths.lowRezJam__png)
 		]);
 
 		timer = splashDuration;

@@ -91,6 +91,8 @@ class PlayState extends FlxTransitionableState {
 		// main will do this, but if we are dev'ing and going straight to the play screen, it may not be done yet
 		Collected.initialize();
 
+		persistentUpdate = true;
+
 		baseTerrainCam = FlxG.camera;
 		baseTerrainCam.bgColor = backgroundColor;
 
@@ -98,11 +100,11 @@ class PlayState extends FlxTransitionableState {
 
 		objectCam = makeShaderCamera(EMPTY);
 		FlxG.cameras.add(objectCam, false);
-		
+
 		// Set up echo last so it draws on top of all of our cameras
 		FlxEcho.init({width: FlxG.width, height: FlxG.height, gravity_y: 24 * Constants.BLOCK_SIZE});
 
-		#if debug
+		#if debug_echo
 		FlxEcho.draw_debug = true;
 		#end
 		
@@ -283,7 +285,7 @@ class PlayState extends FlxTransitionableState {
 			camTransition.add_to_group(objects);
 		}
 
-		baseTerrainCam.focusOn(player.getPosition());
+		// baseTerrainCam.focusOn(player.getPosition());
 		dbgCam.scroll.copyFrom(baseTerrainCam.scroll);
 
 		softFollowPlayer();
@@ -346,6 +348,9 @@ class PlayState extends FlxTransitionableState {
 				}
 			},
 		});
+
+		FlxEcho.instance.update(0.01);
+		update(0.01);
 	}
 
 	public function addLaser(laser:LaserBeam) {
