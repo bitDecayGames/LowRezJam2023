@@ -214,6 +214,7 @@ enum abstract Color(Int) from Int to Int {
 				case "YELLOW": YELLOW;
 				case "BLUE": BLUE;
 				case "EMPTY": EMPTY;
+				case "ALL": ALL;
 				default: 
 					QuickLog.error('unrecognized color enum value: $str');
 					return ALL;

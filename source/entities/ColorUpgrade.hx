@@ -1,5 +1,6 @@
 package entities;
 
+import states.CreditsState;
 import flixel.util.FlxTimer;
 import flixel.math.FlxPoint;
 import flixel.tweens.FlxTween;
@@ -72,28 +73,37 @@ class ColorUpgrade extends ColorCollideSprite {
 			kill();
 			new FlxTimer().start(1, (t) -> {
 				FlxG.state.openSubState(new UpgradeCutscene(screenPoint, colorToUnlock, () -> {
-					FlxTween.tween(PlayState.ME.baseTerrainCam.scroll, {x: scrollSave.x, y: scrollSave.y}, 0.5, {
-						onComplete: (t) -> {
-							FlxEcho.updates = true;
-							FlxEcho.instance.active = true;
-						}
-					});
+					FlxG.state.closeSubState();
+					if (colorToUnlock != ALL) {
+						PlayState.ME.objectCam.fade(FlxColor.BLACK, 0.2, true, () -> {
+							FlxTween.tween(PlayState.ME.baseTerrainCam.scroll, {x: scrollSave.x, y: scrollSave.y}, 0.5, {
+								onComplete: (t) -> {
+									FlxEcho.updates = true;
+									FlxEcho.instance.active = true;
+								}
+							});
+						});
+					} else {
+						FlxG.switchState(new CreditsState());
+					}
 				}));
 			});
 		});
 
-		if (other.object is Player) {
-			var player:Player = cast other.object;
-			player.forceStand();
-			switch(colorToUnlock) {
-				case RED:
-					Collected.unlockRed();
-				case YELLOW:
-					Collected.unlockYellow();
-				case BLUE:
-					Collected.unlockBlue();
-				default:
-					QuickLog.error('pixel upgrade trying to unlock ${colorToUnlock.name()}');
+		if (colorToUnlock != ALL) {
+			if (other.object is Player) {
+				var player:Player = cast other.object;
+				player.forceStand();
+				switch(colorToUnlock) {
+					case RED:
+						Collected.unlockRed();
+					case YELLOW:
+						Collected.unlockYellow();
+					case BLUE:
+						Collected.unlockBlue();
+					default:
+						QuickLog.error('pixel upgrade trying to unlock ${colorToUnlock.name()}');
+				}
 			}
 		}
 

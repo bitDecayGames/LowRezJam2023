@@ -66,12 +66,9 @@ class UpgradeCutscene extends FlxSubState {
 			power.kill();
 			player.kill();
 			bgColor = FlxColor.TRANSPARENT;
-			PlayState.ME.objectCam.fade(FlxColor.BLACK, 0.1, true, () -> {
-				close();
-				if (finishCb != null) {
-					finishCb();
-				}
-			});
+			if (finishCb != null) {
+				finishCb();
+			}
 		});
 	}
 }

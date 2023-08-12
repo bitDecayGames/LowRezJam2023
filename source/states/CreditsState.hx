@@ -1,5 +1,6 @@
 package states;
 
+import flixel.math.FlxMath;
 import flixel.text.FlxText.FlxTextAlign;
 import flixel.text.FlxBitmapText;
 import flixel.FlxG;
@@ -18,7 +19,7 @@ using states.FlxStateExt;
 class CreditsState extends FlxUIState {
 	var _allCreditElements:Array<FlxSprite>;
 
-	var _btnMainMenu:FlxButton;
+	// var _btnMainMenu:FlxButton;
 
 	var _txtCreditsTitle:FlxBitmapText;
 	var _txtThankYou:FlxBitmapText;
@@ -28,8 +29,8 @@ class CreditsState extends FlxUIState {
 	// Quick appearance variables
 	private var backgroundColor = FlxColor.BLACK;
 
-	static inline var entryLeftMargin = 50;
-	static inline var entryRightMargin = 50;
+	static inline var entryLeftMargin = 12;
+	static inline var entryRightMargin = 12;
 	static inline var entryVerticalSpacing = 25;
 
 	var toolingImages = [
@@ -46,16 +47,18 @@ class CreditsState extends FlxUIState {
 
 		// Button
 
-		_btnMainMenu = UiHelpers.createMenuButton("Main Menu", clickMainMenu);
-		_btnMainMenu.setPosition(FlxG.width - _btnMainMenu.width, FlxG.height - _btnMainMenu.height);
-		_btnMainMenu.updateHitbox();
-		add(_btnMainMenu);
+		// _btnMainMenu = UiHelpers.createMenuButton("Main Menu", clickMainMenu);
+		// _btnMainMenu.setPosition(FlxG.width - _btnMainMenu.width, FlxG.height - _btnMainMenu.height);
+		// _btnMainMenu.updateHitbox();
+		// add(_btnMainMenu);
 
 		// Credits
 
 		_allCreditElements = new Array<FlxSprite>();
 
-		_txtCreditsTitle = FlxTextFactory.make("Credits", FlxG.width / 4, FlxG.height / 2, 40, FlxTextAlign.CENTER);
+		var creditTitleX = FlxG.width / 4;
+		creditTitleX -= creditTitleX % 4;
+		_txtCreditsTitle = FlxTextFactory.make("Credits", creditTitleX, FlxG.height / 2, 36, FlxTextAlign.LEFT);
 		center(_txtCreditsTitle);
 		add(_txtCreditsTitle);
 
@@ -72,24 +75,26 @@ class CreditsState extends FlxUIState {
 
 		for (flxText in _txtRole) {
 			flxText.setPosition(entryLeftMargin, creditsVerticalOffset);
-			creditsVerticalOffset += entryVerticalSpacing;
+			creditsVerticalOffset += entryVerticalSpacing * 2;
 		}
 
-		creditsVerticalOffset = FlxG.height;
+		creditsVerticalOffset = FlxG.height + entryVerticalSpacing + 5;
 
 		for (flxText in _txtCreator) {
-			flxText.setPosition(FlxG.width - flxText.width - entryRightMargin, creditsVerticalOffset);
-			creditsVerticalOffset += entryVerticalSpacing;
+			var xPos = FlxG.width - flxText.width - entryRightMargin;
+			xPos -= xPos % 4;
+			flxText.setPosition(xPos, creditsVerticalOffset);
+			creditsVerticalOffset += entryVerticalSpacing * 2;
 		}
 
 		for (toolImg in toolingImages) {
 			var display = new FlxSprite();
 			display.loadGraphic(toolImg);
-			// scale them to be about 1/4 of the height of the screen
-			var scale = (FlxG.height / 4) / display.height;
-			if (display.width * scale > FlxG.width) {
-				// in case that's too wide, adjust accordingly
-				scale = FlxG.width / display.width;
+			// scale them to be about 1/2 of the width of the screen
+			var scale = (FlxG.width / 2 - 10) / display.height;
+			if (display.width * scale > FlxG.width + 10) {
+				// in case that's too wide, adjust accordingly with a bit of a margin
+				scale = (FlxG.width - 10) / display.width;
 			}
 			display.scale.set(scale, scale);
 			display.updateHitbox();
@@ -100,7 +105,7 @@ class CreditsState extends FlxUIState {
 			_allCreditElements.push(display);
 		}
 
-		_txtThankYou = FlxTextFactory.make("Thank you!", FlxG.width / 2, creditsVerticalOffset + FlxG.height / 2, 40, FlxTextAlign.CENTER);
+		_txtThankYou = FlxTextFactory.make("Thank you!", FlxG.width / 2, creditsVerticalOffset + FlxG.height / 2, 36, FlxTextAlign.CENTER);
 		_txtThankYou.alignment = FlxTextAlign.CENTER;
 		center(_txtThankYou);
 		add(_txtThankYou);
@@ -109,20 +114,20 @@ class CreditsState extends FlxUIState {
 
 	private function AddSectionToCreditsTextArrays(role:String, creators:Array<String>, finalRoleArray:Array<FlxBitmapText>,
 			finalCreatorsArray:Array<FlxBitmapText>) {
-		var roleText = FlxTextFactory.make(role, 0, 0, 24);
+		var roleText = FlxTextFactory.make(role, 0, 0, 36, LEFT);
 		add(roleText);
 		finalRoleArray.push(roleText);
 		_allCreditElements.push(roleText);
 
 		if (finalCreatorsArray.length != 0) {
-			finalCreatorsArray.push(new FlxBitmapText());
+			finalCreatorsArray.push(new FlxBitmapText(""));
 		}
 
 		for (creator in creators) {
 			// Make an offset entry for the roles array
-			finalRoleArray.push(new FlxBitmapText());
+			finalRoleArray.push(FlxTextFactory.make(" ", 0, 0, 40));
 
-			var creatorText = FlxTextFactory.make(creator, 0, 0, 24, FlxTextAlign.RIGHT);
+			var creatorText = FlxTextFactory.make(creator, 0, 0, 36, FlxTextAlign.RIGHT);
 			add(creatorText);
 			finalCreatorsArray.push(creatorText);
 			_allCreditElements.push(creatorText);
@@ -139,9 +144,9 @@ class CreditsState extends FlxUIState {
 
 		for (element in _allCreditElements) {
 			if (FlxG.keys.pressed.SPACE || FlxG.mouse.pressed) {
-				element.y -= 2;
+				element.y -= FlxG.height * elapsed;
 			} else {
-				element.y -= .5;
+				element.y -= FlxG.height / 4 * elapsed;
 			}
 		}
 	}
