@@ -1,5 +1,6 @@
 package entities;
 
+import entities.particles.UpgradeParticle;
 import states.CreditsState;
 import flixel.util.FlxTimer;
 import flixel.math.FlxPoint;
@@ -25,6 +26,8 @@ class ColorUpgrade extends ColorCollideSprite {
 
 	var data:Entity_Color_upgrade;
 
+	public var particle:UpgradeParticle;
+
 	var colorToUnlock:Color;
 
 	public function new(data:Entity_Color_upgrade) {
@@ -33,6 +36,8 @@ class ColorUpgrade extends ColorCollideSprite {
 
 		colorToUnlock = Color.fromEnum(data.f_Color);
 		color = cast colorToUnlock;
+
+		particle = new UpgradeParticle(data.pixelX, data.pixelY - data.height/2, colorToUnlock);
 	}
 	
 	override function configSprite() {
@@ -59,6 +64,15 @@ class ColorUpgrade extends ColorCollideSprite {
 	override function handleEnter(other:Body, data:Array<CollisionData>) {
 		super.handleEnter(other, data);
 
+		if (!(other.object is Player)) {
+			return;
+		}
+
+		body.active = false;
+
+		var player:Player = cast other.object;
+		player.forceStand();
+		player.inControl = false;
 
 		FlxEcho.updates = false;
 		FlxEcho.instance.active = false;
@@ -66,18 +80,19 @@ class ColorUpgrade extends ColorCollideSprite {
 		var scrollSave = PlayState.ME.baseTerrainCam.scroll.copyTo();
 		var screenPoint = PlayState.ME.objectCam.project(FlxPoint.get(PlayState.ME.player.body.x, PlayState.ME.player.body.y));
 
-		
 		FmodManager.PlaySoundOneShot(FmodSFX.ColorTouch);
 		PlayState.ME.objectCam.fade(FlxColor.BLACK, 1, () -> {
 			FmodManager.SetEventParameterOnSong("LowPass", 1);
 			kill();
+			particle.kill();
 			new FlxTimer().start(1, (t) -> {
-				FlxG.state.openSubState(new UpgradeCutscene(screenPoint, colorToUnlock, () -> {
+				FlxG.state.openSubState(new UpgradeCutscene(player.flipX, screenPoint, colorToUnlock, () -> {
 					FlxG.state.closeSubState();
 					if (colorToUnlock != ALL) {
 						PlayState.ME.objectCam.fade(FlxColor.BLACK, 0.2, true, () -> {
 							FlxTween.tween(PlayState.ME.baseTerrainCam.scroll, {x: scrollSave.x, y: scrollSave.y}, 0.5, {
 								onComplete: (t) -> {
+									player.inControl = true;
 									FlxEcho.updates = true;
 									FlxEcho.instance.active = true;
 								}
@@ -90,23 +105,15 @@ class ColorUpgrade extends ColorCollideSprite {
 			});
 		});
 
-		if (colorToUnlock != ALL) {
-			if (other.object is Player) {
-				var player:Player = cast other.object;
-				player.forceStand();
-				switch(colorToUnlock) {
-					case RED:
-						Collected.unlockRed();
-					case YELLOW:
-						Collected.unlockYellow();
-					case BLUE:
-						Collected.unlockBlue();
-					default:
-						QuickLog.error('pixel upgrade trying to unlock ${colorToUnlock.name()}');
-				}
-			}
+			
+		switch(colorToUnlock) {
+			case RED:
+				Collected.unlockRed();
+			case YELLOW:
+				Collected.unlockYellow();
+			case BLUE:
+				Collected.unlockBlue();
+			default:
 		}
-
-		body.active = false;
 	}
 }

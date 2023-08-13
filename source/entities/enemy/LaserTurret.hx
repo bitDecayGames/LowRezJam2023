@@ -40,7 +40,7 @@ class LaserTurret extends BaseLaser {
 			rotation: initialDir,
 			shape: {
 				type: CIRCLE,
-				radius: 16,
+				radius: 15,
 			}
 		});
 	}

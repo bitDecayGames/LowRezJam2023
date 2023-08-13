@@ -80,6 +80,7 @@ class LaserBeam extends ColorCollideSprite {
 		var laserLength:Float = BaseLaser.MAX_CAST_DISTANCE;
 		var laserCast = Line.get_from_vector(new Vector2(startX, startY), angle, BaseLaser.MAX_CAST_DISTANCE);
 		var intersects = laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.terrainGroup));
+		intersects = intersects.concat(laserCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects)));
 		impactPoint.set(laserCast.end.x, laserCast.end.y);
 		if (intersects.length > 0) {
 			for (i in intersects) {

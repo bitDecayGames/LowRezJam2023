@@ -20,7 +20,7 @@
  ],
  "meta": {
   "app": "https://www.aseprite.org/",
-  "version": "1.3-rc6-x64",
+  "version": "1.3-rc4-x64",
   "image": "blah.png",
   "format": "RGBA8888",
   "size": { "w": 64, "h": 48 },

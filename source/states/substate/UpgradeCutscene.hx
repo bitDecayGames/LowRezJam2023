@@ -22,8 +22,11 @@ class UpgradeCutscene extends FlxSubState {
 	var power:FlxSprite;
 	var player:FlxSprite;
 
-	public function new(playerPoint:FlxPoint, upgradeColor:Color, ?cb:Void->Void) {
+	var flipped = false;
+
+	public function new(flip:Bool, playerPoint:FlxPoint, upgradeColor:Color, ?cb:Void->Void) {
 		super();
+		flipped = flip;
 		screenPoint = offset.copyTo().addPoint(playerPoint);
 		this.upgradeColor = upgradeColor;
 		finishCb = cb;
@@ -46,6 +49,7 @@ class UpgradeCutscene extends FlxSubState {
 		player = new DummyPlayer(0,0);
 		player.scrollFactor.set();
 		player.setPositionMidpoint(screenPoint.x, screenPoint.y);
+		player.flipX = flipped;
 		add(player);
 
 		power = new UnlockParticle(0,0, done, () -> {
@@ -53,7 +57,7 @@ class UpgradeCutscene extends FlxSubState {
 			PlayState.ME.objectCam.shake(0.01, 0.4);
 			player.color = cast upgradeColor;
 		});
-
+		power.flipX = flipped;
 		power.color = cast upgradeColor;
 		power.scrollFactor.set();
 		power.setPositionMidpoint(screenPoint.x, screenPoint.y);

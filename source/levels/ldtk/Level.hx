@@ -107,6 +107,7 @@ class Level {
 			}
 			var upgrader = new ColorUpgrade(u);
 			objects.add(upgrader);
+			emitters.push(upgrader.particle);
 		}
 	}
 
