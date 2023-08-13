@@ -102,4 +102,39 @@ class CamExt {
 
 		return p;
 	}
+
+	public static function lineIntersectsRectangle(cam:FlxCamera, a:FlxPoint, b:FlxPoint):Bool {
+		cam.getViewRect(tmpRect);
+		return lineRect(a.x, a.y, b.x, b.y, tmpRect.x, tmpRect.y, tmpRect.width, tmpRect.height);
+	}
+
+	// LINE/RECTANGLE
+	static function lineRect(x1:Float, y1:Float, x2:Float, y2:Float, rx:Float, ry:Float, rw:Float, rh:Float):Bool {
+		// check if the line has hit any of the rectangle's sides
+		// uses the Line/Line function below
+		var left =   lineLine(x1,y1,x2,y2, rx,ry,rx, ry+rh);
+		var right =  lineLine(x1,y1,x2,y2, rx+rw,ry, rx+rw,ry+rh);
+		var top =    lineLine(x1,y1,x2,y2, rx,ry, rx+rw,ry);
+		var bottom = lineLine(x1,y1,x2,y2, rx,ry+rh, rx+rw,ry+rh);
+	
+		// if ANY of the above are true, the line
+		// has hit the rectangle
+		if (left || right || top || bottom) {
+			return true;
+		}
+		return false;
+	}
+
+	// LINE/LINE
+	static function lineLine(x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float, x4:Float, y4:Float):Bool {
+		// calculate the direction of the lines
+		var uA:Float = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1));
+		var uB:Float = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1));
+	
+		// if uA and uB are between 0-1, lines are colliding
+		if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
+		return true;
+		}
+		return false;
+	}
 }

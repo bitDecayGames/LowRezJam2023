@@ -133,6 +133,7 @@ class BaseLaser extends ColorCollideSprite {
 				if (cooldown >= COOLDOWN_TIME) {
 					emitter.emitting = true;
 					cooldownEnd();
+					beam.beginCharge();
 				}
 			} else {
 				charging += elapsed;
@@ -140,6 +141,7 @@ class BaseLaser extends ColorCollideSprite {
 				chargeUpdate();
 				
 				if (charging >= CHARGE_TIME) {
+					beam.beginFire();
 					beam.updatePosition(laserStartPoint.x, laserStartPoint.y, laserAngle);
 					updateDistances();
 
@@ -151,8 +153,7 @@ class BaseLaser extends ColorCollideSprite {
 						shooting = false;
 						FmodManager.StopSoundImmediately(blastSoundId);
 						blastSoundId = "";
-						beam.body.active = false;
-						beam.visible = false;
+						beam.stop();
 						laserFinished();
 					});
 					FmodManager.StopSoundImmediately(chargeSoundId);
@@ -191,13 +192,20 @@ class BaseLaser extends ColorCollideSprite {
 	}
 
 	function updateDistances() {
-		getGraphicMidpoint(tmp);
-		distanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
 		tmp.set(emitter.x, emitter.y);
-		emitterDistanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
+		if (PlayState.ME.objectCam.lineIntersectsRectangle(laserStartPoint, tmp)) {
+			distanceFromCam = 0;
+		} else {
+			tmp.copyFrom(laserStartPoint);
+			distanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
+			tmp.set(emitter.x, emitter.y);
+			distanceFromCam = Math.min(distanceFromCam, PlayState.ME.objectCam.distanceFromBounds(tmp));
+			getGraphicMidpoint(tmp);
+			distanceFromCam = Math.min(distanceFromCam, PlayState.ME.objectCam.distanceFromBounds(tmp));
+		}
 
-		volume = Math.max(0, (maxDistanceToHear - Math.min(distanceFromCam, emitterDistanceFromCam))) / maxDistanceToHear;
-		shakeAmount = Math.max(0, (maxDistanceToShake - Math.min(distanceFromCam, emitterDistanceFromCam))) / maxDistanceToShake;
+		volume = Math.max(0, (maxDistanceToHear - distanceFromCam)) / maxDistanceToHear;
+		shakeAmount = Math.max(0, (maxDistanceToShake - distanceFromCam)) / maxDistanceToShake;
 		#if debug_laser
 		FlxG.watch.addQuick('laserVolume: ', volume);
 		#end

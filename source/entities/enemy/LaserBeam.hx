@@ -22,6 +22,9 @@ class LaserBeam extends ColorCollideSprite {
 	public var impactPoint:FlxPoint = FlxPoint.get();
 	public var impactNormal = FlxPoint.get();
 
+	var aimAlpha = 0.2;
+	var fireAlpha = 0.5;
+
 	// TODO: See the normal and have particles only shoot off the surface the right direction
 	public function new(X:Float, Y:Float, angle:Float, length:Float, color:Color) {
 		spawn = FlxPoint.get(X, Y).addPoint(FlxPoint.get(1, 0).scale(length/2.0).pivotDegrees(FlxPoint.weak(), angle));
@@ -34,8 +37,8 @@ class LaserBeam extends ColorCollideSprite {
 
 	override function configSprite() {
 		// we'll scale the width to match beam length as needed
-		makeGraphic(1, 8, beamColor.toFlxColor());
-		alpha = 0.5;
+		makeGraphic(1, 4, beamColor.toFlxColor());
+		alpha = aimAlpha;
 	}
 
 	override function makeBody():Body {
@@ -52,6 +55,25 @@ class LaserBeam extends ColorCollideSprite {
 				solid: false,
 			}
 		});
+	}
+
+	public function beginCharge() {
+		body.active = false;
+		visible = true;
+		alpha = aimAlpha;
+		scale.y = 1;
+	}
+
+	public function beginFire() {
+		body.active = true;
+		visible = true;
+		alpha = fireAlpha;
+		scale.y = 2;
+	}
+
+	public function stop() {
+		body.active = false;
+		visible = false;
 	}
 
 	public function updatePosition(startX:Float, startY:Float, angle:Float) {
@@ -78,7 +100,7 @@ class LaserBeam extends ColorCollideSprite {
 		body.y = spawn.y;
 		body.rotation = angle;
 		cast(body.shape, Rect).width = laserLength;
-		scale.set(laserLength, 1);
+		scale.x = laserLength;
 	}
 
 	override function update(elapsed:Float) {
