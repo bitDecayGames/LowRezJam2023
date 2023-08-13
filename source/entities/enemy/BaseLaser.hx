@@ -1,5 +1,6 @@
 package entities.enemy;
 
+import entities.particles.ChargeParticle;
 import echo.Body;
 import input.SimpleController;
 import flixel.math.FlxMath;
@@ -44,6 +45,7 @@ class BaseLaser extends ColorCollideSprite {
 	var tmp = FlxPoint.get();
 
 	public var emitter:LaserParticle;
+	public var chargeParticle:ChargeParticle;
 	var laserStartPoint = FlxPoint.get();
 	var laserStartOffset = FlxPoint.get(0, 8);
 
@@ -55,6 +57,8 @@ class BaseLaser extends ColorCollideSprite {
 	var cooldown = 0.0;
 	var CHARGE_TIME = 1.5;
 	var charging = 0.0;
+
+	var AIM_LASER_GAP = 0.25;
 
 	var LASER_TIME = 1.0;
 
@@ -82,7 +86,7 @@ class BaseLaser extends ColorCollideSprite {
 		super(options.spawnX, options.spawnY, EMPTY);
 		laserColor = options.color;
 		laserAngle = (options.dir + 270) % 360;
-	
+
 		COOLDOWN_TIME = options.rest;
 		LASER_TIME = options.laserTime;
 
@@ -90,6 +94,8 @@ class BaseLaser extends ColorCollideSprite {
 		beam.visible = false;
 		beam.body.active = false;
 
+		chargeParticle = new ChargeParticle(options.spawnX + laserStartPoint.x, options.spawnY + laserStartPoint.y, laserColor);
+		chargeParticle.visible = false;
 		emitter = new LaserParticle(options.spawnX + laserStartPoint.x, options.spawnY + laserStartPoint.y, laserColor);
 	}
 
@@ -131,7 +137,7 @@ class BaseLaser extends ColorCollideSprite {
 				cooldownUpdate();
 
 				if (cooldown >= COOLDOWN_TIME) {
-					emitter.emitting = true;
+					chargeParticle.visible = true;
 					cooldownEnd();
 					beam.beginCharge();
 				}
@@ -139,8 +145,14 @@ class BaseLaser extends ColorCollideSprite {
 				charging += elapsed;
 
 				chargeUpdate();
+
+				if (charging >= CHARGE_TIME - AIM_LASER_GAP) {
+					beam.stop();
+				}
 				
 				if (charging >= CHARGE_TIME) {
+					chargeParticle.visible = false;
+					emitter.emitting = true;
 					beam.beginFire();
 					beam.updatePosition(laserStartPoint.x, laserStartPoint.y, laserAngle);
 					updateDistances();
@@ -177,6 +189,7 @@ class BaseLaser extends ColorCollideSprite {
 		}
 
 		updateEmitterPoint();
+		chargeParticle.setPositionMidpoint(laserStartPoint.x, laserStartPoint.y);
 		beam.updatePosition(laserStartPoint.x, laserStartPoint.y, laserAngle);
 			
 		if (shooting) {

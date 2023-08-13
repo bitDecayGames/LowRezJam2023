@@ -180,6 +180,7 @@ class Level {
 		for (l_config in laserOps) {
 			var laser = new LaserRail(l_config);
 			objects.add(laser);
+			objects.add(laser.chargeParticle);
 			beams.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
@@ -202,6 +203,7 @@ class Level {
 				laserTime: laser_turret.f_Laser_time,
 			});
 			objects.add(laser);
+			objects.add(laser.chargeParticle);
 			beams.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
@@ -258,6 +260,7 @@ class Level {
 		for (l_config in laserOps) {
 			var laser = new LaserStationary(l_config);
 			objects.add(laser);
+			objects.add(laser.chargeParticle);
 			beams.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
