@@ -36,6 +36,7 @@ class PermaLaser extends FlxSprite {
 			var laserAngle = angle + 90;
 			var castStart = getPosition().add(width / 2, height / 2);
 			var laser = new LaserBeam(castStart.x, castStart.y, laserAngle, 1, laserColor);
+			laser.beginFire();
 			laser.updatePosition(castStart.x, castStart.y, laserAngle);
 
 			emitter = new LaserParticle(laser.impactPoint.x, laser.impactPoint.y, laserColor);

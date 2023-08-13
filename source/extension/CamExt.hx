@@ -105,6 +105,8 @@ class CamExt {
 
 	public static function lineIntersectsRectangle(cam:FlxCamera, a:FlxPoint, b:FlxPoint):Bool {
 		cam.getViewRect(tmpRect);
+		tmpRect.x += cam.scroll.x;
+		tmpRect.y += cam.scroll.y;
 		return lineRect(a.x, a.y, b.x, b.y, tmpRect.x, tmpRect.y, tmpRect.width, tmpRect.height);
 	}
 
