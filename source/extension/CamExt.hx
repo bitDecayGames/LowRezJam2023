@@ -75,23 +75,26 @@ class CamExt {
 
 		if (x >= midX) { // check "right" side
 			var maxXy = m * (maxX - x) + y;
-			if (minY <= maxXy && maxXy <= maxY)
+			if (minY <= maxXy && maxXy <= maxY) {
 				p.set(maxX, maxXy);
 				return p;
+			}
 		}
 
 		if (y <= midY) { // check "top" side
 			var minYx = (minY - y) / m + x;
-			if (minX <= minYx && minYx <= maxX)
+			if (minX <= minYx && minYx <= maxX) {
 				p.set(minYx, minY);
 				return p;
+			}
 		}
 
 		if (y >= midY) { // check "bottom" side
 			var maxYx = (maxY - y) / m + x;
-			if (minX <= maxYx && maxYx <= maxX)
+			if (minX <= maxYx && maxYx <= maxX) {
 				p.set(maxYx, maxY);
 				return p;
+			}
 		}
 
 		// edge case when finding midpoint intersection: m = 0/0 = NaN
