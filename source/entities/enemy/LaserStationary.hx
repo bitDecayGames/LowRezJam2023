@@ -22,10 +22,12 @@ class LaserStationary extends BaseLaser {
 	override function cooldownEnd() {
 		super.cooldownEnd();
 		chargeSoundId = FmodManager.PlaySoundWithReference(FmodSFX.LaserStationaryCharge);
+		trace("Charge sound set to " + chargeSoundId);
 	}
 
 	override function laserFired() {
 		super.laserFired();
 		blastSoundId = FmodManager.PlaySoundWithReference(FmodSFX.LaserStationaryBlast2);
+		trace("Blast sound set to " + blastSoundId);
 	}
 }
