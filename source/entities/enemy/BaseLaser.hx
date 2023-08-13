@@ -28,10 +28,7 @@ typedef BaseLaserOptions = {
 	color: Color,
 	rest: Float,
 	delay:Float,
-}
-
-typedef LaserStationaryOptions = BaseLaserOptions & {
-	laserTime: Float,
+	laserTime:Float,
 }
 
 typedef LaserRailOptions = BaseLaserOptions & {
@@ -89,7 +86,7 @@ class BaseLaser extends ColorCollideSprite {
 	
 		COOLDOWN_TIME = options.rest;
 
-		// LASER_TIME = options.
+		LASER_TIME = options.laserTime;
 
 
 		beam = new LaserBeam(laserStartPoint.x, laserStartPoint.y, laserAngle, 1, laserColor);

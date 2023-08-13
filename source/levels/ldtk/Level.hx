@@ -2,7 +2,7 @@ package levels.ldtk;
 
 import states.PlayState;
 import entities.enemy.PermaLaser;
-import entities.enemy.BaseLaser.LaserStationaryOptions;
+import entities.enemy.BaseLaser.BaseLaserOptions;
 import entities.enemy.BaseLaser.LaserRailOptions;
 import collision.ColorCollideSprite;
 import entities.camera.CameraTransitionZone;
@@ -125,6 +125,7 @@ class Level {
 				rest: 3,
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
+				laserTime: l.f_Laser_time,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_down) {
@@ -140,6 +141,7 @@ class Level {
 				rest: 3,
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
+				laserTime: l.f_Laser_time,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_left) {
@@ -155,6 +157,7 @@ class Level {
 				rest: 3,
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
+				laserTime: l.f_Laser_time,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_right) {
@@ -170,6 +173,7 @@ class Level {
 				rest: 3,
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
+				laserTime: l.f_Laser_time,
 			});
 		}
 
@@ -195,6 +199,7 @@ class Level {
 				dir: N,
 				rest: 3,
 				delay: 0,
+				laserTime: laser_turret.f_Laser_time,
 			});
 			objects.add(laser);
 			beams.add(laser.beam);
@@ -203,7 +208,7 @@ class Level {
 	}
 
 	function parseLaserStationary(level:LDTKProject_Level) {
-		var laserOps:Array<LaserStationaryOptions> = [];
+		var laserOps:Array<BaseLaserOptions> = [];
 
 		for (l in level.l_Objects.all_Laser_mount_up) {
 			laserOps.push({
