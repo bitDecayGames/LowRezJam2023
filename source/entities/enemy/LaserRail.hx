@@ -27,10 +27,10 @@ class LaserRail extends BaseLaser {
 	var shootOnNode:Bool;
 
 	public function new(options:LaserRailOptions) {
+		var spawnPoint = FlxPoint.get(options.spawnX, options.spawnY);
+
 		super(options);
 		
-		var spawnPoint = FlxPoint.get(options.spawnX, options.spawnY);
-		var adjust = FlxPoint.get(16, 16);
 		this.pathPoints = options.path;
 		for (p in pathPoints) {
 			p.addPoint(adjust);

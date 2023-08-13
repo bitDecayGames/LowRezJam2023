@@ -1,5 +1,6 @@
 package entities.enemy;
 
+import echo.Body;
 import flixel.FlxG;
 import entities.enemy.BaseLaser.BaseLaserOptions;
 import echo.math.Vector2;
@@ -10,6 +11,8 @@ import states.PlayState;
 #if debug_turret
 import flixel.FlxG;
 #end
+
+using echo.FlxEcho;
 
 class LaserTurret extends BaseLaser {
 	var aimAngle:Float = 0;
@@ -29,16 +32,29 @@ class LaserTurret extends BaseLaser {
 		loadGraphic(AssetPaths.rotatingTurret__png);
 	}
 
+	override function makeBody():Body {
+		return this.add_body({
+			x: x,
+			y: y,
+			kinematic: true,
+			rotation: initialDir,
+			shape: {
+				type: CIRCLE,
+				radius: 16,
+			}
+		});
+	}
+
 	override function update(elapsed:Float) {
 		#if debug_turret
 		FlxG.watch.addQuick('Cooldown: ', cooldown);
 		FlxG.watch.addQuick('Charge: ', charging);
 		#end
 
-		lastAngle = angle;
+		lastAngle = body.rotation;
 
 		if (forceAngularUpdate) {
-			angle += angleUpdate * elapsed;
+			body.rotation += angleUpdate * elapsed;
 			laserAngle += angleUpdate * elapsed;
 		} else {
 			var playerBounds = PlayState.ME.player.body.bounds();
@@ -48,7 +64,7 @@ class LaserTurret extends BaseLaser {
 			var vector = FlxPoint.get(laserAim.x, laserAim.y);
 			aimAngle = vector.degreesFrom(midpoint);
 	
-			var curAngle = angle;
+			var curAngle = body.rotation;
 			if (Math.abs(aimAngle - curAngle) > 180) {
 				 if (curAngle > aimAngle) {
 					// if we aren't locked on, adjust our angle.
@@ -65,7 +81,7 @@ class LaserTurret extends BaseLaser {
 						aimAngle -= 360;
 					}
 				}
-				angle = curAngle;
+				body.rotation = curAngle;
 			}
 		}
 
@@ -79,14 +95,14 @@ class LaserTurret extends BaseLaser {
 
 	override function cooldownEnd() {
 		super.cooldownEnd();
-		startLockAngle = angle;
+		startLockAngle = body.rotation;
 		chargeSoundId = FmodManager.PlaySoundWithReference(FmodSFX.LaserTurretCharge2);
 	}
 
 	override function cooldownUpdate() {
 		super.cooldownUpdate();
-		angle = FlxMath.lerp(angle, aimAngle, Math.min(1, cooldown / COOLDOWN_TIME / 5));
-		laserAngle = angle;
+		body.rotation = FlxMath.lerp(body.rotation, aimAngle, Math.min(1, cooldown / COOLDOWN_TIME / 5));
+		laserAngle = body.rotation;
 	}
 
 	override function chargeUpdate() {
@@ -97,9 +113,9 @@ class LaserTurret extends BaseLaser {
 	override function laserFired() {
 		super.laserFired();
 		blastSoundId = FmodManager.PlaySoundWithReference(FmodSFX.LaserTurretBlast3);
-		startLockAngle = angle;
+		startLockAngle = body.rotation;
 		forceAngularUpdate = true;
-		angleUpdate = (angle - lastAngle) / FlxG.elapsed; // an approximation of per-frame angle change
+		angleUpdate = (body.rotation - lastAngle) / FlxG.elapsed; // an approximation of per-frame angle change
 	}
 
 	override function laserFiringUpdate() {
@@ -114,7 +130,7 @@ class LaserTurret extends BaseLaser {
 	}
 
 	function slowFollow(ratio:Float) {
-		angle = FlxMath.lerp(startLockAngle, aimAngle, Math.min(.8, ratio));
-		laserAngle = angle;
+		body.rotation = FlxMath.lerp(startLockAngle, aimAngle, Math.min(.8, ratio));
+		laserAngle = body.rotation;
 	}
 }

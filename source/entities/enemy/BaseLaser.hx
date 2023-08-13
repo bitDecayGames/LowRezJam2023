@@ -1,5 +1,6 @@
 package entities.enemy;
 
+import echo.Body;
 import input.SimpleController;
 import flixel.math.FlxMath;
 import flixel.tweens.FlxTween;
@@ -17,6 +18,7 @@ import flixel.math.FlxPoint;
 import flixel.effects.particles.FlxEmitter;
 import collision.ColorCollideSprite;
 
+using echo.FlxEcho;
 using extension.CamExt;
 
 typedef BaseLaserOptions = {
@@ -72,14 +74,23 @@ class BaseLaser extends ColorCollideSprite {
 
 	var shooting = false;
 
+	var initialDir:Float = 0.0;
+	var adjust = FlxPoint.get(16, 16);
+	
 	public function new(options:BaseLaserOptions) {
+		initialDir = options.dir + 180;
+		options.spawnX += adjust.x;
+		options.spawnY += adjust.y;
+		
 		super(options.spawnX, options.spawnY, EMPTY);
-
 		laserColor = options.color;
-		angle = options.dir + 180;
+		// angle = options.dir + 180;
 		laserAngle = (options.dir + 270) % 360;
-
+	
 		COOLDOWN_TIME = options.rest;
+
+		// LASER_TIME = options.
+
 
 		beam = new LaserBeam(laserStartPoint.x, laserStartPoint.y, laserAngle, 1, laserColor);
 		beam.visible = false;
@@ -88,8 +99,29 @@ class BaseLaser extends ColorCollideSprite {
 		emitter = new LaserParticle(options.spawnX + laserStartPoint.x, options.spawnY + laserStartPoint.y, laserColor);
 	}
 
+	override function makeBody():Body {
+		var xOffset = 0.0;
+		var yOffset = -height * .25;
+
+		return this.add_body({
+			x: x,
+			y: y,
+			kinematic: true,
+			rotation: initialDir,
+			shape: {
+				type: RECT,
+				width: width,
+				height: height / 2,
+				offset_x: xOffset,
+				offset_y: yOffset,
+			}
+		});
+	}
+
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		body.velocity.set(velocity.x, velocity.y);
 
 		if (chargeSoundId != "") {
 			FmodManager.SetEventParameterOnSound(chargeSoundId, "volume", volume);

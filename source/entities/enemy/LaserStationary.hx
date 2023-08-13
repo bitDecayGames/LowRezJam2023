@@ -1,5 +1,7 @@
 package entities.enemy;
 
+import echo.Body;
+import flixel.math.FlxPoint;
 import entities.enemy.BaseLaser.BaseLaserOptions;
 import loaders.Aseprite;
 import loaders.AsepriteMacros;

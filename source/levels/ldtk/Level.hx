@@ -44,6 +44,7 @@ class Level {
 	public var rawCoarseTerrainLayer:levels.ldtk.LDTKProject.Layer_Terrain_coarse;
 
 	public var objects = new FlxTypedGroup<FlxObject>();
+	public var beams = new FlxTypedGroup<FlxObject>();
 	public var emitters = new Array<FlxEmitter>();
 	public var playerSpawn:Entity_Spawn;
 
@@ -175,7 +176,7 @@ class Level {
 		for (l_config in laserOps) {
 			var laser = new LaserRail(l_config);
 			objects.add(laser);
-			objects.add(laser.beam);
+			beams.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
 	}
@@ -196,7 +197,7 @@ class Level {
 				delay: 0,
 			});
 			objects.add(laser);
-			objects.add(laser.beam);
+			beams.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
 	}
@@ -252,7 +253,7 @@ class Level {
 		for (l_config in laserOps) {
 			var laser = new LaserStationary(l_config);
 			objects.add(laser);
-			objects.add(laser.beam);
+			beams.add(laser.beam);
 			emitters.push(laser.emitter);
 		}
 

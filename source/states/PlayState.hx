@@ -219,6 +219,11 @@ class PlayState extends FlxTransitionableState {
 			o.camera = objectCam;
 		}
 
+		for (o in level.beams) {
+			o.add_to_group(objects);
+			o.camera = objectCam;
+		}
+
 		var extraSpawnLogic:Void->Void = null;
 		var spawnPoint = FlxPoint.get();
 		if (entityID != null) {
