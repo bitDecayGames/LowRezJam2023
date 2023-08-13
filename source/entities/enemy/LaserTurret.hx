@@ -22,6 +22,8 @@ class LaserTurret extends BaseLaser {
 	var forceAngularUpdate:Bool = false;
 	var angleUpdate:Float = -1;
 
+	var maxChaseAngleVelocity = 70;
+
 	public function new(options:BaseLaserOptions) {
 		super(options);
 
@@ -116,6 +118,9 @@ class LaserTurret extends BaseLaser {
 		startLockAngle = body.rotation;
 		forceAngularUpdate = true;
 		angleUpdate = (body.rotation - lastAngle) / FlxG.elapsed; // an approximation of per-frame angle change
+		if (Math.abs(angleUpdate) > maxChaseAngleVelocity) {
+			angleUpdate = maxChaseAngleVelocity * (angleUpdate < 0 ? -1 : 1);
+		}
 	}
 
 	override function laserFiringUpdate() {
