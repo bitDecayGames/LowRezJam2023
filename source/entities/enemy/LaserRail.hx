@@ -54,12 +54,12 @@ class LaserRail extends BaseLaser {
 		if (pauseOnFire) {
 			this.path.active = false;
 		}
-		FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryCharge);
+		chargeSoundId = FmodManager.PlaySoundWithReference(FmodSFX.LaserStationaryCharge);
 	}
 
 	override function laserFired() {
 		super.laserFired();
-		FmodManager.PlaySoundOneShot(FmodSFX.LaserStationaryBlast2);
+		blastSoundId = FmodManager.PlaySoundWithReference(FmodSFX.LaserStationaryBlast2);
 	}
 
 	override function laserFinished() {

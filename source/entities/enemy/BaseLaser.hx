@@ -91,6 +91,7 @@ class BaseLaser extends ColorCollideSprite {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
+		
 		if (chargeSoundId != "") {
 			FmodManager.SetEventParameterOnSound(chargeSoundId, "volume", volume);
 		}
