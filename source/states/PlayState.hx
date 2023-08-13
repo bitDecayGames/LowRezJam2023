@@ -44,6 +44,8 @@ class PlayState extends FlxTransitionableState {
 	
 	public var deltaModTimerMgr:FlxTimerManager = new FlxTimerManager();
 
+	public var playerDying:Bool = false;
+
 	var lastLevel:String;
 	var lastSpawnEntity:String;
 
@@ -411,7 +413,6 @@ class PlayState extends FlxTransitionableState {
 			// then bring it back up to slowmo and finish animating the player
 			player.finishDeath();
 			FlxTween.tween(this, {deltaMod: deathDeltaMod}, .1, {
-				// TODO(SFX): Time has fully slowed down, brief pause before player pops
 				onComplete: (tween1) -> {
 					new FlxTimer(PlayState.ME.deltaModTimerMgr).start(.075, (timer) -> {
 						FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieBurst2);
@@ -419,7 +420,6 @@ class PlayState extends FlxTransitionableState {
 						DeathParticles.create(player.body.x, player.body.y, !player.grounded, Collected.unlockedColors());
 						FlxG.cameras.flash(0.5);
 						new FlxTimer().start(.5, (timer2) -> {
-							// TODO(SFX): Time returns to normal speed
 							FlxTween.tween(this, {deltaMod: 1}, .5, {
 								onComplete: (tween2) -> {
 									new FlxTimer(PlayState.ME.deltaModTimerMgr).start(1, (timer3) -> {

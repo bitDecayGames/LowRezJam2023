@@ -123,6 +123,17 @@ class BaseLaser extends ColorCollideSprite {
 
 		body.velocity.set(velocity.x, velocity.y);
 
+		if (PlayState.ME.playerDying) {
+			if (chargeSoundId != "") {
+				FmodManager.StopSoundImmediately(chargeSoundId);
+				chargeSoundId = "";
+			}
+			if (blastSoundId != "") {
+				FmodManager.StopSoundImmediately(blastSoundId);
+				blastSoundId = "";
+			}
+		}
+
 		if (chargeSoundId != "") {
 			FmodManager.SetEventParameterOnSound(chargeSoundId, "volume", volume);
 		}
