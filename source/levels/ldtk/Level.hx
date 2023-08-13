@@ -123,7 +123,7 @@ class Level {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
 				pauseOnFire: l.f_Pause_on_fire,
-				rest: 3,
+				rest: l.f_Rest,
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
 				laserTime: l.f_Laser_time,
@@ -139,7 +139,7 @@ class Level {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
 				pauseOnFire: l.f_Pause_on_fire,
-				rest: 3,
+				rest: l.f_Rest,
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
 				laserTime: l.f_Laser_time,
@@ -155,7 +155,7 @@ class Level {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
 				pauseOnFire: l.f_Pause_on_fire,
-				rest: 3,
+				rest: l.f_Rest,
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
 				laserTime: l.f_Laser_time,
@@ -171,7 +171,7 @@ class Level {
 					FlxPoint.get(point.cx * level.l_Objects.gridSize, point.cy * level.l_Objects.gridSize);
 				}],
 				pauseOnFire: l.f_Pause_on_fire,
-				rest: 3,
+				rest: l.f_Rest,
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
 				laserTime: l.f_Laser_time,
@@ -199,8 +199,8 @@ class Level {
 				spawnY: spawnPoint.y,
 				color: Color.fromEnum(laser_turret.f_Color),
 				dir: N,
-				rest: 3,
-				delay: 0,
+				rest: laser_turret.f_Rest,
+				delay: laser_turret.f_Initial_delay,
 				laserTime: laser_turret.f_Laser_time,
 			});
 			objects.add(laser);
