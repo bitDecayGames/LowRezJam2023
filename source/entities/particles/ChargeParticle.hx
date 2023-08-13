@@ -12,7 +12,7 @@ class ChargeParticle extends FlxSprite {
 		super(X, Y);
 		Aseprite.loadAllAnimations(this, AssetPaths.charge__json);
 		animation.add("all", [for (i in 0...animation.numFrames) i], 30);
-		animation.play('all');
+		animation.play('all', true, false, -1);
 		scale.set(0.75, 0.75);
 		alpha = 0.5;
 
