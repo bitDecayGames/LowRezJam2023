@@ -91,7 +91,7 @@ class PlayState extends FlxTransitionableState {
 		// main will do this, but if we are dev'ing and going straight to the play screen, it may not be done yet
 		Collected.initialize();
 
-		persistentUpdate = true;
+		// persistentUpdate = true;
 
 		baseTerrainCam = FlxG.camera;
 		baseTerrainCam.bgColor = backgroundColor;

@@ -16,7 +16,7 @@ class UnlockParticle extends FlxSprite {
 
 	var cb:Void->Void;
 
-	public function new(centerX:Float, centerY:Float, finishCB:Void->Void, tintCB:Void->Void) {
+	public function new(centerX:Float, centerY:Float, finishCB:Void->Void, tintCB:Void->Void, onHitCB:Void->Void) {
 		super(centerX, centerY);
 		this.cb = finishCB;
 
@@ -43,7 +43,6 @@ class UnlockParticle extends FlxSprite {
 				
 				if (StringTools.contains(eventData.get(index), "shoot")) {
 					FmodManager.PlaySoundOneShot(FmodSFX.ColorShoot);
-					
 		
 					FmodManager.SetEventParameterOnSong("LowPass", 0);
 					if (Collected.has(Color.BLUE)) {
@@ -54,6 +53,10 @@ class UnlockParticle extends FlxSprite {
 					}
 					if (Collected.has(Color.YELLOW)) {
 						FmodManager.SetEventParameterOnSong("Layer4", 1);
+					}
+
+					if (onHitCB != null) {
+						onHitCB();
 					}
 				}
 			}
