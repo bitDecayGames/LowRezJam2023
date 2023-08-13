@@ -81,13 +81,10 @@ class BaseLaser extends ColorCollideSprite {
 		
 		super(options.spawnX, options.spawnY, EMPTY);
 		laserColor = options.color;
-		// angle = options.dir + 180;
 		laserAngle = (options.dir + 270) % 360;
 	
 		COOLDOWN_TIME = options.rest;
-
 		LASER_TIME = options.laserTime;
-
 
 		beam = new LaserBeam(laserStartPoint.x, laserStartPoint.y, laserAngle, 1, laserColor);
 		beam.visible = false;
