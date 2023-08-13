@@ -220,7 +220,7 @@ class PlayState extends FlxTransitionableState {
 		}
 
 		for (o in level.beams) {
-			o.add_to_group(objects);
+			o.add_to_group(lasers);
 			o.camera = objectCam;
 		}
 
@@ -321,6 +321,14 @@ class PlayState extends FlxTransitionableState {
 				}
 				if (Std.isOfType(b.object, ColorCollideSprite)) {
 					cast(b.object, ColorCollideSprite).handleEnter(a, o);
+				}
+			},
+			stay: (a, b, o) -> {
+				if (Std.isOfType(a.object, ColorCollideSprite)) {
+					cast(a.object, ColorCollideSprite).handleStay(b, o);
+				}
+				if (Std.isOfType(b.object, ColorCollideSprite)) {
+					cast(b.object, ColorCollideSprite).handleStay(a, o);
 				}
 			},
 		});

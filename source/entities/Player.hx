@@ -43,8 +43,8 @@ class Player extends ColorCollideSprite {
 	var groundedCastMiddle:Bool = false;
 	var groundedCastRight:Bool = false;
 
-	var topShape:echo.Shape.Shape;
-	var bottomShape:echo.Shape.Shape;
+	public var topShape:echo.Shape.Shape;
+	public var bottomShape:echo.Shape.Shape;
 	var groundCircle:echo.Shape.Shape;
 
 	// if we are playing it in debug, make it harder for us. Be nice to players

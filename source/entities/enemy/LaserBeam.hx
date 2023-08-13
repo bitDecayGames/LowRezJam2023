@@ -111,7 +111,32 @@ class LaserBeam extends ColorCollideSprite {
 		super.handleEnter(other, data);
 
 		if (other.object is Player) {
-			PlayState.ME.playerDied();
+			if (checkPlayerHit(cast other.object)) {
+				PlayState.ME.playerDied();
+			}
+		}
+	}
+
+	override function handleStay(other:Body, data:Array<CollisionData>) {
+		super.handleStay(other, data);
+
+		if (other.object is Player) {
+			if (checkPlayerHit(cast other.object)) {
+				PlayState.ME.playerDied();
+			}
+		}
+	}
+
+	function checkPlayerHit(player:Player):Bool {
+		if (player.topShape.solid == false) {
+			if (player.bottomShape.collides(body.shape) == null) {
+				// we are crouched and laser only touched the disabled top hitbox
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return true;
 		}
 	}
 }
