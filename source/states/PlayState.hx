@@ -107,7 +107,9 @@ class PlayState extends FlxTransitionableState {
 
 		// XXX: need the substate to use the right cameras... but it's not set yet, so we go to this
 		// variable to get it
-		_requestedSubState.camera = PlayState.ME.objectCam;
+		if (_requestedSubState != null) {
+			_requestedSubState.camera = PlayState.ME.objectCam;
+		}
 
 		// Set up echo last so it draws on top of all of our cameras
 		FlxEcho.init({width: FlxG.width, height: FlxG.height, gravity_y: 24 * Constants.BLOCK_SIZE});
