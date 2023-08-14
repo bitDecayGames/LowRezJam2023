@@ -74,6 +74,8 @@ class PlayState extends FlxTransitionableState {
 	var deltaMod = 1.0;
 	var deathDeltaMod = 0.1;
 
+	public var levelTime = 0.0;
+
 	public function new() {
 		super();
 		ME = this;
@@ -86,6 +88,7 @@ class PlayState extends FlxTransitionableState {
 		Lifecycle.startup.dispatch();
 
 		FmodManager.PlaySong(FmodSongs.Song1);
+
 		FmodManager.SetEventParameterOnSong("volume", 0);
 		
 		#if music
@@ -94,6 +97,8 @@ class PlayState extends FlxTransitionableState {
 
 		// main will do this, but if we are dev'ing and going straight to the play screen, it may not be done yet
 		Collected.initialize();
+
+		Collected.setMusicParameters();
 
 		persistentUpdate = true;
 
@@ -205,6 +210,9 @@ class PlayState extends FlxTransitionableState {
 	public function loadLevel(levelID:String, ?entityID:String) {
 		lastLevel = levelID;
 		lastSpawnEntity = entityID;
+
+		Collected.addTime(levelTime);
+		levelTime = 0;
 
 		Collected.setLastCheckpoint(levelID, entityID);
 
@@ -467,6 +475,11 @@ class PlayState extends FlxTransitionableState {
 			}));
 		}
 
+		if(FlxG.keys.justPressed.RBRACKET) {
+			FlxG.switchState(new CreditsState());
+		}
+
+
 		#if debug_time
 		FlxG.watch.addQuick('deltaMod: ', deltaMod);
 		#end
@@ -478,8 +491,12 @@ class PlayState extends FlxTransitionableState {
 		if (FlxEcho.instance.active) {
 			FlxEcho.instance.update(elapsed);
 		}
-		
+
 		super.update(elapsed);
+
+		if (player.inControl) {
+			levelTime += elapsed;
+		}
 
 		for (o in pendingObjects) {
 			o.add_to_group(objects);

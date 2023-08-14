@@ -1,5 +1,7 @@
 package states;
 
+import flixel.util.FlxStringUtil;
+import progress.Collected;
 import flixel.math.FlxMath;
 import flixel.text.FlxText.FlxTextAlign;
 import flixel.text.FlxBitmapText;
@@ -45,12 +47,7 @@ class CreditsState extends FlxUIState {
 		bgColor = backgroundColor;
 		camera.pixelPerfectRender = true;
 
-		// Button
-
-		// _btnMainMenu = UiHelpers.createMenuButton("Main Menu", clickMainMenu);
-		// _btnMainMenu.setPosition(FlxG.width - _btnMainMenu.width, FlxG.height - _btnMainMenu.height);
-		// _btnMainMenu.updateHitbox();
-		// add(_btnMainMenu);
+		Collected.addTime(PlayState.ME.levelTime);
 
 		// Credits
 
@@ -110,6 +107,27 @@ class CreditsState extends FlxUIState {
 		center(_txtThankYou);
 		add(_txtThankYou);
 		_allCreditElements.push(_txtThankYou);
+
+		var _txtTime = FlxTextFactory.make('Time: ${getFormattedTime()}', FlxG.width / 2, creditsVerticalOffset + FlxG.height * .75, 36, FlxTextAlign.CENTER);
+		_txtTime.color = FlxColor.GRAY;
+		center(_txtTime);
+		_txtTime.x -= _txtTime.x % 4;
+		add(_txtTime);
+		_allCreditElements.push(_txtTime);
+
+		var _txtDeath = FlxTextFactory.make('Deaths: ${Collected.getDeathCount()}', FlxG.width / 2, _txtTime.y + 40, 36, FlxTextAlign.CENTER);
+		_txtDeath.color = FlxColor.GRAY;
+		center(_txtDeath);
+		_txtDeath.x -= _txtDeath.x % 4;
+		add(_txtDeath);
+		_allCreditElements.push(_txtDeath);
+
+		Collected.gameComplete();
+	}
+
+	private function getFormattedTime():String {
+		var rawTime = Collected.getTime();
+		return FlxStringUtil.formatTime(rawTime, true);
 	}
 
 	private function AddSectionToCreditsTextArrays(role:String, creators:Array<String>, finalRoleArray:Array<FlxBitmapText>,

@@ -45,15 +45,7 @@ class UnlockParticle extends FlxSprite {
 					FmodManager.PlaySoundOneShot(FmodSFX.ColorShoot);
 		
 					FmodManager.SetEventParameterOnSong("LowPass", 0);
-					if (Collected.has(Color.BLUE)) {
-						FmodManager.SetEventParameterOnSong("Layer2", 1);
-					}
-					if (Collected.has(Color.YELLOW)) {
-						FmodManager.SetEventParameterOnSong("Layer3", 1);
-					}
-					if (Collected.has(Color.RED)) {
-						FmodManager.SetEventParameterOnSong("Layer4", 1);
-					}
+					Collected.setMusicParameters();
 
 					if (onHitCB != null) {
 						onHitCB();

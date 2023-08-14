@@ -118,20 +118,29 @@ class BaseLaser extends ColorCollideSprite {
 		});
 	}
 
+	override function kill() {
+		super.kill();
+		stopSounds();
+	}
+
+	function stopSounds() {
+		if (chargeSoundId != "") {
+			FmodManager.StopSoundImmediately(chargeSoundId);
+			chargeSoundId = "";
+		}
+		if (blastSoundId != "") {
+			FmodManager.StopSoundImmediately(blastSoundId);
+			blastSoundId = "";
+		}
+	}
+
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		body.velocity.set(velocity.x, velocity.y);
 
 		if (PlayState.ME.playerDying) {
-			if (chargeSoundId != "") {
-				FmodManager.StopSoundImmediately(chargeSoundId);
-				chargeSoundId = "";
-			}
-			if (blastSoundId != "") {
-				FmodManager.StopSoundImmediately(blastSoundId);
-				blastSoundId = "";
-			}
+			stopSounds();
 		}
 
 		if (chargeSoundId != "") {
