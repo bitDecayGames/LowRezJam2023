@@ -18,8 +18,8 @@ import loaders.Aseprite;
 import loaders.AsepriteMacros;
 
 using echo.FlxEcho;
-
 using bitdecay.flixel.extensions.FlxCameraExt;
+using extension.CamExt;
 
 class ColorUpgrade extends ColorCollideSprite {
 	private static var anims = AsepriteMacros.tagNames("assets/aseprite/pixel.json");
@@ -27,6 +27,11 @@ class ColorUpgrade extends ColorCollideSprite {
 	var data:Entity_Color_upgrade;
 
 	public var particle:UpgradeParticle;
+	
+	var tmp = FlxPoint.get();
+	var distanceFromCam = 0.0;
+	var maxDistanceToHear = 256;
+	public var volume:Float = 0.0;
 
 	var colorToUnlock:Color;
 
@@ -59,6 +64,18 @@ class ColorUpgrade extends ColorCollideSprite {
 				solid: false,
 			}
 		});
+	}
+
+	override function update(elapsed:Float) {
+		super.update(elapsed);
+
+		getGraphicMidpoint(tmp);
+		distanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
+		volume = Math.max(0, (maxDistanceToHear - distanceFromCam)) / maxDistanceToHear;
+
+		#if debug_upgrade
+		FlxG.watch.addQuick('upgrade vol: ', volume);
+		#end
 	}
 
 	override function handleEnter(other:Body, data:Array<CollisionData>) {

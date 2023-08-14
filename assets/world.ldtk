@@ -16548,6 +16548,20 @@
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
 							]
+						},
+						{
+							"__identifier": "Dev_spawn",
+							"__grid": [27,7],
+							"__pivot": [0.5,1],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#FF00FC",
+							"iid": "733cc450-1460-11ee-b53c-73335537cf04",
+							"width": 16,
+							"height": 48,
+							"defUid": 118,
+							"px": [440,128],
+							"fieldInstances": []
 						}
 					]
 				},
