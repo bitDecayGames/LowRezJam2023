@@ -89,11 +89,7 @@ class PlayState extends FlxTransitionableState {
 
 		FmodManager.PlaySong(FmodSongs.Song1);
 
-		FmodManager.SetEventParameterOnSong("volume", 0);
-		
-		#if music
 		FmodManager.SetEventParameterOnSong("volume", 1);
-		#end
 
 		// main will do this, but if we are dev'ing and going straight to the play screen, it may not be done yet
 		Collected.initialize();
