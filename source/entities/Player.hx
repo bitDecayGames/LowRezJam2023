@@ -540,14 +540,17 @@ class Player extends ColorCollideSprite {
 			i.put();
 		}
 
-		// Here for better ground feel
-		// if (groundedCastMiddle && (!groundedCastLeft || !groundedCastRight)) {
-		// 	groundCircle.solid = false;
-		// } else {
-		// 	groundCircle.solid = true;
-		// }
+		// if physics feel like crap, use this way of determining solid and remove the stuff below
+		// groundCircle.solid = groundedCastMiddle || (!groundedCastLeft && !groundedCastRight);
 
-		groundCircle.solid = groundedCastMiddle || (!groundedCastLeft && !groundedCastRight);
+		var previouslySolid = groundCircle.solid;
+		groundCircle.solid = groundedCastMiddle || (groundedCastLeft && !groundedCastRight) || (!groundedCastLeft && groundedCastRight);
+
+		if (!previouslySolid && groundCircle.solid) {
+			// This is hopefully preventing weird collision glitch where the player is thrown left/right all
+			// the way to the edge of a hitbox.
+			body.y -= 1;
+		}
 
 
 

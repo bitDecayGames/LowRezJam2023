@@ -53,9 +53,9 @@ class ColorUpgrade extends ColorCollideSprite {
 			rotation: angle,
 			shape: {
 				type: RECT,
-				width: 10,
+				width: 20,
 				height: 5,
-				offset_y: data.height / 2 + 5/2,
+				offset_y: data.height / 2 + 5/2 - .5,
 				solid: false,
 			}
 		});
