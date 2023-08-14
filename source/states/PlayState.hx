@@ -76,6 +76,8 @@ class PlayState extends FlxTransitionableState {
 
 	public var levelTime = 0.0;
 
+	var resetQueued = false;
+
 	public function new() {
 		super();
 		ME = this;
@@ -199,6 +201,13 @@ class PlayState extends FlxTransitionableState {
 	}
 
 	public function resetLevel() {
+		if (resetQueued) {
+			return;
+		}
+
+		// we don't want to reset the level multiple times in a row as it causes
+		// errors
+		resetQueued = true;
 		loadLevel(lastLevel, lastSpawnEntity);
 	}
 
@@ -465,6 +474,7 @@ class PlayState extends FlxTransitionableState {
 
 	override public function update(elapsed:Float) {
 
+		#if debug
 		if(FlxG.keys.justPressed.LBRACKET) {
 			FlxG.state.openSubState(new UpgradeCutscene(false, FlxPoint.get(FlxG.width/2, FlxG.height/2), Color.BLUE, () -> {
 				
@@ -474,6 +484,9 @@ class PlayState extends FlxTransitionableState {
 		if(FlxG.keys.justPressed.RBRACKET) {
 			FlxG.switchState(new CreditsState());
 		}
+		#end
+
+		resetQueued = false;
 
 
 		#if debug_time

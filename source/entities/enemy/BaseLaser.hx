@@ -30,6 +30,7 @@ typedef BaseLaserOptions = {
 	rest: Float,
 	delay:Float,
 	laserTime:Float,
+	muted:Bool,
 }
 
 typedef LaserRailOptions = BaseLaserOptions & {
@@ -72,6 +73,7 @@ class BaseLaser extends ColorCollideSprite {
 	var shakeAmount = 1.0;
 	var distanceFromCam = 0.0;
 	var emitterDistanceFromCam = 0.0;
+	var muted = false;
 
 	var shooting = false;
 
@@ -89,6 +91,8 @@ class BaseLaser extends ColorCollideSprite {
 
 		COOLDOWN_TIME = options.rest;
 		LASER_TIME = options.laserTime;
+
+		muted = options.muted;
 
 		beam = new LaserBeam(laserStartPoint.x, laserStartPoint.y, laserAngle, 1, laserColor);
 		beam.visible = false;
@@ -238,6 +242,9 @@ class BaseLaser extends ColorCollideSprite {
 		}
 
 		volume = Math.max(0, (maxDistanceToHear - distanceFromCam)) / maxDistanceToHear;
+		if (muted) {
+			volume = 0;
+		}
 		shakeAmount = Math.max(0, (maxDistanceToShake - distanceFromCam)) / maxDistanceToShake;
 		#if debug_laser
 		FlxG.watch.addQuick('laserVolume: ', volume);

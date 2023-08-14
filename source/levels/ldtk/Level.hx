@@ -127,6 +127,7 @@ class Level {
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
 				laserTime: l.f_Laser_time,
+				muted: false,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_down) {
@@ -143,6 +144,7 @@ class Level {
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
 				laserTime: l.f_Laser_time,
+				muted: false,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_left) {
@@ -159,6 +161,8 @@ class Level {
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
 				laserTime: l.f_Laser_time,
+				muted: false,
+
 			});
 		}
 		for (l in level.l_Objects.all_Laser_rail_right) {
@@ -175,6 +179,7 @@ class Level {
 				delay: l.f_Initial_delay,
 				shootOnNode: l.f_Shoot_on_node,
 				laserTime: l.f_Laser_time,
+				muted: false,
 			});
 		}
 
@@ -202,6 +207,7 @@ class Level {
 				rest: laser_turret.f_Rest,
 				delay: laser_turret.f_Initial_delay,
 				laserTime: laser_turret.f_Laser_time,
+				muted: false,
 			});
 			objects.add(laser);
 			objects.add(laser.chargeParticle);
@@ -222,6 +228,7 @@ class Level {
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
 				delay: l.f_Initial_delay,
+				muted: l.f_Mute,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_down) {
@@ -233,6 +240,7 @@ class Level {
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
 				delay: l.f_Initial_delay,
+				muted: l.f_Mute,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_left) {
@@ -244,6 +252,7 @@ class Level {
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
 				delay: l.f_Initial_delay,
+				muted: l.f_Mute,
 			});
 		}
 		for (l in level.l_Objects.all_Laser_mount_right) {
@@ -255,6 +264,7 @@ class Level {
 				rest: l.f_Rest,
 				laserTime: l.f_Laser_time,
 				delay: l.f_Initial_delay,
+				muted: l.f_Mute,
 			});
 		}
 
