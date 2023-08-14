@@ -28,6 +28,6 @@ jobs:
         with:
           dir: export/html5.zip
           itchUserName: bitdecaygames
-          itchGameName: lowrez2023
+          itchGameName: toboiro
           itchChannel: web-release
           butlerApiKey: ${{ secrets.BUTLER_API_KEY }}
