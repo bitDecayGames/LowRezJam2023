@@ -106,6 +106,7 @@ class AsepritePacker {
 			"--list-layers",
 			"--list-slices",
 			"--format", "json-array",
+			"--shape-padding", "1",
 			"--data", '$jsonOutputPath',
 			"--sheet", '$imageOutputPath'];
 
