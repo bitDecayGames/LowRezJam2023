@@ -19601,7 +19601,7 @@
 							"width": 32,
 							"height": 32,
 							"defUid": 107,
-							"px": [208,192],
+							"px": [208,193],
 							"fieldInstances": [
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "YELLOW", "__tile": null, "defUid": 108, "realEditorValues": [{
 									"id": "V_String",
@@ -19614,7 +19614,7 @@
 						},
 						{
 							"__identifier": "Laser_mount_left",
-							"__grid": [13,10],
+							"__grid": [13,9],
 							"__pivot": [0,0],
 							"__tags": [],
 							"__tile": { "tilesetUid": 4, "x": 64, "y": 64, "w": 32, "h": 32 },
@@ -19623,7 +19623,7 @@
 							"width": 32,
 							"height": 32,
 							"defUid": 107,
-							"px": [208,160],
+							"px": [208,159],
 							"fieldInstances": [
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "YELLOW", "__tile": null, "defUid": 108, "realEditorValues": [{
 									"id": "V_String",

@@ -3,14 +3,11 @@ package entities.enemy;
 import loaders.Aseprite;
 import entities.particles.LaserParticle;
 import collision.Color;
-import collision.Collide;
 import states.PlayState;
-import echo.FlxEcho;
-import echo.math.Vector2;
-import echo.Line;
-import flixel.FlxG;
 import bitdecay.flixel.spacial.Cardinal;
 import flixel.FlxSprite;
+
+using echo.FlxEcho;
 
 class PermaLaser extends FlxSprite {
 	public var emitter:LaserParticle;
@@ -27,6 +24,7 @@ class PermaLaser extends FlxSprite {
 
 	var began = false;
 
+	@:access(echo.FlxEcho)
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
@@ -44,6 +42,8 @@ class PermaLaser extends FlxSprite {
 			emitter.emitting = true;
 			PlayState.ME.addLaser(laser);
 			PlayState.ME.addParticle(emitter);
+
+			laser.body.update_body_object();
 		}
 	}
 }
