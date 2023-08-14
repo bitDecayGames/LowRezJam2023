@@ -112,7 +112,12 @@ class PlayState extends FlxTransitionableState {
 		}
 
 		// Set up echo last so it draws on top of all of our cameras
-		FlxEcho.init({width: FlxG.width, height: FlxG.height, gravity_y: 24 * Constants.BLOCK_SIZE});
+		FlxEcho.init({
+			width: FlxG.width,
+			height: FlxG.height, 
+			gravity_y: 24 * Constants.BLOCK_SIZE,
+			iterations: 8,
+		});
 		FlxG.plugins.remove(FlxEcho.instance);
 
 		#if debug_echo
