@@ -72,6 +72,7 @@ class Player extends ColorCollideSprite {
 	var accel:Float = Constants.BLOCK_SIZE * 3125;
 	var airAccel:Float = Constants.BLOCK_SIZE * 3125; // 1800
 	var decel:Float = Constants.BLOCK_SIZE * 9;
+	var slideDecel:Float = Constants.BLOCK_SIZE * 4;
 	var maxSpeed:Float = Constants.BLOCK_SIZE * 4;
 	var playerNum = 0;
 
@@ -482,11 +483,17 @@ class Player extends ColorCollideSprite {
 		if (SimpleController.pressed(DOWN)) {
 			animState.add(CROUCHED);
 			topShape.solid = false;
+			if (grounded) {
+				body.drag.x = slideDecel;
+			} else {
+				body.drag.x = decel;
+			}
 			if (mixColors) {
 				addColorIfUnlocked(YELLOW);
 			}
 		} else {
 			topShape.solid = true;
+			body.drag.x = decel;
 			if (mixColors) {
 				removeColor(YELLOW);
 			}
@@ -668,6 +675,8 @@ class Player extends ColorCollideSprite {
 	}
 
 	public function beginDie() {
+		Collected.addDeath();
+		
 		// force our color to even out for our death freeze frame
 		lastColor = interactColor;
 		color = cast interactColor;

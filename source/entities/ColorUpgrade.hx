@@ -64,13 +64,26 @@ class ColorUpgrade extends ColorCollideSprite {
 	override function handleEnter(other:Body, data:Array<CollisionData>) {
 		super.handleEnter(other, data);
 
-		if (!(other.object is Player)) {
+		if (other.object is Player) {
+			checkCollect(cast other.object);
+		}
+	}
+
+	override function handleStay(other:Body, data:Array<CollisionData>) {
+		super.handleStay(other, data);
+
+		if (other.object is Player) {
+			checkCollect(cast other.object);
+		}
+	}
+
+	function checkCollect(player:Player) {
+		if (!player.grounded) {
 			return;
 		}
 
 		body.active = false;
 
-		var player:Player = cast other.object;
 		player.forceStand();
 		player.inControl = false;
 

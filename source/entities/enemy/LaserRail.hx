@@ -70,11 +70,18 @@ class LaserRail extends BaseLaser {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (velocity.x == 0) {
-			animation.pause();
+		path.active = FlxEcho.instance.active;
+
+		if (!path.active) {
+			velocity.set();
 		} else {
-			animation.resume();
+			if (velocity.x == 0) {
+				animation.pause();
+			} else {
+				animation.resume();
+			}
 		}
+		
 
 		flipX = velocity.x > 0;
 	}

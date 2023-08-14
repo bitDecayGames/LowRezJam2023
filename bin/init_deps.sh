@@ -104,3 +104,8 @@ if [ ${#restoreDevCommands[@]} -ne 0 ]; then
         echo "${value}"
     done
 fi
+
+haxelib git --always flixel https://github.com/MondayHopscotch/flixel.git lowres2023
+haxelib git --always flixelutils https://github.com/bitDecayGames/flixel-utils.git lowrez2023
+
+
