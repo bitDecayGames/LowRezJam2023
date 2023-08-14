@@ -13078,40 +13078,13 @@
 					"layerDefUid": 77,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
 					"seed": 6972683,
 					"overrideTilesetUid": null,
-					"gridTiles": [
-						{ "px": [0,256], "src": [32,0], "f": 0, "t": 1, "d": [192], "a": 1 },
-						{ "px": [32,256], "src": [32,0], "f": 0, "t": 1, "d": [193], "a": 1 },
-						{ "px": [64,256], "src": [32,0], "f": 0, "t": 1, "d": [194], "a": 1 },
-						{ "px": [96,256], "src": [32,0], "f": 0, "t": 1, "d": [195], "a": 1 },
-						{ "px": [608,256], "src": [32,0], "f": 0, "t": 1, "d": [211], "a": 1 },
-						{ "px": [640,256], "src": [32,0], "f": 0, "t": 1, "d": [212], "a": 1 },
-						{ "px": [672,256], "src": [32,0], "f": 0, "t": 1, "d": [213], "a": 1 },
-						{ "px": [704,256], "src": [32,0], "f": 0, "t": 1, "d": [214], "a": 1 },
-						{ "px": [736,256], "src": [32,0], "f": 0, "t": 1, "d": [215], "a": 1 },
-						{ "px": [0,288], "src": [32,0], "f": 0, "t": 1, "d": [216], "a": 1 },
-						{ "px": [32,288], "src": [32,0], "f": 0, "t": 1, "d": [217], "a": 1 },
-						{ "px": [608,288], "src": [32,0], "f": 0, "t": 1, "d": [235], "a": 1 },
-						{ "px": [0,320], "src": [32,0], "f": 0, "t": 1, "d": [240], "a": 1 },
-						{ "px": [32,320], "src": [32,0], "f": 0, "t": 1, "d": [241], "a": 1 },
-						{ "px": [0,352], "src": [32,0], "f": 0, "t": 1, "d": [264], "a": 1 },
-						{ "px": [32,352], "src": [32,0], "f": 0, "t": 1, "d": [265], "a": 1 },
-						{ "px": [640,352], "src": [32,0], "f": 0, "t": 1, "d": [284], "a": 1 },
-						{ "px": [672,352], "src": [32,0], "f": 0, "t": 1, "d": [285], "a": 1 },
-						{ "px": [704,352], "src": [32,0], "f": 0, "t": 1, "d": [286], "a": 1 },
-						{ "px": [736,352], "src": [32,0], "f": 0, "t": 1, "d": [287], "a": 1 },
-						{ "px": [0,384], "src": [32,0], "f": 0, "t": 1, "d": [288], "a": 1 },
-						{ "px": [608,480], "src": [32,0], "f": 0, "t": 1, "d": [379], "a": 1 },
-						{ "px": [640,480], "src": [32,0], "f": 0, "t": 1, "d": [380], "a": 1 },
-						{ "px": [672,480], "src": [32,0], "f": 0, "t": 1, "d": [381], "a": 1 },
-						{ "px": [704,480], "src": [32,0], "f": 0, "t": 1, "d": [382], "a": 1 },
-						{ "px": [736,480], "src": [32,0], "f": 0, "t": 1, "d": [383], "a": 1 }
-					],
+					"gridTiles": [],
 					"entityInstances": []
 				}
 			],
@@ -18298,7 +18271,7 @@
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [0.75] }] }
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.25, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.25] }] }
 							]
 						},
 						{
@@ -18320,7 +18293,7 @@
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [0.75] }] }
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.25, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.25] }] }
 							]
 						},
 						{
@@ -18342,7 +18315,7 @@
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [0.75] }] }
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.25, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.25] }] }
 							]
 						},
 						{
@@ -18364,7 +18337,7 @@
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [0.75] }] }
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.25, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.25] }] }
 							]
 						},
 						{
@@ -18386,7 +18359,7 @@
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [0.75] }] }
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.25, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.25] }] }
 							]
 						},
 						{
@@ -18408,7 +18381,7 @@
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [0.75] }] }
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.25, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.25] }] }
 							]
 						}
 					]
