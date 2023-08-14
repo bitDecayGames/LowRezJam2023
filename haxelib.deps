@@ -16,5 +16,5 @@ ldtk-haxe-api 1.3.3-rc.1
 haxefmod git https://github.com/Tanz0rz/haxe-fmod.git
 
 # broken deps 
-flixelutils git https://github.com/bitDecayGames/flixel-utils.git lowrez2023
 flixel git https://github.com/MondayHopscotch/flixel.git lowres2023
+flixelutils git https://github.com/bitDecayGames/flixel-utils.git lowrez2023

@@ -4647,20 +4647,6 @@
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
 							]
-						},
-						{
-							"__identifier": "Dev_spawn",
-							"__grid": [4,7],
-							"__pivot": [0.5,1],
-							"__tags": [],
-							"__tile": null,
-							"__smartColor": "#FF00FC",
-							"iid": "b9fe3a90-1460-11ee-8478-93875db9bba5",
-							"width": 16,
-							"height": 48,
-							"defUid": 118,
-							"px": [72,128],
-							"fieldInstances": []
 						}
 					]
 				},
@@ -18175,7 +18161,7 @@
 							"fieldInstances": [
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 104, "realEditorValues": [] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 105, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] }
 							]
 						},
@@ -18194,7 +18180,7 @@
 							"fieldInstances": [
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 104, "realEditorValues": [] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 105, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [{ "id": "V_Float", "params": [0] }] }
 							]
 						},
@@ -18213,7 +18199,7 @@
 							"fieldInstances": [
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 104, "realEditorValues": [] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 105, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] }
 							]
 						},
@@ -18232,7 +18218,7 @@
 							"fieldInstances": [
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 104, "realEditorValues": [] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 105, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [{ "id": "V_Float", "params": [0] }] }
 							]
 						},
@@ -18251,7 +18237,7 @@
 							"fieldInstances": [
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 104, "realEditorValues": [] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 105, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] }
 							]
 						},
@@ -18270,7 +18256,7 @@
 							"fieldInstances": [
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 104, "realEditorValues": [] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 105, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [{ "id": "V_Float", "params": [0] }] }
 							]
 						},
@@ -18289,7 +18275,7 @@
 							"fieldInstances": [
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 104, "realEditorValues": [] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 105, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] }
 							]
 						},
@@ -18311,8 +18297,8 @@
 									"params": ["BLUE"]
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] }
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.75] }] }
 							]
 						},
 						{
@@ -18333,8 +18319,8 @@
 									"params": ["BLUE"]
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] }
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.75] }] }
 							]
 						},
 						{
@@ -18355,8 +18341,8 @@
 									"params": ["BLUE"]
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] }
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.75] }] }
 							]
 						},
 						{
@@ -18377,8 +18363,8 @@
 									"params": ["BLUE"]
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] }
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.75] }] }
 							]
 						},
 						{
@@ -18399,8 +18385,8 @@
 									"params": ["BLUE"]
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] }
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.75] }] }
 							]
 						},
 						{
@@ -18421,8 +18407,8 @@
 									"params": ["BLUE"]
 								}] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 101, "realEditorValues": [] },
-								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
-								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] }
+								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 102, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
+								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.75, "__tile": null, "defUid": 135, "realEditorValues": [{ "id": "V_Float", "params": [1.75] }] }
 							]
 						},
 						{
@@ -18499,6 +18485,20 @@
 								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "SOUTH", "__tile": null, "defUid": 130, "realEditorValues": [] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 131, "realEditorValues": [] }
 							]
+						},
+						{
+							"__identifier": "Dev_spawn",
+							"__grid": [4,14],
+							"__pivot": [0.5,1],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#FF00FC",
+							"iid": "b9fe3a90-1460-11ee-8478-93875db9bba5",
+							"width": 16,
+							"height": 48,
+							"defUid": 118,
+							"px": [72,240],
+							"fieldInstances": []
 						}
 					]
 				},
