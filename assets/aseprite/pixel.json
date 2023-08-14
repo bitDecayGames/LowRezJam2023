@@ -10,7 +10,7 @@
    },
    {
     "filename": "pixel 1.aseprite",
-    "frame": { "x": 32, "y": 0, "w": 32, "h": 48 },
+    "frame": { "x": 33, "y": 0, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -19,7 +19,7 @@
    },
    {
     "filename": "pixel 2.aseprite",
-    "frame": { "x": 64, "y": 0, "w": 32, "h": 48 },
+    "frame": { "x": 66, "y": 0, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -28,7 +28,7 @@
    },
    {
     "filename": "pixel 3.aseprite",
-    "frame": { "x": 0, "y": 48, "w": 32, "h": 48 },
+    "frame": { "x": 0, "y": 49, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -37,7 +37,7 @@
    },
    {
     "filename": "pixel 4.aseprite",
-    "frame": { "x": 32, "y": 48, "w": 32, "h": 48 },
+    "frame": { "x": 33, "y": 49, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -46,7 +46,7 @@
    },
    {
     "filename": "pixel 5.aseprite",
-    "frame": { "x": 64, "y": 48, "w": 32, "h": 48 },
+    "frame": { "x": 66, "y": 49, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -55,7 +55,7 @@
    },
    {
     "filename": "pixel 6.aseprite",
-    "frame": { "x": 0, "y": 96, "w": 32, "h": 48 },
+    "frame": { "x": 0, "y": 98, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -64,7 +64,7 @@
    },
    {
     "filename": "pixel 7.aseprite",
-    "frame": { "x": 32, "y": 96, "w": 32, "h": 48 },
+    "frame": { "x": 33, "y": 98, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -73,7 +73,7 @@
    },
    {
     "filename": "pixel 8.aseprite",
-    "frame": { "x": 64, "y": 96, "w": 32, "h": 48 },
+    "frame": { "x": 66, "y": 98, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -82,7 +82,7 @@
    },
    {
     "filename": "pixel 9.aseprite",
-    "frame": { "x": 64, "y": 96, "w": 32, "h": 48 },
+    "frame": { "x": 66, "y": 98, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -91,7 +91,7 @@
    },
    {
     "filename": "pixel 10.aseprite",
-    "frame": { "x": 32, "y": 96, "w": 32, "h": 48 },
+    "frame": { "x": 33, "y": 98, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -100,7 +100,7 @@
    },
    {
     "filename": "pixel 11.aseprite",
-    "frame": { "x": 0, "y": 96, "w": 32, "h": 48 },
+    "frame": { "x": 0, "y": 98, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -109,7 +109,7 @@
    },
    {
     "filename": "pixel 12.aseprite",
-    "frame": { "x": 64, "y": 48, "w": 32, "h": 48 },
+    "frame": { "x": 66, "y": 49, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -118,7 +118,7 @@
    },
    {
     "filename": "pixel 13.aseprite",
-    "frame": { "x": 32, "y": 48, "w": 32, "h": 48 },
+    "frame": { "x": 33, "y": 49, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -127,7 +127,7 @@
    },
    {
     "filename": "pixel 14.aseprite",
-    "frame": { "x": 0, "y": 48, "w": 32, "h": 48 },
+    "frame": { "x": 0, "y": 49, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -136,7 +136,7 @@
    },
    {
     "filename": "pixel 15.aseprite",
-    "frame": { "x": 64, "y": 0, "w": 32, "h": 48 },
+    "frame": { "x": 66, "y": 0, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -145,7 +145,7 @@
    },
    {
     "filename": "pixel 16.aseprite",
-    "frame": { "x": 32, "y": 0, "w": 32, "h": 48 },
+    "frame": { "x": 33, "y": 0, "w": 32, "h": 48 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
@@ -164,10 +164,10 @@
  ],
  "meta": {
   "app": "https://www.aseprite.org/",
-  "version": "1.3-rc4-x64",
+  "version": "1.3-rc6-x64",
   "image": "pixel.png",
   "format": "RGBA8888",
-  "size": { "w": 96, "h": 144 },
+  "size": { "w": 98, "h": 146 },
   "scale": "1",
   "frameTags": [
    { "name": "float", "from": 0, "to": 17, "direction": "forward", "color": "#000000ff" }
