@@ -147,8 +147,8 @@ class Player extends ColorCollideSprite {
 				// collision snag helpers
 				{
 					type:CIRCLE,
-					radius: 2,
-					offset_y: 18.5
+					radius: 4,
+					offset_y: 16.5
 				}
 				// Experimental side helpers to prevent snag on vertical walls
 				// {
@@ -514,7 +514,7 @@ class Player extends ColorCollideSprite {
 		
 		echoTmp.set(tmpAABB.min_x, tmpAABB.max_y - 2);
 		echoTmp.x += tmpAABB.width/2;
-		groundedCast = Line.get_from_vector(echoTmp, 90, 5);
+		groundedCast = Line.get_from_vector(echoTmp, 90, 12);
 		var intersectsMiddle = groundedCast.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.objects));
 		DebugDraw.ME.drawWorldLine(PlayState.ME.dbgCam, echoTmp.x, echoTmp.y, groundedCast.end.x, groundedCast.end.y, DebugLayers.RAYCAST, intersectsMiddle.length >= 1 ? FlxColor.MAGENTA : FlxColor.LIME);
 		groundedCast.put();
@@ -540,19 +540,7 @@ class Player extends ColorCollideSprite {
 			i.put();
 		}
 
-		// if physics feel like crap, use this way of determining solid and remove the stuff below
-		// groundCircle.solid = groundedCastMiddle || (!groundedCastLeft && !groundedCastRight);
-
-		var previouslySolid = groundCircle.solid;
-		groundCircle.solid = groundedCastMiddle || (groundedCastLeft && !groundedCastRight) || (!groundedCastLeft && groundedCastRight);
-
-		if (!previouslySolid && groundCircle.solid) {
-			// This is hopefully preventing weird collision glitch where the player is thrown left/right all
-			// the way to the edge of a hitbox.
-			body.y -= 1;
-		}
-
-
+		groundCircle.solid = groundedCastMiddle;
 
 		// this cast is originating within the player, so it will always give back at least one
 		if (rayChecksPassed >= 1) {
