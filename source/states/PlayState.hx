@@ -113,6 +113,7 @@ class PlayState extends FlxTransitionableState {
 
 		// Set up echo last so it draws on top of all of our cameras
 		FlxEcho.init({width: FlxG.width, height: FlxG.height, gravity_y: 24 * Constants.BLOCK_SIZE});
+		FlxG.plugins.remove(FlxEcho.instance);
 
 		#if debug_echo
 		FlxEcho.draw_debug = true;
@@ -134,18 +135,28 @@ class PlayState extends FlxTransitionableState {
 			loadLevel(devSpawnLevel[0].iid);
 		} else {
 			QuickLog.error('no dev spawn found');
-			loadLevel("Level_3");
+			loadLevel("Level_23");
 		}
 		#else
 		var checkpointRoom = Collected.getCheckpointLevel();
-		if (checkpointRoom != null) {
-			var checkpointEntity = Collected.getCheckpointEntity();
+		var checkpointEntity = Collected.getCheckpointEntity();
+		if (checkpointRoom != null && checkpointEntity != null) {
 			loadLevel(checkpointRoom, checkpointEntity);
 		} else {
-			loadLevel("Level_3");
+			var spawnLevel = levels.ldtk.Level.project.all_worlds.Default.levels.filter((l) -> return l.l_Objects.all_Spawn.length > 0);
+			if (spawnLevel.length > 0) {
+				loadLevel(spawnLevel[0].iid);
+			} else {
+				QuickLog.error('no dev spawn found');
+				loadLevel("Level_23");
+			}
 		}
 		#end
+	}
 
+	override function draw() {
+		FlxEcho.instance.draw();
+		super.draw();
 	}
 
 	function setupColorCameras() {
@@ -457,6 +468,12 @@ class PlayState extends FlxTransitionableState {
 		var originalDelta = elapsed;
 		elapsed *= deltaMod;
 		deltaModTimerMgr.update(elapsed);
+
+		// we do this here so our modified elapsed time is used by the physics
+		if (FlxEcho.instance.active) {
+			FlxEcho.instance.update(elapsed);
+		}
+		
 		super.update(elapsed);
 
 		for (o in pendingObjects) {
@@ -470,7 +487,7 @@ class PlayState extends FlxTransitionableState {
 		pendingLasers = [];
 
 		if (deltaMod < 1) {
-			deltaModIgnorers.update(originalDelta * (1 - deltaMod));
+			deltaModIgnorers.update(originalDelta - elapsed);
 		}
 
 		alignCameras();
