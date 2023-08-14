@@ -1,5 +1,6 @@
 package entities;
 
+import echo.Shape;
 import flixel.util.FlxSpriteUtil;
 import flixel.FlxObject;
 import flixel.util.FlxTimer;
@@ -173,9 +174,14 @@ class Player extends ColorCollideSprite {
 	override function handleEnter(other:Body, data:Array<CollisionData>) {
 		super.handleEnter(other, data);
 
-		// only ignore this collision if the _OTHER_ shape is not solid
 		if (data[0].sa.parent.object == this) {
 			if (!data[0].sb.solid) {
+				// ignore this collision if the _OTHER_ shape is not solid
+				return;
+			}
+
+			if (data[0].sa == topShape && !data[0].sa.solid) {
+				// ignore this if it is our top box and we are crouching
 				return;
 			}
 		} else if (data[0].sb.parent.object == this) {
@@ -198,6 +204,39 @@ class Player extends ColorCollideSprite {
 			} else {
 				// FmodManager.PlaySoundOneShot(FmodSFX.PlayerBonkWall2);
 			}
+		}
+	}
+
+	@:access(echo.Shape)
+	override function handleStay(other:Body, data:Array<CollisionData>) {
+		super.handleStay(other, data);
+
+		var otherShape:Shape = null;
+
+		if (data[0].sa.parent.object == this) {
+			otherShape = data[0].sb;
+		} else {
+			otherShape = data[0].sa;
+		}
+
+		if (data[0].normal.y < 0) {
+			if (checkPlayerHit(otherShape)) {
+				bonkedHead = true;
+				FmodManager.PlaySoundOneShot(FmodSFX.PlayerBonk);
+			}
+		}
+	}
+
+	function checkPlayerHit(other:Shape):Bool {
+		if (topShape.solid == false) {
+			if (bottomShape.collides(other) == null) {
+				// we are crouched and collision only touches the disabled top hitbox
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return true;
 		}
 	}
 

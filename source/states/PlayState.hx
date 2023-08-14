@@ -79,8 +79,10 @@ class PlayState extends FlxTransitionableState {
 		ME = this;
 	}
 
+	@:access(flixel.FlxState)
 	override public function create() {
 		super.create();
+
 		Lifecycle.startup.dispatch();
 
 		FmodManager.PlaySong(FmodSongs.Song1);
@@ -93,7 +95,7 @@ class PlayState extends FlxTransitionableState {
 		// main will do this, but if we are dev'ing and going straight to the play screen, it may not be done yet
 		Collected.initialize();
 
-		// persistentUpdate = true;
+		persistentUpdate = true;
 
 		baseTerrainCam = FlxG.camera;
 		baseTerrainCam.bgColor = backgroundColor;
@@ -102,6 +104,10 @@ class PlayState extends FlxTransitionableState {
 
 		objectCam = makeShaderCamera(EMPTY);
 		FlxG.cameras.add(objectCam, false);
+
+		// XXX: need the substate to use the right cameras... but it's not set yet, so we go to this
+		// variable to get it
+		_requestedSubState.camera = PlayState.ME.objectCam;
 
 		// Set up echo last so it draws on top of all of our cameras
 		FlxEcho.init({width: FlxG.width, height: FlxG.height, gravity_y: 24 * Constants.BLOCK_SIZE});

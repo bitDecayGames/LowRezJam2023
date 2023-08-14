@@ -86,8 +86,10 @@ class ColorUpgrade extends ColorCollideSprite {
 			kill();
 			particle.kill();
 			new FlxTimer().start(1, (t) -> {
+				PlayState.ME.persistentUpdate = false;
 				FlxG.state.openSubState(new UpgradeCutscene(player.flipX, screenPoint, colorToUnlock, () -> {
 					FlxG.state.closeSubState();
+					PlayState.ME.persistentUpdate = true;
 					if (colorToUnlock != ALL) {
 						PlayState.ME.objectCam.fade(FlxColor.BLACK, 0.2, true, () -> {
 							FlxTween.tween(PlayState.ME.baseTerrainCam.scroll, {x: scrollSave.x, y: scrollSave.y}, 0.5, {
