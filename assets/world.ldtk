@@ -4647,6 +4647,20 @@
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
 							]
+						},
+						{
+							"__identifier": "Dev_spawn",
+							"__grid": [4,7],
+							"__pivot": [0.5,1],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#FF00FC",
+							"iid": "b9fe3a90-1460-11ee-8478-93875db9bba5",
+							"width": 16,
+							"height": 48,
+							"defUid": 118,
+							"px": [72,128],
+							"fieldInstances": []
 						}
 					]
 				},
@@ -19446,20 +19460,6 @@
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
 							]
-						},
-						{
-							"__identifier": "Dev_spawn",
-							"__grid": [4,17],
-							"__pivot": [0.5,1],
-							"__tags": [],
-							"__tile": null,
-							"__smartColor": "#FF00FC",
-							"iid": "b9fe3a90-1460-11ee-8478-93875db9bba5",
-							"width": 16,
-							"height": 48,
-							"defUid": 118,
-							"px": [72,288],
-							"fieldInstances": []
 						},
 						{
 							"__identifier": "Door",
