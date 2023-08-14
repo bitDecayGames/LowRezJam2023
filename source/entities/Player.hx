@@ -174,6 +174,13 @@ class Player extends ColorCollideSprite {
 	override function handleEnter(other:Body, data:Array<CollisionData>) {
 		super.handleEnter(other, data);
 
+		if (other.object is ColorCollideSprite) {
+			var ccs:ColorCollideSprite = cast other.object;
+			if (!ccs.interactsWithOthers) {
+				return;
+			}
+		}
+
 		if (data[0].sa.parent.object == this) {
 			if (!data[0].sb.solid) {
 				// ignore this collision if the _OTHER_ shape is not solid
@@ -194,8 +201,10 @@ class Player extends ColorCollideSprite {
 		if (data[0].normal.y > 0) {
 			checkGrounded = true;
 		} else if (data[0].normal.y < 0) {
+			if (!bonkedHead) {
+				FmodManager.PlaySoundOneShot(FmodSFX.PlayerBonk);
+			}
 			bonkedHead = true;
-			FmodManager.PlaySoundOneShot(FmodSFX.PlayerBonk);
 		}
 
 		if (data[0].normal.x != 0 && previousVelocity.length > WALL_COLLIDE_SFX_THRESHOLD) {
@@ -211,6 +220,13 @@ class Player extends ColorCollideSprite {
 	override function handleStay(other:Body, data:Array<CollisionData>) {
 		super.handleStay(other, data);
 
+		if (other.object is ColorCollideSprite) {
+			var ccs:ColorCollideSprite = cast other.object;
+			if (!ccs.interactsWithOthers) {
+				return;
+			}
+		}
+
 		var otherShape:Shape = null;
 
 		if (data[0].sa.parent.object == this) {
@@ -221,8 +237,10 @@ class Player extends ColorCollideSprite {
 
 		if (data[0].normal.y < 0) {
 			if (checkPlayerHit(otherShape)) {
+				if (!bonkedHead) {
+					FmodManager.PlaySoundOneShot(FmodSFX.PlayerBonk);
+				}
 				bonkedHead = true;
-				FmodManager.PlaySoundOneShot(FmodSFX.PlayerBonk);
 			}
 		}
 	}
