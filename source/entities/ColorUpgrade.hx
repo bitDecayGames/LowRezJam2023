@@ -27,6 +27,8 @@ class ColorUpgrade extends ColorCollideSprite {
 	var data:Entity_Color_upgrade;
 
 	public var particle:UpgradeParticle;
+
+	public var colorUpgradeId = "";
 	
 	var tmp = FlxPoint.get();
 	var distanceFromCam = 0.0;
@@ -38,6 +40,8 @@ class ColorUpgrade extends ColorCollideSprite {
 	public function new(data:Entity_Color_upgrade) {
 		this.data = data;
 		super(data.pixelX, data.pixelY - data.height/2, EMPTY);
+
+		colorUpgradeId = FmodManager.PlaySoundWithReference(FmodSFX.OrbHum2);
 
 		colorToUnlock = Color.fromEnum(data.f_Color);
 		color = cast colorToUnlock;
@@ -71,7 +75,12 @@ class ColorUpgrade extends ColorCollideSprite {
 
 		getGraphicMidpoint(tmp);
 		distanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
-		volume = Math.max(0, (maxDistanceToHear - distanceFromCam)) / maxDistanceToHear;
+		if (colorUpgradeId != "") {
+			volume = Math.max(0, (maxDistanceToHear - distanceFromCam)) / maxDistanceToHear;
+			FmodManager.SetEventParameterOnSound(colorUpgradeId, "volume", volume);
+			FmodManager.SetEventParameterOnSong("LowPass", volume);
+		}
+		
 
 		#if debug_upgrade
 		FlxG.watch.addQuick('upgrade vol: ', volume);
@@ -100,6 +109,7 @@ class ColorUpgrade extends ColorCollideSprite {
 		}
 
 		body.active = false;
+		FmodManager.StopSoundImmediately(colorUpgradeId);
 
 		player.forceStand();
 		player.inControl = false;

@@ -119,7 +119,7 @@ class PlayState extends FlxTransitionableState {
 			width: FlxG.width,
 			height: FlxG.height, 
 			gravity_y: 24 * Constants.BLOCK_SIZE,
-			iterations: 8,
+			iterations: 16,
 		});
 		FlxG.plugins.remove(FlxEcho.instance);
 
