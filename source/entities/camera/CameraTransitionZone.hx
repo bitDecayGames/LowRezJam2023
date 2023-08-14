@@ -17,6 +17,7 @@ class CameraTransitionZone extends ColorCollideSprite {
 		this.area = area;
 		super(area.x, area.y, EMPTY);
 		visible = false;
+		interactsWithOthers = false;
 	}
 
 	override function makeBody():Body {

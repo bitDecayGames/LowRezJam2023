@@ -19,6 +19,7 @@ class ColorCollideSprite extends FlxSprite {
 	public var interactColor:Color;
 	var colorTime = 0.0;
 	var transitionLength = 0.15;
+	var interactsWithOthers = true;
 
 	@:access(echo.FlxEcho)
 	public function new(X:Float, Y:Float, initialColor:Color) {
