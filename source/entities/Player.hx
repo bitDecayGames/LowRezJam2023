@@ -201,7 +201,7 @@ class Player extends ColorCollideSprite {
 		if (data[0].normal.y > 0) {
 			checkGrounded = true;
 		} else if (data[0].normal.y < 0) {
-			if (!bonkedHead) {
+			if (!bonkedHead && body.velocity.y <= 0) {
 				FmodManager.PlaySoundOneShot(FmodSFX.PlayerBonk);
 			}
 			bonkedHead = true;
@@ -237,7 +237,7 @@ class Player extends ColorCollideSprite {
 
 		if (data[0].normal.y < 0) {
 			if (checkPlayerHit(otherShape)) {
-				if (!bonkedHead) {
+				if (!bonkedHead && body.velocity.y <= 0) {
 					FmodManager.PlaySoundOneShot(FmodSFX.PlayerBonk);
 				}
 				bonkedHead = true;
