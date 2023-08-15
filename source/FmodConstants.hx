@@ -12,6 +12,7 @@ class FmodSongs {
 
 class FmodSFX {
     public static inline var LaserStaticHum:String = "event:/SFX/Enemies/LaserStatic/LaserStaticHum";
+    public static inline var LaserStaticHum2:String = "event:/SFX/Enemies/LaserStatic/LaserStaticHum2";
     public static inline var LaserStationaryBlast:String = "event:/SFX/Enemies/LaserStationary/LaserStationaryBlast";
     public static inline var LaserStationaryBlast2:String = "event:/SFX/Enemies/LaserStationary/LaserStationaryBlast2";
     public static inline var LaserStationaryCharge:String = "event:/SFX/Enemies/LaserStationary/LaserStationaryCharge";
