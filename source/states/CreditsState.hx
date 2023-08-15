@@ -141,14 +141,16 @@ class CreditsState extends FlxUIState {
 			finalCreatorsArray.push(new FlxBitmapText(""));
 		}
 
-		for (creator in creators) {
-			// Make an offset entry for the roles array
-			finalRoleArray.push(FlxTextFactory.make(" ", 0, 0, 40));
-
-			var creatorText = FlxTextFactory.make(creator, 0, 0, 36, FlxTextAlign.RIGHT);
-			add(creatorText);
-			finalCreatorsArray.push(creatorText);
-			_allCreditElements.push(creatorText);
+		if (creators != null && creators.length > 0) {
+			for (creator in creators) {
+				// Make an offset entry for the roles array
+				finalRoleArray.push(FlxTextFactory.make(" ", 0, 0, 40));
+	
+				var creatorText = FlxTextFactory.make(creator, 0, 0, 36, FlxTextAlign.RIGHT);
+				add(creatorText);
+				finalCreatorsArray.push(creatorText);
+				_allCreditElements.push(creatorText);
+			}
 		}
 	}
 
