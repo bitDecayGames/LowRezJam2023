@@ -1,5 +1,6 @@
 package entities.enemy;
 
+import flixel.FlxG;
 import flixel.math.FlxPoint;
 import loaders.Aseprite;
 import entities.particles.LaserParticle;
@@ -49,6 +50,12 @@ class PermaLaser extends FlxSprite {
 		getGraphicMidpoint(tmp);
 		distanceFromCam = PlayState.ME.objectCam.distanceFromBounds(tmp);
 		volume = Math.max(0, (maxDistanceToHear - distanceFromCam)) / maxDistanceToHear;
+
+		#if debug
+		FlxG.watch.addQuick('perm dist: ', distanceFromCam);
+		FlxG.watch.addQuick('volume: ', volume);
+		#end
+
 		if (beamId != ""){
 			FmodManager.SetEventParameterOnSound(beamId, "volume", volume);
 		}
