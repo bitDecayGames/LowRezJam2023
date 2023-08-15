@@ -4207,6 +4207,54 @@
 								"id": "V_String",
 								"params": ["ALL"]
 							}] }]
+						},
+						{
+							"__identifier": "Dev_spawn",
+							"__grid": [17,5],
+							"__pivot": [0.5,1],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#FF00FC",
+							"iid": "daf19670-1460-11ee-b53c-53020f9ab614",
+							"width": 16,
+							"height": 48,
+							"defUid": 118,
+							"px": [280,96],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Color_upgrade",
+							"__grid": [29,13],
+							"__pivot": [0.5,1],
+							"__tags": [],
+							"__tile": { "tilesetUid": 16, "x": 224, "y": 912, "w": 16, "h": 16 },
+							"__smartColor": "#EEEE33",
+							"iid": "54c3aed0-1460-11ee-b53c-676c24aa0471",
+							"width": 32,
+							"height": 48,
+							"defUid": 78,
+							"px": [472,224],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "YELLOW", "__tile": null, "defUid": 79, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["YELLOW"]
+							}] }]
+						},
+						{
+							"__identifier": "Color_upgrade",
+							"__grid": [26,13],
+							"__pivot": [0.5,1],
+							"__tags": [],
+							"__tile": { "tilesetUid": 16, "x": 224, "y": 912, "w": 16, "h": 16 },
+							"__smartColor": "#FF5555",
+							"iid": "a5babc40-1460-11ee-b53c-6df326ac795c",
+							"width": 32,
+							"height": 48,
+							"defUid": 78,
+							"px": [424,224],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 79, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["RED"]
+							}] }]
 						}
 					]
 				},
@@ -4721,16 +4769,16 @@
 							"__pivot": [0,0],
 							"__tags": [],
 							"__tile": { "tilesetUid": 4, "x": 32, "y": 0, "w": 32, "h": 32 },
-							"__smartColor": "#8888FF",
+							"__smartColor": "#FF5555",
 							"iid": "f390bf30-1460-11ee-8478-c99d51186d04",
 							"width": 32,
 							"height": 32,
 							"defUid": 5,
 							"px": [96,32],
 							"fieldInstances": [
-								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "BLUE", "__tile": null, "defUid": 72, "realEditorValues": [{
+								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 72, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["BLUE"]
+									"params": ["RED"]
 								}] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 139, "realEditorValues": [] },
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 168, "realEditorValues": [] },
@@ -4829,20 +4877,6 @@
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
 							]
-						},
-						{
-							"__identifier": "Dev_spawn",
-							"__grid": [2,23],
-							"__pivot": [0.5,1],
-							"__tags": [],
-							"__tile": null,
-							"__smartColor": "#FF00FC",
-							"iid": "daf19670-1460-11ee-b53c-53020f9ab614",
-							"width": 16,
-							"height": 48,
-							"defUid": 118,
-							"px": [40,384],
-							"fieldInstances": []
 						}
 					]
 				},

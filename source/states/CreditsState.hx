@@ -36,10 +36,11 @@ class CreditsState extends FlxUIState {
 	static inline var entryVerticalSpacing = 25;
 
 	var toolingImages = [
+		AssetPaths.HaxeFlixelLogo__png,
 		AssetPaths.FLStudioLogo__png,
 		AssetPaths.FmodLogoWhite__png,
-		AssetPaths.HaxeFlixelLogo__png,
-		AssetPaths.pyxel_edit__png
+		AssetPaths.aseprite__png,
+		AssetPaths.pyxel_edit__png,
 	];
 
 	override public function create():Void {
@@ -55,7 +56,7 @@ class CreditsState extends FlxUIState {
 
 		var creditTitleX = FlxG.width / 4;
 		creditTitleX -= creditTitleX % 4;
-		_txtCreditsTitle = FlxTextFactory.make("Credits", creditTitleX, FlxG.height / 2, 36, FlxTextAlign.LEFT);
+		_txtCreditsTitle = FlxTextFactory.make("Credits", creditTitleX, FlxG.height, 36, FlxTextAlign.LEFT);
 		center(_txtCreditsTitle);
 		add(_txtCreditsTitle);
 
@@ -68,14 +69,14 @@ class CreditsState extends FlxUIState {
 			AddSectionToCreditsTextArrays(entry.sectionName, entry.names, _txtRole, _txtCreator);
 		}
 
-		var creditsVerticalOffset = FlxG.height;
+		var creditsVerticalOffset = FlxG.height * 1.5;
 
 		for (flxText in _txtRole) {
 			flxText.setPosition(entryLeftMargin, creditsVerticalOffset);
 			creditsVerticalOffset += entryVerticalSpacing * 2;
 		}
 
-		creditsVerticalOffset = FlxG.height + entryVerticalSpacing + 5;
+		creditsVerticalOffset = FlxG.height * 1.5 + entryVerticalSpacing + 5;
 
 		for (flxText in _txtCreator) {
 			var xPos = FlxG.width - flxText.width - entryRightMargin;

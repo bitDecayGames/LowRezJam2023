@@ -1,5 +1,7 @@
 package states.substate;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.math.FlxPoint;
 import flixel.FlxSprite;
@@ -80,6 +82,7 @@ class UpgradeCutscene extends FlxSubState {
 			PlayState.ME.objectCam.flash(cast upgradeColor, 0.1);
 			PlayState.ME.objectCam.shake(0.01, 0.4);
 			player.color = cast upgradeColor;
+			player.addColor(upgradeColor);
 		}, onHit);
 		power.flipX = flipped;
 		power.color = cast upgradeColor;
@@ -90,13 +93,108 @@ class UpgradeCutscene extends FlxSubState {
 	}
 
 	function done() {
-		PlayState.ME.objectCam.fade(FlxColor.BLACK, 0.5, () -> {
-			power.kill();
-			player.kill();
-			bgColor = FlxColor.TRANSPARENT;
-			if (finishCb != null) {
-				finishCb();
+		player.removeColor(upgradeColor);
+		new FlxTimer().start(0.75, (timer) -> {
+			switch(upgradeColor) {
+				case BLUE:
+					demoJump();
+				case YELLOW:
+					demoCrouch();
+				case RED:
+					demoRun();
+				case ALL:
+					doWrapUp();
+				default:
 			}
+		});
+	}
+
+	function demoJump() {
+		player.addColor(BLUE);
+		animatePlayerJump(() -> {
+			player.land();
+			player.removeColor(BLUE);
+			doWrapUp();
+		}, player.jump, player.fall);
+	}
+
+	function demoCrouch() {
+		player.crouch();
+		player.addColor(YELLOW);
+		new FlxTimer().start(0.75, (t1) -> {
+			player.uncrouch();
+			player.removeColor(YELLOW);
+			new FlxTimer().start(0.75, (t2) -> {
+				new FlxTimer().start(0.25, (t3) -> {
+					player.jumpCrouch();
+					player.addColor(YELLOW);
+				});
+				new FlxTimer().start(.75, (t4) -> {
+					player.unJumpCrouch();
+					player.removeColor(YELLOW);
+				});
+				animatePlayerJump(() -> {
+					player.land();
+					new FlxTimer().start(0.75, (t4) -> {
+						player.crouch();
+						player.addColor(YELLOW);
+						new FlxTimer().start(0.75, (t5) -> {
+							FmodManager.PlaySoundOneShot(FmodSFX.PlayerJump4);
+							animatePlayerJump(() -> {
+								FmodManager.PlaySoundOneShot(FmodSFX.PlayerLand1);
+								new FlxTimer().start(0.75, (t6) -> {
+									player.uncrouch();
+									player.removeColor(YELLOW);
+									doWrapUp();
+								});
+							}, null, null);
+						});
+					});
+				}, player.jump, null);
+			});
+		});
+	}
+
+	function demoRun() {
+		player.run();
+		player.addColor(RED);
+		new FlxTimer().start(2, (t) -> {
+			player.stopRun();
+			new FlxTimer().start(0.3, (t2) -> {
+				player.removeColor(RED);
+				player.stand();
+				doWrapUp();
+			});
+		});
+	}
+
+	function animatePlayerJump(complete:Void->Void, riseAnim:Void->Void, fallAnim:Void->Void) {
+		var startY = player.y;
+		if (riseAnim != null) riseAnim();
+		FlxTween.tween(player, {y: player.y - 64}, 0.5, {
+			ease: FlxEase.sineOut,
+			onComplete: (t) -> {
+				if (fallAnim != null) fallAnim();
+				FlxTween.tween(player, {y: startY}, 0.5, {
+					ease: FlxEase.sineIn,
+					onComplete: (t2) -> {
+						complete();
+					}
+				});
+			}
+		});
+	}
+
+	function doWrapUp() {
+		new FlxTimer().start(1, (t3) -> {
+			PlayState.ME.objectCam.fade(FlxColor.BLACK, 0.5, () -> {
+				power.kill();
+				player.kill();
+				bgColor = FlxColor.TRANSPARENT;
+				if (finishCb != null) {
+					finishCb();
+				}
+			});
 		});
 	}
 
