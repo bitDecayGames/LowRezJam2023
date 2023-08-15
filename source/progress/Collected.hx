@@ -16,15 +16,17 @@ typedef Data = {
 		lastEntityID: String,
 		deaths: Int,
 		time: Float,
+		safeReturn: Bool,
 	}
 }
 
 class Collected {
+	private static inline var LATEST_VERSION:String = "2";
 	private static var initialized = false;
 
 	public static function newData():Data {
 		return {
-			version: "1",
+			version: LATEST_VERSION,
 			gameCompleted: false,
 			unlocks: {
 				blueUnlocked: false,
@@ -36,6 +38,7 @@ class Collected {
 				deaths: 0,
 				lastLevelID: null,
 				lastEntityID: null,
+				safeReturn: false,
 			}
 		};
 	}
@@ -43,7 +46,7 @@ class Collected {
 	public static function initialize() {
 		if (!initialized) {
 			FlxG.save.bind("save", "bitdecaygames/toboiro/");
-			if (FlxG.save.data.game == null || FlxG.save.data.version != "1" #if clearsave || true#end) {
+			if (FlxG.save.data.game == null || FlxG.save.data.game.version != LATEST_VERSION #if clearsave || true#end) {
 				FlxG.save.data.game = Collected.newData();
 				FlxG.save.flush();
 			}
@@ -82,6 +85,16 @@ class Collected {
 		}
 	}
 	#end
+
+	public static function enableSafeReturn() {
+		FlxG.save.data.game.checkpoint.safeReturn = true;
+		FlxG.save.flush();
+	}
+
+	public static function getSafeReturn():Bool {
+		return FlxG.save.data.game.checkpoint.safeReturn;
+	}
+
 
 	public static function gameComplete() {
 		clearCheckpoint();

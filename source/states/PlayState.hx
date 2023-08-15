@@ -1,5 +1,6 @@
 package states;
 
+import flixel.FlxSprite;
 import ldtk.Level;
 import states.substate.UpgradeCutscene;
 import openfl.filters.ShaderFilter;
@@ -211,7 +212,8 @@ class PlayState extends FlxTransitionableState {
 		loadLevel(lastLevel, lastSpawnEntity);
 	}
 
-	// @:access(echo.FlxEcho)
+	@:access(echo.FlxEcho)
+	@:access(ldtk.Layer_Tiles)
 	public function loadLevel(levelID:String, ?entityID:String) {
 		lastLevel = levelID;
 		lastSpawnEntity = entityID;
@@ -241,6 +243,10 @@ class PlayState extends FlxTransitionableState {
 
 		var level = new levels.ldtk.Level(levelID);
 
+		if(level.raw.identifier == "Level_34") {
+			Collected.enableSafeReturn();
+		}
+
 		softFocusBounds = FlxRect.get(0, 0, level.bounds.width, level.bounds.height);
 		baseTerrainCam.setScrollBoundsRect(0, 0, level.bounds.width, level.bounds.height);
 
@@ -251,6 +257,28 @@ class PlayState extends FlxTransitionableState {
 			t.add_to_group(objects);
 			t.add_to_group(terrainGroup);
 			setCamera(t);
+		}
+
+		if (level.raw.identifier == "Level_4" && Collected.getSafeReturn()) {
+			// 48, 448
+			var s = new FlxSprite(48, 448);
+			s.frame = level.raw.l_Terrain_fine.untypedTileset.getFrame(42).copyTo();
+			s.add_body({
+				x: 48,
+				y: 448,
+				mass: STATIC,
+				shape: {
+					type: RECT,
+					width: 16,
+					height: 16,
+					offset_x: 8,
+					offset_y: 8,
+				}
+			});
+			FlxEcho.update_body_object(s.get_body());
+			s.add_to_group(objects);
+			s.add_to_group(terrainGroup);
+			setCamera(s);
 		}
 		
 		for (o in level.objects) {
@@ -483,6 +511,10 @@ class PlayState extends FlxTransitionableState {
 
 		if(FlxG.keys.justPressed.RBRACKET) {
 			FlxG.switchState(new CreditsState());
+		}
+
+		if (FlxG.keys.justPressed.N) {
+			Collected.enableSafeReturn();
 		}
 		#end
 
