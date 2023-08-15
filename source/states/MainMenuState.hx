@@ -71,8 +71,8 @@ class MainMenuState extends FlxUIState {
 			started = true;
 			FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieBurst2);
 
-			FlxTween.tween(title, {alpha: 0}, 0.75);
-			FlxTween.tween(pressStart, {alpha: 0}, 0.75);
+			// FlxTween.tween(title, {alpha: 0}, 0.75);
+			// FlxTween.tween(pressStart, {alpha: 0}, 0.75);
 
 			clickPlay();
 		}

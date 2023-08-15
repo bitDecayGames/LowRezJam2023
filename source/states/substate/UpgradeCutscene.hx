@@ -72,6 +72,9 @@ class UpgradeCutscene extends FlxSubState {
 			onHit = () -> {
 				player.animation.stop();
 				new FlxTimer().start(2, (t1) -> {
+					new FlxTimer().start(0.5, (t1) -> {
+						FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieSwell4);
+					});
 					player.explode();
 					new FlxTimer().start(8, (t) -> {done();});
 				});
