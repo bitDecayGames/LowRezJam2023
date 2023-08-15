@@ -26,7 +26,6 @@ class MainMenuState extends FlxUIState {
 	override public function create():Void {
 		super.create();
 
-		FmodManager.PlaySong(FmodSongs.LetsGo);
 		bgColor = FlxColor.TRANSPARENT;
 		FlxG.camera.pixelPerfectRender = true;
 
@@ -64,13 +63,13 @@ class MainMenuState extends FlxUIState {
 		if (FlxG.keys.pressed.D && FlxG.keys.justPressed.M) {
 			// Keys D.M. for Disable Metrics
 			Bitlytics.Instance().EndSession(false);
-			FmodManager.PlaySoundOneShot(FmodSFX.MenuSelect);
+			FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieBurst2);
 			trace("---------- Bitlytics Stopped ----------");
 		}
 
 		if (!started && SimpleController.just_pressed(START)) {
 			started = true;
-			FmodManager.PlaySoundOneShot(FmodSFX.MenuSelect);
+			FmodManager.PlaySoundOneShot(FmodSFX.PlayerDieBurst2);
 
 			FlxTween.tween(title, {alpha: 0}, 0.75);
 			FlxTween.tween(pressStart, {alpha: 0}, 0.75);
