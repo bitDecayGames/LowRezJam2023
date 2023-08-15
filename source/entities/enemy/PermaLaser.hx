@@ -21,7 +21,7 @@ class PermaLaser extends FlxSprite {
 	var beamId = "";
 	var tmp = FlxPoint.get();
 	var distanceFromCam = 0.0;
-	var maxDistanceToHear = 256;
+	var maxDistanceToHear = 128;
 	public var volume:Float = 0.0;
 
 	public function new(X:Float, Y:Float, dir:Cardinal, color:Color) {
