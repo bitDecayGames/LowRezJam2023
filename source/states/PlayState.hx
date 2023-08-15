@@ -516,6 +516,10 @@ class PlayState extends FlxTransitionableState {
 		if (FlxG.keys.justPressed.N) {
 			Collected.enableSafeReturn();
 		}
+
+		if (FlxG.keys.justPressed.J) {
+			Collected.gameComplete();
+		}
 		#end
 
 		resetQueued = false;

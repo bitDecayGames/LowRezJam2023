@@ -99,7 +99,7 @@ class Collected {
 	public static function gameComplete() {
 		clearCheckpoint();
 		clearUnlocks();
-		FlxG.save.data.game.gameComplete = true;
+		FlxG.save.data.game.gameCompleted = true;
 		FlxG.save.flush();
 	}
 
@@ -115,12 +115,17 @@ class Collected {
 			lastEntityID: null,
 			time: 0.0,
 			deaths: 0,
+			safeReturn: false,
 		};
 		FlxG.save.flush();
 	}
 
 	static function clearUnlocks() {
-		FlxG.save.data.game.checkpoint = null;
+		FlxG.save.data.game.unlocks = {
+			blueUnlocked: false,
+			yellowUnlocked: false,
+			redUnlocked: false,
+		};
 		FlxG.save.flush();
 	}
 
