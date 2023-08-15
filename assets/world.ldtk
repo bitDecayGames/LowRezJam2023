@@ -16085,7 +16085,7 @@
 						},
 						{
 							"__identifier": "Dev_spawn",
-							"__grid": [4,37],
+							"__grid": [12,27],
 							"__pivot": [0.5,1],
 							"__tags": [],
 							"__tile": null,
@@ -16094,7 +16094,7 @@
 							"width": 16,
 							"height": 48,
 							"defUid": 118,
-							"px": [72,608],
+							"px": [200,448],
 							"fieldInstances": []
 						}
 					]
