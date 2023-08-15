@@ -322,6 +322,7 @@ class Player extends ColorCollideSprite {
 			} else {
 				Collected.unlockBlue();
 			}
+			Collected.setMusicParameters();
 		}
 		if (FlxG.keys.justPressed.TWO) {
 			if (Collected.has(YELLOW)) {
@@ -329,6 +330,7 @@ class Player extends ColorCollideSprite {
 			} else {
 				Collected.unlockYellow();
 			}
+			Collected.setMusicParameters();
 		}
 		if (FlxG.keys.justPressed.THREE) {
 			if (Collected.has(RED)) {
@@ -336,6 +338,7 @@ class Player extends ColorCollideSprite {
 			} else {
 				Collected.unlockRed();
 			}
+			Collected.setMusicParameters();
 		}
 		#end
 	}
@@ -606,7 +609,7 @@ class Player extends ColorCollideSprite {
 		}
 	}
 
-	var slideSoundId = "slideSoundId";
+	var slideSoundId = "";
 
 	function updateCurrentAnimation() {
 		var nextAnim = animation.curAnim.name;
@@ -635,8 +638,10 @@ class Player extends ColorCollideSprite {
 			} else { 
 				if (animState.has(CROUCHED)) {
 					if (body.velocity.x != 0) {
-						// FmodManager.PlaySoundAndAssignId(FmodSFX.PlayerSlide2, slideSoundId);
-						FmodManager.PlaySoundOneShot(FmodSFX.PlayerSlide2);
+						if (slideSoundId == ""){
+							slideSoundId = FmodManager.PlaySoundWithReference(FmodSFX.PlayerSlide2);
+						}
+						// FmodManager.PlaySoundOneShot(FmodSFX.PlayerSlide2);
 						nextAnim = anims.slide;
 					} else {
 						nextAnim = anims.crouch;
@@ -669,6 +674,19 @@ class Player extends ColorCollideSprite {
 		if (animation.curAnim == null || animation.curAnim.name != name) {
 			if (animation.curAnim.name == anims.slide) {
 				FmodManager.StopSoundImmediately(slideSoundId);
+				slideSoundId = "";
+			}
+			if ([anims.stand, anims.jump, anims.fall].contains(animation.curAnim.name)) {
+				if (name == anims.crouch || name == anims.jumpCrouch) {
+					FmodManager.PlaySoundOneShot(FmodSFX.PlayerDuck2);
+				}
+			}
+			if ([anims.crouch, anims.jumpCrouch].contains(animation.curAnim.name) && [anims.stand, anims.run, anims.jump, anims.fall].contains(name)) {
+				FmodManager.PlaySoundOneShot(FmodSFX.PlayerUnduck2);
+			}
+			if (name == anims.crouch || name == anims.jumpCrouch) {
+				if (name == anims.stand || animation.curAnim.name == anims.fall || animation.curAnim.name == anims.jump){
+				}
 			}
 			animation.play(name, true);
 		}

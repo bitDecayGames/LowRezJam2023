@@ -11,6 +11,7 @@ class FmodSongs {
 }
 
 class FmodSFX {
+    public static inline var LaserStaticHum:String = "event:/SFX/Enemies/LaserStatic/LaserStaticHum";
     public static inline var LaserStationaryBlast:String = "event:/SFX/Enemies/LaserStationary/LaserStationaryBlast";
     public static inline var LaserStationaryBlast2:String = "event:/SFX/Enemies/LaserStationary/LaserStationaryBlast2";
     public static inline var LaserStationaryCharge:String = "event:/SFX/Enemies/LaserStationary/LaserStationaryCharge";
@@ -20,6 +21,8 @@ class FmodSFX {
     public static inline var LaserTurretCharge:String = "event:/SFX/Enemies/LaserTurret/LaserTurretCharge";
     public static inline var LaserTurretCharge2:String = "event:/SFX/Enemies/LaserTurret/LaserTurretCharge2";
     public static inline var DoorTick:String = "event:/SFX/Level/Door/DoorTick";
+    public static inline var OrbHum:String = "event:/SFX/Level/Orb/OrbHum";
+    public static inline var OrbHum2:String = "event:/SFX/Level/Orb/OrbHum2";
     public static inline var MenuHover:String = "event:/SFX/Menu/MenuHover";
     public static inline var MenuSelect:String = "event:/SFX/Menu/MenuSelect";
     public static inline var PlayerBonk:String = "event:/SFX/Player/Bonk/PlayerBonk";
@@ -39,6 +42,10 @@ class FmodSFX {
     public static inline var PlayerDieSwell2:String = "event:/SFX/Player/Die/PlayerDieSwell2";
     public static inline var PlayerDieSwell3:String = "event:/SFX/Player/Die/PlayerDieSwell3";
     public static inline var PlayerDieSwell4:String = "event:/SFX/Player/Die/PlayerDieSwell4";
+    public static inline var PlayerDuck:String = "event:/SFX/Player/Duck/PlayerDuck";
+    public static inline var PlayerDuck2:String = "event:/SFX/Player/Duck/PlayerDuck2";
+    public static inline var PlayerUnduck:String = "event:/SFX/Player/Duck/PlayerUnduck";
+    public static inline var PlayerUnduck2:String = "event:/SFX/Player/Duck/PlayerUnduck2";
     public static inline var PlayerJump1:String = "event:/SFX/Player/Jump/PlayerJump1";
     public static inline var PlayerJump2:String = "event:/SFX/Player/Jump/PlayerJump2";
     public static inline var PlayerJump3:String = "event:/SFX/Player/Jump/PlayerJump3";
