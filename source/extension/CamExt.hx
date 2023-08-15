@@ -68,9 +68,10 @@ class CamExt {
 
 		if (x <= midX) { // check "left" side
 			var minXy = m * (minX - x) + y;
-			if (minY <= minXy && minXy <= maxY)
+			if (minY <= minXy && minXy <= maxY) {
 				p.set(minX, minXy);
 				return p;
+			}
 		}
 
 		if (x >= midX) { // check "right" side

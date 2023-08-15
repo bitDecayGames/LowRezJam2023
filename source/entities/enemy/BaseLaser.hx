@@ -247,6 +247,7 @@ class BaseLaser extends ColorCollideSprite {
 		}
 		shakeAmount = Math.max(0, (maxDistanceToShake - distanceFromCam)) / maxDistanceToShake;
 		#if debug_laser
+		FlxG.watch.addQuick('laser dist: ', distanceFromCam);
 		FlxG.watch.addQuick('laserVolume: ', volume);
 		#end
 	}
