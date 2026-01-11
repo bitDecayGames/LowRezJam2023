@@ -27,6 +27,7 @@ import helpers.Storage;
 import misc.FlxTextFactory;
 import misc.Macros;
 import states.SplashScreenState;
+import states.ClickToFocusState;
 import states.MainMenuState;
 
 #if FLX_DEBUG
@@ -52,7 +53,7 @@ class Main extends Sprite {
 		Storage.load();
 		Achievements.initAchievements();
 
-		var startingState:Class<FlxState> = SplashScreenState;
+		var startingState:Class<FlxState> = ClickToFocusState;
 		#if play
 		startingState = PlayState;
 		#elseif credits
