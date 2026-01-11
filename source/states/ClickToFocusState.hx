@@ -1,5 +1,7 @@
 package states;
 
+import io.newgrounds.NG;
+import config.Newgrounds;
 import com.bitdecay.analytics.Bitlytics;
 import openfl.events.MouseEvent;
 #if js
@@ -55,6 +57,9 @@ var clickHere:FlxSprite = null;
 	var justOnce = true;
 	var fmodLoaded = false;
 	var checkFmod = false;
+	var checkNGLoggedIn = false;
+
+	var state = "wait_for_input";
 
 	override function update(elapsed:Float) {
 		if (pauseTime > 0) {
@@ -64,62 +69,84 @@ var clickHere:FlxSprite = null;
 
 		super.update(elapsed);
 
-		var go = FlxG.mouse.justPressed;
-
-		if (FlxG.onMobile) {
-			go = go || FlxG.touches.getFirst() != null;
-		}
-
-		if (justOnce && go) {
-			justOnce = false;
-
-			#if html5
-			// On web, we may have to resume audio in response to user input
-			lime.media.AudioManager.context.web.resume();
-
-			var checks = 0;
-			var checkLimit = 30;
-			new FlxTimer().start(0.1, (t) -> {
-				checks++;
-				if (checks % 10 == 0) {
-					FlxG.log.notice('checking for audio resume ($checks)');
+		switch state {
+			case "wait_for_input":
+				var go = FlxG.mouse.justPressed;
+				if (FlxG.onMobile) {
+					go = go || FlxG.touches.getFirst() != null;
 				}
+				if (go) {
+					state = "init_fmod";
+				}
+			case "init_fmod":
+				#if html5
+				// On web, we may have to resume audio in response to user input
+				lime.media.AudioManager.context.web.resume();
 
-				// TODO: ios _may_ have the context.web.state might be undefined
-				if (checks > checkLimit || lime.media.AudioManager.context.web.state == AudioContextState.RUNNING) {
-					#if debug
-					trace('audio context is now running! took ${checks} checks');
-					#end
-
-					#if debug
-					if (checks > checkLimit) {
-						trace("I'm giving up on waiting for resume...");
+				var checks = 0;
+				var checkLimit = 30;
+				new FlxTimer().start(0.1, (t) -> {
+					checks++;
+					if (checks % 10 == 0) {
+						FlxG.log.notice('checking for audio resume ($checks)');
 					}
-					#end
 
-					FmodManager.ResumeAudio();
-					checkFmod = true;
-					t.cancel();
-				} else {
-					#if debug
-					trace(checks);
-					#end
-					lime.media.AudioManager.context.web.resume();
+					// TODO: ios _may_ have the context.web.state might be undefined
+					if (checks > checkLimit || lime.media.AudioManager.context.web.state == AudioContextState.RUNNING) {
+						#if debug
+						trace('audio context is now running! took ${checks} checks');
+						#end
+
+						#if debug
+						if (checks > checkLimit) {
+							trace("I'm giving up on waiting for resume...");
+						}
+						#end
+
+						FmodManager.ResumeAudio();
+						state = "check_ng_login";
+						t.cancel();
+					} else {
+						#if debug
+						trace(checks);
+						#end
+						lime.media.AudioManager.context.web.resume();
+					}
+				}, 0);
+				#else
+				// Whereas on other targets, audio is just fine
+				state = "wait_for_fmod";
+				#end
+			case "wait_for_fmod":
+				if (!fmodLoaded && FmodManager.IsInitialized()) {
+					// TODO: ios doesn't seem to finish init'ing fmod :'(
+					state = "check_ng_login";
 				}
-			}, 0);
-			#else
-			// Whereas on other targets, audio is just fine
-			checkFmod = true;
-			#end
-		}
-
-		// This is intentionally setup so that we don't call FmodManager until after the booleans are correct (short circuiting)
-		// because calling `IsInitialized()` will cause it to initialize on HTML5 builds
-		if (checkFmod && !fmodLoaded && FmodManager.IsInitialized()) {
-			// TODO: ios doesn't seem to finish init'ing fmod :'(
-
-			fmodLoaded = true;
-			FlxG.switchState(new SplashScreenState());
+			case "check_ng_login":
+				if (NG.core != null && !NG.core.loggedIn && !NG.core.attemptingLogin) {
+					Newgrounds.requestLogin(
+						() -> {
+							trace('NG Logged in as ${NG.core.user}');
+							state = "go_to_splash";
+						},
+						() -> {
+							state = "go_to_splash";
+						}
+					);
+				} else {
+					state = "go_to_splash";
+				}
+				state = "wait_for_ng_or_skip";
+			case "wait_for_ng_or_skip":
+				var go = FlxG.mouse.justPressed;
+				if (FlxG.onMobile) {
+					go = go || FlxG.touches.getFirst() != null;
+				}
+				if (go) {
+					state = "go_to_splash";
+				}
+			case "go_to_splash":
+					FlxG.switchState(new SplashScreenState());
 		}
 	}
 }

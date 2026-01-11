@@ -201,7 +201,7 @@ class BaseLaser extends ColorCollideSprite {
 					if (COOLDOWN_TIME == 0) {
 						cooldown = 0;
 					} else {
-						// this keeps any remainder flowing so theystay in sync
+						// this keeps any remainder flowing so they stay in sync
 						cooldown -= COOLDOWN_TIME;
 					}
 					charging -= CHARGE_TIME;

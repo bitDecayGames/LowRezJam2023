@@ -1,5 +1,7 @@
 package;
 
+import io.newgrounds.NG;
+import newgrounds.Newgrounds;
 import collision.Color;
 import progress.Collected;
 import shaders.ShaderUpdater;
@@ -52,6 +54,16 @@ class Main extends Sprite {
 
 		Storage.load();
 		Achievements.initAchievements();
+
+		if (Newgrounds.init() && !NG.core.attemptingLogin) {
+			// Newgrounds API was init'ed properly, but session
+			// wasn't found, so we'll give player a chance to
+			// log in, if they desire.
+
+			// instead, here we want to just make sure we load the data properly.
+			// Perhaps we want make sure we wait after the splash screen if we haven't
+			// gotten back the data?
+		}
 
 		var startingState:Class<FlxState> = ClickToFocusState;
 		#if play
