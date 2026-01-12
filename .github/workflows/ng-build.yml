@@ -7,10 +7,11 @@ on:
   push:
     branches:
       - ng-release
-    paths:
-      - 'Project.xml'
-      - 'assets/**'
-      - 'source/**'
+    # Uncomment if we want to restrict when this build runs
+    # paths:
+    #   - 'Project.xml'
+    #   - 'assets/**'
+    #   - 'source/**'
 
 jobs:
   publish-html5-build:
