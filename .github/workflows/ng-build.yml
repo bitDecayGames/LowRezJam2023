@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Make html5 build
-        uses: bitDecayGames/lime-build-action@v0.0.38
+        uses: bitDecayGames/lime-build-action@v0.0.39
         with:
           buildArgs: -final -D API_KEY=${{ secrets.ANALYTICS_TOKEN }} -D NG_APP_ID=${{ secrets.NG_APP_ID }} -D NG_ENCRYPTION_KEY=${{ secrets.NG_ENCRYPTION_KEY }}
           initScriptFile: ./bin/init_deps.sh
