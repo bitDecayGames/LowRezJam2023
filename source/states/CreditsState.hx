@@ -50,6 +50,8 @@ class CreditsState extends FlxUIState {
 		camera.pixelPerfectRender = true;
 
 		Collected.addTime(PlayState.ME.levelTime);
+
+		// Report for the leaderboard
 		Newgrounds.reportScore(PlayState.ME.levelTime);
 
 		// Credits
