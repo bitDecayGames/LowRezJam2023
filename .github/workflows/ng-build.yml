@@ -15,7 +15,7 @@ on:
 
 jobs:
   publish-html5-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@master
