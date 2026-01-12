@@ -55,7 +55,6 @@ class CreditsState extends FlxUIState {
 		Newgrounds.reportScore(PlayState.ME.levelTime);
 
 		// Credits
-
 		_allCreditElements = new Array<FlxSprite>();
 
 		var creditTitleX = FlxG.width / 4;
