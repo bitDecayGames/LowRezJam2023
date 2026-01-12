@@ -1,6 +1,9 @@
 # Build files
 /export
 
+# dep files
+.haxelib/
+
 # haxefmod integration
 fmod/CachedHaxeConstantsOutputLocation
 

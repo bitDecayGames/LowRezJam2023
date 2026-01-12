@@ -1,8 +1,23 @@
 #!/bin/bash
 
+# for easier debug, uncomment the next line to echo commands as they are run
+# set -x
+
+# Colors to make output more readable
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
 restoreDevCommands=()
 
-while read line; do
+# check if we should be running locally
+if [[ -z "$INSTALL_GLOBAL" ]]; then
+  echo "Initializing local haxelib"
+  haxelib newrepo
+fi
+
+while read -r line; do
   # trim line endings off of the line
   line="${line//[$'\t\r\n']}"
 
@@ -16,8 +31,6 @@ while read line; do
     continue
   fi
 
-  echo ""
-  echo "Processing '${line}'"
   # this syntax interprets the line as an array
   splits=(${line})
 
@@ -28,13 +41,19 @@ while read line; do
   gitLocation="${splits[2]}"
   gitBranchOrTag="${splits[3]}"
 
-  libInfo="$(haxelib list ${libName})"
+  # find the line that has our library on it as `haxelib list` may return multiples
+  # if our lib's name is a substring of another lib name
+  libInfo="$(haxelib list ${libName} | sed -n -e /^${libName}:/p)"
+
+  # regex to pull out a string between []'s, example `myLib: 1.1 1.5 [2.0] 2.1` will yield `2.0`
+  currentVersionRegex="s/^.*\[\(.*\)\].*$/\1/p"
+  currentVersion="$(echo ${libInfo} | sed -n ${currentVersionRegex})"
 
   # Replace all backslashes with forward slashes for bash friendliness
   # when working with windows paths
-  libInfo="${libInfo//\\//}"
+  currentVersion="${currentVersion//\\//}"
 
-  if [[ ${libInfo} == *"dev"* ]]; then
+  if [[ ${currentVersion} == *"dev"* ]]; then
     ###############################################################
     # We found a dev dependency. We want to disable this because  #
     # when dev is enabled, it seems to override any other version #
@@ -43,6 +62,8 @@ while read line; do
     # path again is potentially annoying.                         #
     ###############################################################
 
+    echo -e "${YELLOW}${libName} is on a dev version${NC}"
+
     # Disable the dev lib
     haxelib dev ${libName}
 
@@ -50,31 +71,25 @@ while read line; do
 
     # Save the file separator so we can later restore it
     SAVE_IFS=$IFS
-    for i in "${infSplits[@]}"
-    do
-      if [[ ${i} == *"dev"* ]]; then
-        # remove first and last characters which are [ and ]
-        devVersionSegment="${i:1:${#i}-2}"
 
-        # Set comma as delimiter to handle windows paths
-        IFS=':'
+    # Set comma as delimiter to handle windows paths
+    IFS=':'
 
-        # Read the split words into an array
-        read -a devArr <<< "${devVersionSegment}"
+    # Read the split words into an array
+    read -a devArr <<< "${currentVersion}"
 
-        # remove the first element which will be 'dev'
-        unset 'devArr[0]'
+    # remove the first element which will be 'dev'
+    unset 'devArr[0]'
 
-        # Turn array into space-delimited string
-        devPath="${devArr[@]}"
+    # Turn array into space-delimited string
+    devPath="${devArr[@]}"
 
-        # Replace spaces with ':' to make it back into a path
-        devPathJoined=${devPath// /:}
+    # Replace spaces with ':' to make it back into a path
+    devPathJoined=${devPath// /:}
 
-        # Save the command to restore the depenency
-        restoreDevCommands+=("haxelib dev ${libName} ${devPathJoined}")
-      fi
-    done
+    # Save the command to restore the depenency
+    restoreDevCommands+=("haxelib dev ${libName} ${devPathJoined}")
+
     # restore the file separator
     IFS=$SAVE_IFS
   fi
@@ -82,30 +97,35 @@ while read line; do
   # Now we can handle actually installing the needed version
   if [[ ${libVersionOrGit} == "git" ]]; then
     if [[ -z "${gitBranchOrTag}" ]]; then
-      echo "Installing ${libName} git master"
-      haxelib git --never --quiet ${libName} ${gitLocation}
+      echo -e "${GREEN}Installing ${libName} git master${NC}"
+      haxelib git --always ${libName} ${gitLocation}
     else
-      echo "Installing ${libName} git branch ${gitBranchOrTag}"
-      haxelib git --always --quiet ${libName} ${gitLocation} ${gitBranchOrTag}
+      echo -e "${GREEN}Installing ${libName} git branch ${gitBranchOrTag}${NC}"
+      # commands that can hijack standard in will cause our file read loop to break per: https://stackoverflow.com/a/35208546
+      # Adding this echo prevents that and allows our loop to continue
+      echo "" | haxelib git --always ${libName} ${gitLocation} ${gitBranchOrTag}
     fi
   else
-    echo "Installing ${libName} version ${libVersionOrGit}"
+    echo -e "${GREEN}Installing ${libName} version ${libVersionOrGit}${NC}"
     haxelib set ${libName} ${libVersionOrGit} --always --quiet
+  fi
+
+  if [[ ${libName} == "lime" ]] && [[ -z "$INSTALL_GLOBAL" ]]; then
+    # this is a one-off just to make sure that lime is configured properly in our local repo
+    echo "Running lime setup"
+    haxelib --always run lime setup
   fi
 done <haxelib.deps
 
+
 if [ ${#restoreDevCommands[@]} -ne 0 ]; then
-    echo ""
-    echo "Some dev dependencies were disabled."
+    # echo ""
+    echo -e "${YELLOW}Some dev dependencies were disabled."
     echo "To restore them, run:"
 
     for value in "${restoreDevCommands[@]}"
     do
         echo "${value}"
     done
+    echo -e "${NC}"
 fi
-
-haxelib git --always flixel https://github.com/MondayHopscotch/flixel.git lowres2023
-haxelib git --always flixelutils https://github.com/bitDecayGames/flixel-utils.git lowrez2023
-
-
