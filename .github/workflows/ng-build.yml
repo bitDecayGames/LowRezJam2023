@@ -1,12 +1,16 @@
 name: Newgrounds Build
 
-push:
-  branches:
-    - ng-release
-  paths:
-    - 'Project.xml'
-    - 'assets/**'
-    - 'source/**'
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+  push:
+    branches:
+      - ng-release
+    paths:
+      - 'Project.xml'
+      - 'assets/**'
+      - 'source/**'
 
 jobs:
   publish-html5-build:
