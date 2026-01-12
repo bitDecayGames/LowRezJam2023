@@ -1,5 +1,6 @@
 package states;
 
+import config.Newgrounds;
 import flixel.util.FlxStringUtil;
 import progress.Collected;
 import flixel.math.FlxMath;
@@ -49,6 +50,7 @@ class CreditsState extends FlxUIState {
 		camera.pixelPerfectRender = true;
 
 		Collected.addTime(PlayState.ME.levelTime);
+		Newgrounds.reportScore(PlayState.ME.levelTime);
 
 		// Credits
 

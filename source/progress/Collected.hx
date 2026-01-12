@@ -148,7 +148,7 @@ class Collected {
 
 	public static function addTime(t:Float) {
 		FlxG.save.data.game.checkpoint.time += t;
-		FlxG.save.flush;
+		FlxG.save.flush();
 	}
 
 	public static function getTime():Float {
