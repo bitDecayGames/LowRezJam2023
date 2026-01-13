@@ -1,5 +1,6 @@
 # Build files
 /export
+bin/build_ng.sh
 
 # dep files
 .haxelib/

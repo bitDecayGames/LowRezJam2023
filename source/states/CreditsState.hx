@@ -1,5 +1,6 @@
 package states;
 
+import input.SimpleController;
 import config.Newgrounds;
 import flixel.util.FlxStringUtil;
 import progress.Collected;
@@ -52,7 +53,7 @@ class CreditsState extends FlxUIState {
 		Collected.addTime(PlayState.ME.levelTime);
 
 		// Report for the leaderboard
-		Newgrounds.reportScore(PlayState.ME.levelTime);
+		Newgrounds.reportScore(Collected.getTime());
 
 		// Credits
 		_allCreditElements = new Array<FlxSprite>();
@@ -131,7 +132,32 @@ class CreditsState extends FlxUIState {
 
 	private function getFormattedTime():String {
 		var rawTime = Collected.getTime();
-		return FlxStringUtil.formatTime(rawTime, true);
+		var ngConsistentTime = Math.round(rawTime * 1000);
+		return formatTime(ngConsistentTime, true);
+	}
+
+	public static function formatTime(milliTime:Int, ShowMS:Bool = false):String
+	{
+		var seconds = Std.int(milliTime / 1000);
+		var timeString:String = Std.int(seconds / 60) + ":";
+		var timeStringHelper:Int = seconds % 60;
+		if (timeStringHelper < 10)
+		{
+			timeString += "0";
+		}
+		timeString += timeStringHelper;
+		if (ShowMS)
+		{
+			timeString += ".";
+			timeStringHelper = Math.round((milliTime % 1000) / 10);
+			if (timeStringHelper < 10)
+			{
+				timeString += "0";
+			}
+			timeString += timeStringHelper;
+		}
+
+		return timeString;
 	}
 
 	private function AddSectionToCreditsTextArrays(role:String, creators:Array<String>, finalRoleArray:Array<FlxBitmapText>,
@@ -167,7 +193,7 @@ class CreditsState extends FlxUIState {
 		}
 
 		for (element in _allCreditElements) {
-			if (FlxG.keys.pressed.SPACE || FlxG.mouse.pressed) {
+			if (SimpleController.pressed(A) || FlxG.mouse.pressed) {
 				element.y -= FlxG.height * elapsed;
 			} else {
 				element.y -= FlxG.height / 4 * elapsed;

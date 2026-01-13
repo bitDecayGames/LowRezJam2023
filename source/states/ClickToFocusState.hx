@@ -83,6 +83,8 @@ var clickHere:FlxSprite = null;
 				// On web, we may have to resume audio in response to user input
 				lime.media.AudioManager.context.web.resume();
 
+				state = "wait_for_web_state";
+
 				var checks = 0;
 				var checkLimit = 30;
 				new FlxTimer().start(0.1, (t) -> {
@@ -117,6 +119,8 @@ var clickHere:FlxSprite = null;
 				// Whereas on other targets, audio is just fine
 				state = "wait_for_fmod";
 				#end
+			case "wait_for_web_state":
+
 			case "wait_for_fmod":
 				if (!fmodLoaded && FmodManager.IsInitialized()) {
 					// TODO: ios doesn't seem to finish init'ing fmod :'(
@@ -126,15 +130,12 @@ var clickHere:FlxSprite = null;
 				if (NG.core != null && !NG.core.loggedIn && !NG.core.attemptingLogin) {
 					Newgrounds.requestLogin(
 						() -> {
-							trace('NG Logged in as ${NG.core.user}');
 							state = "go_to_splash";
 						},
 						() -> {
 							state = "go_to_splash";
 						}
 					);
-				} else {
-					state = "go_to_splash";
 				}
 				state = "wait_for_ng_or_skip";
 			case "wait_for_ng_or_skip":
@@ -142,11 +143,12 @@ var clickHere:FlxSprite = null;
 				if (FlxG.onMobile) {
 					go = go || FlxG.touches.getFirst() != null;
 				}
+				go = go || NG.core.loggedIn;
 				if (go) {
 					state = "go_to_splash";
 				}
 			case "go_to_splash":
-					FlxG.switchState(new SplashScreenState());
+				FlxG.switchState(new SplashScreenState());
 		}
 	}
 }
