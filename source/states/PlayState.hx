@@ -161,6 +161,8 @@ class PlayState extends FlxTransitionableState {
 			}
 		}
 		#end
+
+		FlxG.watch.add(this, "levelTime", "Timer: ");
 	}
 
 	override function draw() {
@@ -539,9 +541,9 @@ class PlayState extends FlxTransitionableState {
 
 		super.update(elapsed);
 
-		if (player.inControl) {
-			levelTime += elapsed;
-		}
+		// if (player.inControl) {
+		levelTime += originalDelta;
+		// }
 
 		for (o in pendingObjects) {
 			o.add_to_group(objects);

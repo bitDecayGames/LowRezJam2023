@@ -203,5 +203,7 @@ class UpgradeCutscene extends FlxSubState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed * deltaMod);
+
+		PlayState.ME.levelTime += elapsed;
 	}
 }
