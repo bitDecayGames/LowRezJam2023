@@ -95,6 +95,9 @@ class Collected {
 		return FlxG.save.data.game.checkpoint.safeReturn;
 	}
 
+	public static function isGameComplete():Bool {
+		return FlxG.save.data.game.gameCompleted;
+	}
 
 	public static function gameComplete() {
 		clearCheckpoint();
@@ -144,6 +147,11 @@ class Collected {
 
 	public static function getDeathCount() {
 		return FlxG.save.data.game.checkpoint.deaths;
+	}
+
+	public static function setTime(t:Float) {
+		FlxG.save.data.game.checkpoint.time = t;
+		FlxG.save.flush();
 	}
 
 	public static function addTime(t:Float) {

@@ -1,5 +1,6 @@
 package entities;
 
+import progress.PlayTimePlugin;
 import entities.particles.UpgradeParticle;
 import states.CreditsState;
 import flixel.util.FlxTimer;
@@ -141,6 +142,7 @@ class ColorUpgrade extends ColorCollideSprite {
 							});
 						});
 					} else {
+						PlayTimePlugin.ME.timerRunning = false;
 						FlxG.switchState(new CreditsState());
 					}
 				}));

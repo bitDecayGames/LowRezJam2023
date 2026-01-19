@@ -1,5 +1,6 @@
 package states;
 
+import progress.PlayTimePlugin;
 import input.SimpleController;
 import config.Newgrounds;
 import flixel.util.FlxStringUtil;
@@ -50,10 +51,14 @@ class CreditsState extends FlxUIState {
 		bgColor = backgroundColor;
 		camera.pixelPerfectRender = true;
 
-		Collected.addTime(PlayState.ME.levelTime);
+		// Collected.addTime(PlayState.ME.levelTime);
+
+		var finalTime = PlayTimePlugin.ME.accumulated;
+		Collected.setTime(finalTime);
 
 		// Report for the leaderboard
-		Newgrounds.reportScore(Collected.getTime());
+		Newgrounds.reportScore(finalTime);
+		Collected.setTime(0);
 
 		// Credits
 		_allCreditElements = new Array<FlxSprite>();
@@ -113,7 +118,7 @@ class CreditsState extends FlxUIState {
 		add(_txtThankYou);
 		_allCreditElements.push(_txtThankYou);
 
-		var _txtTime = FlxTextFactory.make('Time: ${getFormattedTime()}', FlxG.width / 2, creditsVerticalOffset + FlxG.height * .75, 36, FlxTextAlign.CENTER);
+		var _txtTime = FlxTextFactory.make('Time: ${getFormattedTime(finalTime)}', FlxG.width / 2, creditsVerticalOffset + FlxG.height * .75, 36, FlxTextAlign.CENTER);
 		_txtTime.color = FlxColor.GRAY;
 		center(_txtTime);
 		_txtTime.x -= _txtTime.x % 4;
@@ -130,9 +135,8 @@ class CreditsState extends FlxUIState {
 		Collected.gameComplete();
 	}
 
-	private function getFormattedTime():String {
-		var rawTime = Collected.getTime();
-		var ngConsistentTime = Math.round(rawTime * 1000);
+	private function getFormattedTime(t:Float):String {
+		var ngConsistentTime = Math.round(t * 1000);
 		return formatTime(ngConsistentTime, true);
 	}
 

@@ -343,6 +343,9 @@ class Player extends ColorCollideSprite {
 		#end
 	}
 
+	var lineA = Line.get(0, 0);
+	var lineB = Line.get(0, 0);
+
 	function handleInput(delta:Float) {
 		var inputDir = InputCalcuator.getInputCardinal(playerNum);
 		if (inputDir != NONE) {
@@ -495,6 +498,27 @@ class Player extends ColorCollideSprite {
 				addColorIfUnlocked(YELLOW);
 			}
 		} else {
+			if (!topShape.solid) {
+				var world = FlxEcho.instance.world;
+				var bodies = PlayState.ME.terrainGroup.get_group_bodies();
+
+				lineA.start.set(bottomShape.left, bottomShape.top);
+				lineA.end.set(topShape.left, topShape.top);
+				lineB.start.set(bottomShape.right, bottomShape.top);
+				lineB.end.set(topShape.right, topShape.top);
+
+				// For some reason doing the linecast like this causes bodies to disappear...
+				// var resultA = lineA.linecast(bodies, world, false);
+				// var resultB = lineB.linecast(bodies, world, false);
+				// So instead, we'll do linecast_all as we were already doing it for lasers and it doesn't break things.
+				var resultA = lineA.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.terrainGroup));
+				var resultB = lineB.linecast_all(FlxEcho.get_group_bodies(PlayState.ME.terrainGroup));
+				if (resultA.length > 0) {
+					body.y += lineA.length - resultA[0].closest.distance;
+				} else if (resultB.length > 0) {
+					body.y += lineB.length - resultB[0].closest.distance;
+				}
+			}
 			topShape.solid = true;
 			body.drag.x = decel;
 			if (mixColors) {

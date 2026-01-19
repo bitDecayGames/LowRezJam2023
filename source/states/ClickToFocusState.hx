@@ -1,5 +1,6 @@
 package states;
 
+import progress.Collected;
 import io.newgrounds.NG;
 import config.Newgrounds;
 import com.bitdecay.analytics.Bitlytics;
@@ -148,7 +149,11 @@ var clickHere:FlxSprite = null;
 					state = "go_to_splash";
 				}
 			case "go_to_splash":
-				FlxG.switchState(new SplashScreenState());
+				if (Collected.getCheckpointLevel() != null) {
+					FlxG.switchState(new MainMenuState());
+				} else {
+					FlxG.switchState(new SplashScreenState());
+				}
 		}
 	}
 }

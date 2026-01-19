@@ -1,5 +1,6 @@
 package;
 
+import progress.PlayTimePlugin;
 import io.newgrounds.NG;
 import newgrounds.Newgrounds;
 import collision.Color;
@@ -95,6 +96,8 @@ class Main extends Sprite {
 			FlxG.camera.setFilters( [new ShaderFilter(pixelShader)] ); 
 			shaderUpdater.setShader(pixelShader);
 		};
+
+		FlxG.plugins.add(new PlayTimePlugin());
 
 		// call it once on startup
 		setCameraShader();

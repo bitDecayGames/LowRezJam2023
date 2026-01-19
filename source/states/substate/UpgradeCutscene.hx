@@ -1,5 +1,6 @@
 package states.substate;
 
+import progress.Collected;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
@@ -204,6 +205,16 @@ class UpgradeCutscene extends FlxSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed * deltaMod);
 
-		PlayState.ME.levelTime += elapsed;
+		// PlayState.ME.levelTime += elapsed;
+	}
+
+	override function draw() {
+		super.draw();
+
+		if (Collected.isGameComplete()) {
+			// XXX: Ensure this element redraws while the cutscene is going
+			PlayState.ME.updateTimer();
+			PlayState.ME.timerTxt.draw();
+		}
 	}
 }

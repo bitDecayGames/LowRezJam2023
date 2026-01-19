@@ -1,5 +1,7 @@
 package states;
 
+import progress.PlayTimePlugin;
+import ui.font.BitmapText;
 import flixel.FlxSprite;
 import ldtk.Level;
 import states.substate.UpgradeCutscene;
@@ -52,6 +54,9 @@ class PlayState extends FlxTransitionableState {
 
 	public var player:Player;
 
+	public var timerCam = new FlxCamera();
+	public var timerTxt = new BitmapText("0:00");
+
 	public var baseTerrainCam:FlxCamera;
 	public var colorCams:Map<Color, FlxCamera> = [];
 	public var objectCam:FlxCamera;
@@ -75,6 +80,9 @@ class PlayState extends FlxTransitionableState {
 	var deltaMod = 1.0;
 	var deathDeltaMod = 0.1;
 
+	// This is our cumulative time in-game
+	var baseTime = 0.0;
+	// This is our time on this specific level
 	public var levelTime = 0.0;
 
 	var resetQueued = false;
@@ -108,6 +116,22 @@ class PlayState extends FlxTransitionableState {
 
 		objectCam = makeShaderCamera(EMPTY);
 		FlxG.cameras.add(objectCam, false);
+
+		timerCam.bgColor = FlxColor.TRANSPARENT;
+		FlxG.cameras.add(timerCam, false);
+		timerTxt.scrollFactor.set();
+		timerTxt.camera = timerCam;
+		timerTxt.autoSize = false;
+		timerTxt.width = FlxG.width;
+		timerTxt.alignment = CENTER;
+		timerTxt.updateHitbox();
+		timerTxt.screenCenter(X);
+		timerTxt.setBorderStyle(OUTLINE, FlxColor.BLACK);
+
+		if (Collected.isGameComplete()) {
+			// Only show timer once they've completed the game
+			add(timerTxt);
+		}
 
 		// XXX: need the substate to use the right cameras... but it's not set yet, so we go to this
 		// variable to get it
@@ -150,6 +174,7 @@ class PlayState extends FlxTransitionableState {
 		var checkpointRoom = Collected.getCheckpointLevel();
 		var checkpointEntity = Collected.getCheckpointEntity();
 		if (checkpointRoom != null && checkpointEntity != null) {
+			PlayTimePlugin.ME.accumulated = Collected.getTime();
 			loadLevel(checkpointRoom, checkpointEntity);
 		} else {
 			var spawnLevel = levels.ldtk.Level.project.all_worlds.Default.levels.filter((l) -> return l.l_Objects.all_Spawn.length > 0);
@@ -162,7 +187,7 @@ class PlayState extends FlxTransitionableState {
 		}
 		#end
 
-		FlxG.watch.add(this, "levelTime", "Timer: ");
+		PlayTimePlugin.ME.timerRunning = true;
 	}
 
 	override function draw() {
@@ -220,8 +245,8 @@ class PlayState extends FlxTransitionableState {
 		lastLevel = levelID;
 		lastSpawnEntity = entityID;
 
-		Collected.addTime(levelTime);
-		levelTime = 0;
+		// Collected.addTime(levelTime);
+		Collected.setTime(PlayTimePlugin.ME.accumulated);
 
 		Collected.setLastCheckpoint(levelID, entityID);
 
@@ -541,9 +566,10 @@ class PlayState extends FlxTransitionableState {
 
 		super.update(elapsed);
 
-		// if (player.inControl) {
-		levelTime += originalDelta;
-		// }
+		// Time travels at normal speed as far as timing goes
+		// levelTime += originalDelta;
+
+		updateTimer();
 
 		for (o in pendingObjects) {
 			o.add_to_group(objects);
@@ -568,6 +594,12 @@ class PlayState extends FlxTransitionableState {
 		#if debug_camera
 		FlxG.watch.addQuick('camScroll: ', ${baseTerrainCam.scroll});
 		#end
+	}
+
+	public function updateTimer() {
+		var rawTime = PlayTimePlugin.ME.accumulated;
+		var ngConsistentTime = Math.round(rawTime * 1000);
+		timerTxt.text = CreditsState.formatTime(ngConsistentTime, false);
 	}
 
 	var tmpScreenPoint = FlxPoint.get();

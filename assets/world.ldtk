@@ -5,12 +5,12 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.3.3",
+		"appVersion": "1.5.3",
 		"url": "https://ldtk.io"
 	},
 	"iid": "48a599b0-1460-11ee-8f1d-1923aa7248a0",
-	"jsonVersion": "1.3.3",
-	"appBuildId": 467698,
+	"jsonVersion": "1.5.3",
+	"appBuildId": 473703,
 	"nextUid": 198,
 	"identifierStyle": "Capitalize",
 	"toc": [],
@@ -22,6 +22,8 @@
 	"defaultPivotX": 0,
 	"defaultPivotY": 0,
 	"defaultGridSize": 32,
+	"defaultEntityWidth": 16,
+	"defaultEntityHeight": 16,
 	"bgColor": "#40465B",
 	"defaultLevelBgColor": "#696A79",
 	"minifyJson": false,
@@ -37,7 +39,7 @@
 	"levelNamePattern": "Level_%idx",
 	"tutorialDesc": null,
 	"customCommands": [{ "command": "lime test html5 -debug", "when": "Manual" }],
-	"flags": [],
+	"flags": ["ExportOldTableOfContentData"],
 	"defs": { "layers": [
 		{
 			"__type": "Entities",
@@ -62,12 +64,17 @@
 			"parallaxScaling": true,
 			"requiredTags": [],
 			"excludedTags": [],
+			"autoTilesKilledByOtherLayerUid": null,
+			"uiFilterTags": [],
+			"useAsyncRender": false,
 			"intGridValues": [],
+			"intGridValuesGroups": [],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,
 			"tilePivotX": 0,
-			"tilePivotY": 0
+			"tilePivotY": 0,
+			"biomeFieldUid": null
 		},
 		{
 			"__type": "IntGrid",
@@ -92,21 +99,26 @@
 			"parallaxScaling": true,
 			"requiredTags": [],
 			"excludedTags": [],
+			"autoTilesKilledByOtherLayerUid": null,
+			"uiFilterTags": [],
+			"useAsyncRender": false,
 			"intGridValues": [
-				{ "value": 1, "identifier": "EMPTY", "color": "#FFFFFF", "tile": null },
-				{ "value": 2, "identifier": "BLUE", "color": "#8888FF", "tile": null },
-				{ "value": 3, "identifier": "YELLOW", "color": "#FFFF5E", "tile": null },
-				{ "value": 4, "identifier": "RED", "color": "#FF5555", "tile": null },
-				{ "value": 5, "identifier": "GREEN", "color": "#3CAC3C", "tile": null },
-				{ "value": 6, "identifier": "PURPLE", "color": "#AA00AA", "tile": null },
-				{ "value": 7, "identifier": "ORANGE", "color": "#DF7A37", "tile": null },
-				{ "value": 8, "identifier": "ALL", "color": "#292929", "tile": null }
+				{ "value": 1, "identifier": "EMPTY", "color": "#FFFFFF", "tile": null, "groupUid": 0 },
+				{ "value": 2, "identifier": "BLUE", "color": "#8888FF", "tile": null, "groupUid": 0 },
+				{ "value": 3, "identifier": "YELLOW", "color": "#FFFF5E", "tile": null, "groupUid": 0 },
+				{ "value": 4, "identifier": "RED", "color": "#FF5555", "tile": null, "groupUid": 0 },
+				{ "value": 5, "identifier": "GREEN", "color": "#3CAC3C", "tile": null, "groupUid": 0 },
+				{ "value": 6, "identifier": "PURPLE", "color": "#AA00AA", "tile": null, "groupUid": 0 },
+				{ "value": 7, "identifier": "ORANGE", "color": "#DF7A37", "tile": null, "groupUid": 0 },
+				{ "value": 8, "identifier": "ALL", "color": "#292929", "tile": null, "groupUid": 0 }
 			],
+			"intGridValuesGroups": [],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,
 			"tilePivotX": 0,
-			"tilePivotY": 0
+			"tilePivotY": 0,
+			"biomeFieldUid": null
 		},
 		{
 			"__type": "Tiles",
@@ -131,12 +143,17 @@
 			"parallaxScaling": true,
 			"requiredTags": [],
 			"excludedTags": [],
+			"autoTilesKilledByOtherLayerUid": null,
+			"uiFilterTags": [],
+			"useAsyncRender": false,
 			"intGridValues": [],
+			"intGridValuesGroups": [],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": 80,
 			"tilePivotX": 0,
-			"tilePivotY": 0
+			"tilePivotY": 0,
+			"biomeFieldUid": null
 		},
 		{
 			"__type": "Tiles",
@@ -161,12 +178,17 @@
 			"parallaxScaling": true,
 			"requiredTags": [],
 			"excludedTags": [],
+			"autoTilesKilledByOtherLayerUid": null,
+			"uiFilterTags": [],
+			"useAsyncRender": false,
 			"intGridValues": [],
+			"intGridValuesGroups": [],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": 76,
 			"tilePivotX": 0,
-			"tilePivotY": 0
+			"tilePivotY": 0,
+			"biomeFieldUid": null
 		}
 	], "entities": [
 		{
@@ -174,6 +196,7 @@
 			"uid": 74,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 16,
 			"height": 48,
@@ -194,6 +217,7 @@
 			"tilesetId": null,
 			"tileRenderMode": "FitInside",
 			"tileRect": null,
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 1,
 			"limitScope": "PerWorld",
@@ -207,6 +231,7 @@
 			"uid": 13,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 16,
 			"height": 48,
@@ -227,6 +252,7 @@
 			"tilesetId": 4,
 			"tileRenderMode": "Cover",
 			"tileRect": { "tilesetUid": 4, "x": 0, "y": 32, "w": 32, "h": 32 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -245,15 +271,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "RefLinkBetweenCenters",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "CurvedArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -282,12 +311,15 @@
 					"editorDisplayScale": 2.35,
 					"editorDisplayPos": "Center",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -313,15 +345,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -346,6 +381,7 @@
 			"uid": 3,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 32,
@@ -366,6 +402,7 @@
 			"tilesetId": 4,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 4, "x": 0, "y": 0, "w": 32, "h": 32 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -384,15 +421,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "ValueOnly",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Beneath",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -424,12 +464,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -458,12 +501,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -492,12 +538,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -523,15 +572,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "RadiusPx",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": 0,
 					"max": 256,
 					"regex": null,
@@ -553,6 +605,7 @@
 			"uid": 5,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 32,
@@ -573,6 +626,7 @@
 			"tilesetId": 4,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 4, "x": 32, "y": 0, "w": 32, "h": 32 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -591,15 +645,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -628,15 +685,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -665,12 +725,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -699,12 +762,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -730,15 +796,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "PointPathLoop",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "ArrowsLine",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -767,12 +836,15 @@
 					"editorDisplayScale": 1.01,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -804,12 +876,15 @@
 					"editorDisplayScale": 1.08,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -831,6 +906,7 @@
 			"uid": 85,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 32,
@@ -851,6 +927,7 @@
 			"tilesetId": 4,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 4, "x": 32, "y": 32, "w": 32, "h": 32 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -869,15 +946,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -906,15 +986,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -943,12 +1026,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -977,12 +1063,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1008,15 +1097,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "PointPathLoop",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "ArrowsLine",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1045,12 +1137,15 @@
 					"editorDisplayScale": 1.12,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1082,12 +1177,15 @@
 					"editorDisplayScale": 1.07,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1109,6 +1207,7 @@
 			"uid": 89,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 32,
@@ -1129,6 +1228,7 @@
 			"tilesetId": 4,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 4, "x": 64, "y": 32, "w": 32, "h": 32 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -1147,15 +1247,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1184,15 +1287,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1221,12 +1327,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1255,12 +1364,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1286,15 +1398,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "PointPathLoop",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "ArrowsLine",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1323,12 +1438,15 @@
 					"editorDisplayScale": 1.04,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1360,12 +1478,15 @@
 					"editorDisplayScale": 1.14,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1387,6 +1508,7 @@
 			"uid": 93,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 32,
@@ -1407,6 +1529,7 @@
 			"tilesetId": 4,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 4, "x": 64, "y": 0, "w": 32, "h": 32 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -1425,15 +1548,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1462,15 +1588,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1499,12 +1628,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1533,12 +1665,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1564,15 +1699,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "PointPathLoop",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "ArrowsLine",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1601,12 +1739,15 @@
 					"editorDisplayScale": 1.11,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1638,12 +1779,15 @@
 					"editorDisplayScale": 1.11,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1665,6 +1809,7 @@
 			"uid": 99,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 32,
@@ -1685,6 +1830,7 @@
 			"tilesetId": 4,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 4, "x": 32, "y": 96, "w": 32, "h": 32 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -1703,15 +1849,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1743,12 +1892,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1777,12 +1929,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1808,15 +1963,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1845,12 +2003,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1872,6 +2033,7 @@
 			"uid": 103,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 32,
@@ -1892,6 +2054,7 @@
 			"tilesetId": 4,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 4, "x": 32, "y": 64, "w": 32, "h": 32 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -1910,15 +2073,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1950,12 +2116,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -1984,12 +2153,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2015,15 +2187,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2052,12 +2227,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2079,6 +2257,7 @@
 			"uid": 107,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 32,
@@ -2099,6 +2278,7 @@
 			"tilesetId": 4,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 4, "x": 64, "y": 64, "w": 32, "h": 32 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -2117,15 +2297,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2157,12 +2340,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2191,12 +2377,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2222,15 +2411,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "NameAndValue",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2259,12 +2451,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2286,6 +2481,7 @@
 			"uid": 111,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 32,
@@ -2306,6 +2502,7 @@
 			"tilesetId": 4,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 4, "x": 64, "y": 96, "w": 32, "h": 32 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -2324,15 +2521,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2364,12 +2564,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2398,12 +2601,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2429,15 +2635,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2466,12 +2675,15 @@
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2493,6 +2705,7 @@
 			"uid": 120,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 256,
 			"height": 256,
@@ -2513,6 +2726,7 @@
 			"tilesetId": null,
 			"tileRenderMode": "FitInside",
 			"tileRect": null,
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -2526,6 +2740,7 @@
 			"uid": 121,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 32,
@@ -2546,6 +2761,7 @@
 			"tilesetId": null,
 			"tileRenderMode": "FitInside",
 			"tileRect": null,
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -2564,15 +2780,18 @@
 					"arrayMinLength": 2,
 					"arrayMaxLength": 2,
 					"editorDisplayMode": "RefLinkBetweenCenters",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "DashedLine",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2598,15 +2817,18 @@
 					"arrayMinLength": 2,
 					"arrayMaxLength": 2,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2628,6 +2850,7 @@
 			"uid": 78,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 32,
 			"height": 48,
@@ -2648,6 +2871,7 @@
 			"tilesetId": 16,
 			"tileRenderMode": "Cover",
 			"tileRect": { "tilesetUid": 16, "x": 224, "y": 912, "w": 16, "h": 16 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -2666,15 +2890,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "EntityTile",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2699,6 +2926,7 @@
 			"uid": 118,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 16,
 			"height": 48,
@@ -2719,6 +2947,7 @@
 			"tilesetId": null,
 			"tileRenderMode": "FitInside",
 			"tileRect": null,
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 1,
 			"limitScope": "PerWorld",
@@ -2732,6 +2961,7 @@
 			"uid": 129,
 			"tags": [],
 			"exportToToc": false,
+			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 16,
 			"height": 16,
@@ -2752,6 +2982,7 @@
 			"tilesetId": 16,
 			"tileRenderMode": "FitInside",
 			"tileRect": { "tilesetUid": 16, "x": 160, "y": 128, "w": 16, "h": 16 },
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -2773,12 +3004,15 @@
 					"editorDisplayScale": 1.16,
 					"editorDisplayPos": "Center",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2807,15 +3041,18 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 0,
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
 					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
 					"min": null,
 					"max": null,
 					"regex": null,
@@ -2948,17 +3185,17 @@
 		}
 	], "enums": [
 		{ "identifier": "Direction", "uid": 15, "values": [
-			{ "id": "EAST", "tileRect": { "tilesetUid": 16, "x": 0, "y": 16, "w": 16, "h": 16 }, "tileId": -1, "color": 12470831, "__tileSrcRect": [0,16,16,16] },
-			{ "id": "WEST", "tileRect": { "tilesetUid": 16, "x": 16, "y": 16, "w": 16, "h": 16 }, "tileId": -1, "color": 14120515, "__tileSrcRect": [16,16,16,16] },
-			{ "id": "NORTH", "tileRect": { "tilesetUid": 16, "x": 0, "y": 80, "w": 16, "h": 16 }, "tileId": -1, "color": 15389866, "__tileSrcRect": [0,80,16,16] },
-			{ "id": "SOUTH", "tileRect": { "tilesetUid": 16, "x": 48, "y": 80, "w": 16, "h": 16 }, "tileId": -1, "color": 14984818, "__tileSrcRect": [48,80,16,16] }
+			{ "id": "EAST", "tileRect": { "tilesetUid": 16, "x": 0, "y": 16, "w": 16, "h": 16 }, "color": 12470831 },
+			{ "id": "WEST", "tileRect": { "tilesetUid": 16, "x": 16, "y": 16, "w": 16, "h": 16 }, "color": 14120515 },
+			{ "id": "NORTH", "tileRect": { "tilesetUid": 16, "x": 0, "y": 80, "w": 16, "h": 16 }, "color": 15389866 },
+			{ "id": "SOUTH", "tileRect": { "tilesetUid": 16, "x": 48, "y": 80, "w": 16, "h": 16 }, "color": 14984818 }
 		], "iconTilesetUid": 16, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "Color", "uid": 71, "values": [
-			{ "id": "EMPTY", "tileRect": null, "tileId": -1, "color": 16777215, "__tileSrcRect": null },
-			{ "id": "RED", "tileRect": null, "tileId": -1, "color": 16733525, "__tileSrcRect": null },
-			{ "id": "YELLOW", "tileRect": null, "tileId": -1, "color": 15658547, "__tileSrcRect": null },
-			{ "id": "BLUE", "tileRect": null, "tileId": -1, "color": 8947967, "__tileSrcRect": null },
-			{ "id": "ALL", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null }
+			{ "id": "EMPTY", "tileRect": null, "color": 16777215 },
+			{ "id": "RED", "tileRect": null, "color": 16733525 },
+			{ "id": "YELLOW", "tileRect": null, "color": 15658547 },
+			{ "id": "BLUE", "tileRect": null, "color": 8947967 },
+			{ "id": "ALL", "tileRect": null, "color": 0 }
 		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [], "levelFields": [
 		{
@@ -2972,15 +3209,18 @@
 			"arrayMinLength": null,
 			"arrayMaxLength": null,
 			"editorDisplayMode": "LevelTile",
-			"editorDisplayScale": 0,
+			"editorDisplayScale": 1,
 			"editorDisplayPos": "Above",
 			"editorLinkStyle": "StraightArrow",
+			"editorDisplayColor": null,
 			"editorAlwaysShow": false,
 			"editorShowInWorld": true,
 			"editorCutLongValues": true,
 			"editorTextSuffix": null,
 			"editorTextPrefix": null,
 			"useForSmartColor": false,
+			"exportToToc": false,
+			"searchable": false,
 			"min": null,
 			"max": null,
 			"regex": null,
@@ -3072,7 +3312,9 @@
 									"id": "V_String",
 									"params": ["EMPTY"]
 								}] }
-							]
+							],
+							"__worldX": 1250,
+							"__worldY": -352
 						},
 						{
 							"__identifier": "Door",
@@ -3104,7 +3346,9 @@
 									"id": "V_String",
 									"params": ["EMPTY"]
 								}] }
-							]
+							],
+							"__worldX": -24,
+							"__worldY": -384
 						},
 						{
 							"__identifier": "Laser_mount_right",
@@ -3124,7 +3368,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 114, "realEditorValues": [] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 128, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 190, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 256,
+							"__worldY": -408
 						}
 					]
 				},
@@ -3471,7 +3717,13 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "77161c50-1460-11ee-8f1d-adbd16d24fca", "dir": "e" }, { "levelIid": "b36796f0-1460-11ee-9ef3-917fd1ffa01d", "dir": "w" }, { "levelIid": "e1a7ac60-1460-11ee-8921-231d9736c49d", "dir": "s" }, { "levelIid": "62fa0ec0-1460-11ee-8921-95e070ddbe5d", "dir": "s" } ]
+			"__neighbours": [
+				{ "levelIid": "77161c50-1460-11ee-8f1d-adbd16d24fca", "dir": "e" },
+				{ "levelIid": "b36796f0-1460-11ee-9ef3-917fd1ffa01d", "dir": "w" },
+				{ "levelIid": "e1a7ac60-1460-11ee-8921-231d9736c49d", "dir": "s" },
+				{ "levelIid": "62fa0ec0-1460-11ee-8921-95e070ddbe5d", "dir": "s" },
+				{ "levelIid": "4bccd280-1460-11ee-8921-474fdc24699d", "dir": "sw" }
+			]
 		},
 		{
 			"identifier": "Level_1",
@@ -3548,7 +3800,9 @@
 									"id": "V_String",
 									"params": ["EMPTY"]
 								}] }
-							]
+							],
+							"__worldX": 1312,
+							"__worldY": -352
 						}
 					]
 				},
@@ -3764,7 +4018,9 @@
 									"id": "V_String",
 									"params": ["EMPTY"]
 								}] }
-							]
+							],
+							"__worldX": -296,
+							"__worldY": -384
 						},
 						{
 							"__identifier": "Laser_rail_right",
@@ -3792,7 +4048,9 @@
 								}] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 143, "realEditorValues": [] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 149, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -544,
+							"__worldY": -352
 						},
 						{
 							"__identifier": "Laser_rail_left",
@@ -3820,7 +4078,9 @@
 								}] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 144, "realEditorValues": [] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 150, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -352,
+							"__worldY": -288
 						},
 						{
 							"__identifier": "Laser_rail_down",
@@ -3848,7 +4108,9 @@
 								}] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 140, "realEditorValues": [] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -560,
+							"__worldY": -496
 						}
 					]
 				},
@@ -3995,7 +4257,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "48a5c0c0-1460-11ee-8f1d-1df80661b277", "dir": "e" }, { "levelIid": "4bccd280-1460-11ee-8921-474fdc24699d", "dir": "s" } ]
+			"__neighbours": [ { "levelIid": "48a5c0c0-1460-11ee-8f1d-1df80661b277", "dir": "e" }, { "levelIid": "62fa0ec0-1460-11ee-8921-95e070ddbe5d", "dir": "se" }, { "levelIid": "4bccd280-1460-11ee-8921-474fdc24699d", "dir": "s" }, { "levelIid": "c714e180-1460-11ee-8921-41e7c854688d", "dir": "sw" } ]
 		},
 		{
 			"identifier": "Level_3",
@@ -4057,7 +4319,9 @@
 							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "BLUE", "__tile": null, "defUid": 79, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["BLUE"]
-							}] }]
+							}] }],
+							"__worldX": -888,
+							"__worldY": 160
 						},
 						{
 							"__identifier": "Door",
@@ -4081,7 +4345,9 @@
 									"id": "V_String",
 									"params": ["EMPTY"]
 								}] }
-							]
+							],
+							"__worldX": 216,
+							"__worldY": 128
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -4101,7 +4367,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 110, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -32,
+							"__worldY": 208
 						},
 						{
 							"__identifier": "Camera_guide",
@@ -4115,7 +4383,9 @@
 							"height": 256,
 							"defUid": 120,
 							"px": [0,0],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -1024,
+							"__worldY": 0
 						},
 						{
 							"__identifier": "Camera_guide",
@@ -4129,7 +4399,9 @@
 							"height": 256,
 							"defUid": 120,
 							"px": [0,256],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": -1024,
+							"__worldY": 256
 						},
 						{
 							"__identifier": "Camera_transition",
@@ -4168,7 +4440,9 @@
 									"id": "V_String",
 									"params": ["SOUTH"]
 								} ] }
-							]
+							],
+							"__worldX": -160,
+							"__worldY": 245
 						},
 						{
 							"__identifier": "Door",
@@ -4189,7 +4463,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 216,
+							"__worldY": 448
 						},
 						{
 							"__identifier": "Color_upgrade",
@@ -4206,7 +4482,9 @@
 							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "ALL", "__tile": null, "defUid": 79, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ALL"]
-							}] }]
+							}] }],
+							"__worldX": -792,
+							"__worldY": 224
 						},
 						{
 							"__identifier": "Color_upgrade",
@@ -4223,7 +4501,9 @@
 							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "YELLOW", "__tile": null, "defUid": 79, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["YELLOW"]
-							}] }]
+							}] }],
+							"__worldX": -552,
+							"__worldY": 224
 						},
 						{
 							"__identifier": "Color_upgrade",
@@ -4240,7 +4520,9 @@
 							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 79, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["RED"]
-							}] }]
+							}] }],
+							"__worldX": -600,
+							"__worldY": 224
 						}
 					]
 				},
@@ -4587,10 +4869,12 @@
 			],
 			"__neighbours": [
 				{ "levelIid": "55b7d940-1460-11ee-a342-43de8edfabb4", "dir": "e" },
+				{ "levelIid": "e1a7ac60-1460-11ee-8921-231d9736c49d", "dir": "ne" },
 				{ "levelIid": "62fa0ec0-1460-11ee-8921-95e070ddbe5d", "dir": "n" },
 				{ "levelIid": "1d38cab0-1460-11ee-8921-858eee70c37d", "dir": "e" },
 				{ "levelIid": "4bccd280-1460-11ee-8921-474fdc24699d", "dir": "n" },
-				{ "levelIid": "c714e180-1460-11ee-8921-41e7c854688d", "dir": "n" }
+				{ "levelIid": "c714e180-1460-11ee-8921-41e7c854688d", "dir": "n" },
+				{ "levelIid": "daa6eb70-1460-11ee-9798-49bd8279507f", "dir": "se" }
 			]
 		},
 		{
@@ -4668,7 +4952,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5160,
+							"__worldY": 192
 						},
 						{
 							"__identifier": "Door",
@@ -4697,7 +4983,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5144,
+							"__worldY": -128
 						},
 						{
 							"__identifier": "Laser_rail_left",
@@ -4722,7 +5010,9 @@
 								}] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 144, "realEditorValues": [] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 150, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5376,
+							"__worldY": -336
 						},
 						{
 							"__identifier": "Laser_rail_left",
@@ -4747,7 +5037,9 @@
 								}] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 144, "realEditorValues": [] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 150, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5376,
+							"__worldY": 0
 						},
 						{
 							"__identifier": "Laser_rail_down",
@@ -4775,7 +5067,9 @@
 								}] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 140, "realEditorValues": [] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5216,
+							"__worldY": -480
 						},
 						{
 							"__identifier": "Door",
@@ -4804,7 +5098,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5592,
+							"__worldY": 224
 						},
 						{
 							"__identifier": "Door",
@@ -4833,7 +5129,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5592,
+							"__worldY": -224
 						},
 						{
 							"__identifier": "Door",
@@ -4862,7 +5160,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5160,
+							"__worldY": -384
 						}
 					]
 				},
@@ -5392,7 +5692,9 @@
 									"id": "V_String",
 									"params": ["EMPTY"]
 								}] }
-							]
+							],
+							"__worldX": 296,
+							"__worldY": 128
 						},
 						{
 							"__identifier": "Laser_rail_down",
@@ -5417,7 +5719,9 @@
 								}] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 140, "realEditorValues": [null] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 384,
+							"__worldY": 32
 						},
 						{
 							"__identifier": "Laser_rail_down",
@@ -5442,7 +5746,9 @@
 								}] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 140, "realEditorValues": [null] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 560,
+							"__worldY": 32
 						},
 						{
 							"__identifier": "Laser_rail_down",
@@ -5467,7 +5773,9 @@
 								}] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 140, "realEditorValues": [null] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 592,
+							"__worldY": 32
 						},
 						{
 							"__identifier": "Laser_rail_down",
@@ -5495,7 +5803,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 768,
+							"__worldY": 32
 						},
 						{
 							"__identifier": "Laser_rail_down",
@@ -5523,7 +5833,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 800,
+							"__worldY": 32
 						},
 						{
 							"__identifier": "Door",
@@ -5552,7 +5864,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 984,
+							"__worldY": 224
 						}
 					]
 				},
@@ -5732,7 +6046,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "w" }, { "levelIid": "e1a7ac60-1460-11ee-8921-231d9736c49d", "dir": "n" }, { "levelIid": "1d38cab0-1460-11ee-8921-858eee70c37d", "dir": "s" } ]
+			"__neighbours": [ { "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "w" }, { "levelIid": "e1a7ac60-1460-11ee-8921-231d9736c49d", "dir": "n" }, { "levelIid": "62fa0ec0-1460-11ee-8921-95e070ddbe5d", "dir": "nw" }, { "levelIid": "1d38cab0-1460-11ee-8921-858eee70c37d", "dir": "s" } ]
 		},
 		{
 			"identifier": "Level_6",
@@ -5806,7 +6120,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 296,
+							"__worldY": -32
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -5823,7 +6139,9 @@
 							"fieldInstances": [
 								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "SOUTH", "__tile": null, "defUid": 130, "realEditorValues": [] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 131, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 592,
+							"__worldY": -176
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -5846,7 +6164,9 @@
 									"id": "V_String",
 									"params": ["BLUE"]
 								}] }
-							]
+							],
+							"__worldX": 720,
+							"__worldY": -112
 						}
 					]
 				},
@@ -6056,7 +6376,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "48a5c0c0-1460-11ee-8f1d-1df80661b277", "dir": "n" }, { "levelIid": "55b7d940-1460-11ee-a342-43de8edfabb4", "dir": "s" }, { "levelIid": "62fa0ec0-1460-11ee-8921-95e070ddbe5d", "dir": "w" } ]
+			"__neighbours": [ { "levelIid": "48a5c0c0-1460-11ee-8f1d-1df80661b277", "dir": "n" }, { "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "sw" }, { "levelIid": "55b7d940-1460-11ee-a342-43de8edfabb4", "dir": "s" }, { "levelIid": "62fa0ec0-1460-11ee-8921-95e070ddbe5d", "dir": "w" } ]
 		},
 		{
 			"identifier": "Level_7",
@@ -6122,7 +6442,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 216,
+							"__worldY": -128
 						},
 						{
 							"__identifier": "Laser_turret",
@@ -6142,7 +6464,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 166, "realEditorValues": [] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 161, "realEditorValues": [] },
 								{ "__identifier": "range", "__type": "Float", "__value": 128, "__tile": null, "defUid": 9, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 0,
+							"__worldY": -168
 						},
 						{
 							"__identifier": "Door",
@@ -6171,7 +6495,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -216,
+							"__worldY": -128
 						}
 					]
 				},
@@ -6383,7 +6709,14 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "48a5c0c0-1460-11ee-8f1d-1df80661b277", "dir": "n" }, { "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "s" }, { "levelIid": "e1a7ac60-1460-11ee-8921-231d9736c49d", "dir": "e" }, { "levelIid": "4bccd280-1460-11ee-8921-474fdc24699d", "dir": "w" } ]
+			"__neighbours": [
+				{ "levelIid": "48a5c0c0-1460-11ee-8f1d-1df80661b277", "dir": "n" },
+				{ "levelIid": "b36796f0-1460-11ee-9ef3-917fd1ffa01d", "dir": "nw" },
+				{ "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "s" },
+				{ "levelIid": "55b7d940-1460-11ee-a342-43de8edfabb4", "dir": "se" },
+				{ "levelIid": "e1a7ac60-1460-11ee-8921-231d9736c49d", "dir": "e" },
+				{ "levelIid": "4bccd280-1460-11ee-8921-474fdc24699d", "dir": "w" }
+			]
 		},
 		{
 			"identifier": "Level_8",
@@ -6590,7 +6923,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -296,
+							"__worldY": -128
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -6610,7 +6945,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 110, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -352,
+							"__worldY": -112
 						},
 						{
 							"__identifier": "Door",
@@ -6639,7 +6976,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -728,
+							"__worldY": -112
 						}
 					]
 				},
@@ -6812,7 +7151,13 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "b36796f0-1460-11ee-9ef3-917fd1ffa01d", "dir": "n" }, { "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "s" }, { "levelIid": "62fa0ec0-1460-11ee-8921-95e070ddbe5d", "dir": "e" }, { "levelIid": "c714e180-1460-11ee-8921-41e7c854688d", "dir": "w" } ]
+			"__neighbours": [
+				{ "levelIid": "48a5c0c0-1460-11ee-8f1d-1df80661b277", "dir": "ne" },
+				{ "levelIid": "b36796f0-1460-11ee-9ef3-917fd1ffa01d", "dir": "n" },
+				{ "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "s" },
+				{ "levelIid": "62fa0ec0-1460-11ee-8921-95e070ddbe5d", "dir": "e" },
+				{ "levelIid": "c714e180-1460-11ee-8921-41e7c854688d", "dir": "w" }
+			]
 		},
 		{
 			"identifier": "Level_10",
@@ -6886,7 +7231,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": -808,
+							"__worldY": -112
 						}
 					]
 				},
@@ -6981,7 +7328,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "s" }, { "levelIid": "4bccd280-1460-11ee-8921-474fdc24699d", "dir": "e" } ]
+			"__neighbours": [ { "levelIid": "b36796f0-1460-11ee-9ef3-917fd1ffa01d", "dir": "ne" }, { "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "s" }, { "levelIid": "4bccd280-1460-11ee-8921-474fdc24699d", "dir": "e" } ]
 		},
 		{
 			"identifier": "Level_11",
@@ -7047,7 +7394,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 296,
+							"__worldY": 736
 						},
 						{
 							"__identifier": "Laser_rail_right",
@@ -7078,7 +7427,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 416,
+							"__worldY": 704
 						}
 					]
 				},
@@ -7225,7 +7576,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [{ "levelIid": "1d38cab0-1460-11ee-8921-858eee70c37d", "dir": "n" }]
+			"__neighbours": [ { "levelIid": "d92083a0-1460-11ee-93dd-3b235c51ea36", "dir": "nw" }, { "levelIid": "1d38cab0-1460-11ee-8921-858eee70c37d", "dir": "n" } ]
 		},
 		{
 			"identifier": "Level_12",
@@ -7293,7 +7644,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 102, "realEditorValues": [] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 135, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 188, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 1056,
+							"__worldY": 1584
 						},
 						{
 							"__identifier": "Door",
@@ -7322,7 +7675,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 1496,
+							"__worldY": 1504
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -7345,7 +7700,9 @@
 									"id": "V_String",
 									"params": ["YELLOW"]
 								}] }
-							]
+							],
+							"__worldX": 1296,
+							"__worldY": 1376
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -7368,7 +7725,9 @@
 									"id": "V_String",
 									"params": ["BLUE"]
 								}] }
-							]
+							],
+							"__worldX": 1296,
+							"__worldY": 1456
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -7391,7 +7750,9 @@
 									"id": "V_String",
 									"params": ["YELLOW"]
 								}] }
-							]
+							],
+							"__worldX": 1296,
+							"__worldY": 1536
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -7414,7 +7775,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 106, "realEditorValues": [] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 720,
+							"__worldY": 1296
 						}
 					]
 				},
@@ -8067,7 +8430,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 40,
+							"__worldY": 2016
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -8090,7 +8455,9 @@
 									"id": "V_String",
 									"params": ["BLUE"]
 								}] }
-							]
+							],
+							"__worldX": 256,
+							"__worldY": 2080
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -8113,7 +8480,9 @@
 									"id": "V_String",
 									"params": ["YELLOW"]
 								}] }
-							]
+							],
+							"__worldX": 384,
+							"__worldY": 2080
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -8133,7 +8502,9 @@
 									"id": "V_String",
 									"params": ["YELLOW"]
 								}] }
-							]
+							],
+							"__worldX": 320,
+							"__worldY": 2080
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -8150,7 +8521,9 @@
 							"fieldInstances": [
 								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "SOUTH", "__tile": null, "defUid": 130, "realEditorValues": [] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 131, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 288,
+							"__worldY": 2096
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -8167,7 +8540,9 @@
 							"fieldInstances": [
 								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "SOUTH", "__tile": null, "defUid": 130, "realEditorValues": [] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 131, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 352,
+							"__worldY": 2096
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -8190,7 +8565,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 110, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 480,
+							"__worldY": 1912
 						},
 						{
 							"__identifier": "Laser_mount_right",
@@ -8210,7 +8587,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 114, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 128, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 190, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 672,
+							"__worldY": 1952
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -8230,7 +8609,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 110, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 880,
+							"__worldY": 1952
 						},
 						{
 							"__identifier": "Laser_rail_down",
@@ -8258,7 +8639,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 832,
+							"__worldY": 2032
 						},
 						{
 							"__identifier": "Laser_rail_down",
@@ -8292,7 +8675,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 1360,
+							"__worldY": 2032
 						},
 						{
 							"__identifier": "Laser_rail_down",
@@ -8323,7 +8708,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 1392,
+							"__worldY": 2032
 						}
 					]
 				},
@@ -8902,7 +9289,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0.8, "__tile": null, "defUid": 114, "realEditorValues": [{ "id": "V_Float", "params": [0.8] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 128, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 190, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 112,
+							"__worldY": 2400
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -8922,7 +9311,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 112,
+							"__worldY": 2624
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -8942,7 +9333,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 134, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 144,
+							"__worldY": 2624
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -8962,7 +9355,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1, "__tile": null, "defUid": 134, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 176,
+							"__worldY": 2624
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -8982,7 +9377,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 134, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 208,
+							"__worldY": 2624
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -9002,7 +9399,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 2, "__tile": null, "defUid": 134, "realEditorValues": [{ "id": "V_Float", "params": [2] }] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 240,
+							"__worldY": 2624
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -9022,7 +9421,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 2.5, "__tile": null, "defUid": 134, "realEditorValues": [{ "id": "V_Float", "params": [2.5] }] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 272,
+							"__worldY": 2624
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -9039,7 +9440,9 @@
 							"fieldInstances": [
 								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "SOUTH", "__tile": null, "defUid": 130, "realEditorValues": [] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 131, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 592,
+							"__worldY": 2560
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -9059,7 +9462,9 @@
 									"params": ["NORTH"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 131, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 720,
+							"__worldY": 2528
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -9076,7 +9481,9 @@
 							"fieldInstances": [
 								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "SOUTH", "__tile": null, "defUid": 130, "realEditorValues": [] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 131, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 848,
+							"__worldY": 2560
 						}
 					]
 				},
@@ -9529,7 +9936,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 848,
+							"__worldY": 3152
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -9549,7 +9958,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 816,
+							"__worldY": 3152
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -9569,7 +9980,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 880,
+							"__worldY": 3152
 						}
 					]
 				},
@@ -9814,7 +10227,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 114, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 128, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 190, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4112,
+							"__worldY": 608
 						},
 						{
 							"__identifier": "Laser_turret",
@@ -9837,7 +10252,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 166, "realEditorValues": [] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 161, "realEditorValues": [] },
 								{ "__identifier": "range", "__type": "Float", "__value": 256, "__tile": null, "defUid": 9, "realEditorValues": [{ "id": "V_Float", "params": [256] }] }
-							]
+							],
+							"__worldX": 4392,
+							"__worldY": 552
 						},
 						{
 							"__identifier": "Door",
@@ -9866,7 +10283,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4568,
+							"__worldY": 704
 						},
 						{
 							"__identifier": "Door",
@@ -9895,7 +10314,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4136,
+							"__worldY": 704
 						}
 					]
 				},
@@ -10315,7 +10736,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 1696,
+							"__worldY": 3168
 						},
 						{
 							"__identifier": "Door",
@@ -10344,7 +10767,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2008,
+							"__worldY": 3264
 						}
 					]
 				},
@@ -10607,7 +11032,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2088,
+							"__worldY": 3264
 						},
 						{
 							"__identifier": "Laser_mount_right",
@@ -10627,7 +11054,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 114, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 1, "__tile": null, "defUid": 128, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 190, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2064,
+							"__worldY": 3328
 						},
 						{
 							"__identifier": "Laser_mount_right",
@@ -10647,7 +11076,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 114, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 3, "__tile": null, "defUid": 128, "realEditorValues": [{ "id": "V_Float", "params": [3] }] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 190, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2064,
+							"__worldY": 3392
 						},
 						{
 							"__identifier": "Door",
@@ -10676,7 +11107,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2264,
+							"__worldY": 3504
 						}
 					]
 				},
@@ -10956,7 +11389,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2360,
+							"__worldY": 3504
 						},
 						{
 							"__identifier": "Door",
@@ -10985,7 +11420,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2760,
+							"__worldY": 3504
 						},
 						{
 							"__identifier": "Door",
@@ -11014,7 +11451,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2776,
+							"__worldY": 3712
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -11034,7 +11473,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 110, "realEditorValues": [] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2672,
+							"__worldY": 3760
 						}
 					]
 				},
@@ -11468,7 +11909,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2872,
+							"__worldY": 3504
 						}
 					]
 				},
@@ -11557,7 +12000,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "b80bd9e0-1460-11ee-8bd3-818c5692bf8b", "dir": "w" }, { "levelIid": "668bad00-1460-11ee-8bd3-a1c532d5e7a4", "dir": "s" } ]
+			"__neighbours": [ { "levelIid": "b80bd9e0-1460-11ee-8bd3-818c5692bf8b", "dir": "w" }, { "levelIid": "668bad00-1460-11ee-8bd3-a1c532d5e7a4", "dir": "s" }, { "levelIid": "c0fc18b0-1460-11ee-8bd3-898561fcba55", "dir": "se" } ]
 		},
 		{
 			"identifier": "Level_21",
@@ -11631,7 +12074,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2856,
+							"__worldY": 3712
 						},
 						{
 							"__identifier": "Door",
@@ -11660,7 +12105,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3032,
+							"__worldY": 3808
 						}
 					]
 				},
@@ -11979,7 +12426,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3112,
+							"__worldY": 3808
 						}
 					]
 				},
@@ -12101,7 +12550,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [{ "levelIid": "668bad00-1460-11ee-8bd3-a1c532d5e7a4", "dir": "w" }]
+			"__neighbours": [ { "levelIid": "feb48900-1460-11ee-8bd3-11cff2c4fdad", "dir": "nw" }, { "levelIid": "668bad00-1460-11ee-8bd3-a1c532d5e7a4", "dir": "w" } ]
 		},
 		{
 			"identifier": "Level_23",
@@ -12175,7 +12624,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4136,
+							"__worldY": -32
 						},
 						{
 							"__identifier": "Door",
@@ -12204,7 +12655,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4824,
+							"__worldY": -64
 						},
 						{
 							"__identifier": "Spawn",
@@ -12218,7 +12671,9 @@
 							"height": 48,
 							"defUid": 74,
 							"px": [392,336],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 4488,
+							"__worldY": -176
 						},
 						{
 							"__identifier": "Camera_guide",
@@ -12232,7 +12687,9 @@
 							"height": 256,
 							"defUid": 120,
 							"px": [0,256],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 4096,
+							"__worldY": -256
 						},
 						{
 							"__identifier": "Camera_guide",
@@ -12246,7 +12703,9 @@
 							"height": 192,
 							"defUid": 120,
 							"px": [0,80],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 4096,
+							"__worldY": -432
 						},
 						{
 							"__identifier": "Camera_transition",
@@ -12285,7 +12744,9 @@
 									"id": "V_String",
 									"params": ["SOUTH"]
 								} ] }
-							]
+							],
+							"__worldX": 4256,
+							"__worldY": -272
 						},
 						{
 							"__identifier": "Door",
@@ -12314,7 +12775,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4136,
+							"__worldY": -288
 						},
 						{
 							"__identifier": "Camera_guide",
@@ -12328,7 +12791,9 @@
 							"height": 272,
 							"defUid": 120,
 							"px": [480,496],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 4576,
+							"__worldY": -16
 						},
 						{
 							"__identifier": "Door",
@@ -12357,7 +12822,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4824,
+							"__worldY": 144
 						},
 						{
 							"__identifier": "Camera_transition",
@@ -12396,7 +12863,9 @@
 									"id": "V_String",
 									"params": ["SOUTH"]
 								} ] }
-							]
+							],
+							"__worldX": 4624,
+							"__worldY": -16
 						}
 					]
 				},
@@ -13748,7 +14217,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4056,
+							"__worldY": -32
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -13768,7 +14239,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 110, "realEditorValues": [] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3920,
+							"__worldY": 96
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -13788,7 +14261,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 106, "realEditorValues": [] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3872,
+							"__worldY": -160
 						},
 						{
 							"__identifier": "Door",
@@ -13817,7 +14292,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3624,
+							"__worldY": 160
 						},
 						{
 							"__identifier": "Laser_turret",
@@ -13837,7 +14314,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 166, "realEditorValues": [] },
 								{ "__identifier": "Laser_time", "__type": "Float", "__value": 1, "__tile": null, "defUid": 161, "realEditorValues": [] },
 								{ "__identifier": "range", "__type": "Float", "__value": 128, "__tile": null, "defUid": 9, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3880,
+							"__worldY": -424
 						},
 						{
 							"__identifier": "Door",
@@ -13866,7 +14345,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3624,
+							"__worldY": -400
 						},
 						{
 							"__identifier": "Door",
@@ -13895,7 +14376,57 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4056,
+							"__worldY": -288
+						},
+						{
+							"__identifier": "Camera_guide",
+							"__grid": [0,31],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#042D82",
+							"iid": "28a318f0-d380-11f0-9ed0-6b20d6486b63",
+							"width": 512,
+							"height": 528,
+							"defUid": 120,
+							"px": [0,496],
+							"fieldInstances": [],
+							"__worldX": 3584,
+							"__worldY": -272
+						},
+						{
+							"__identifier": "Camera_guide",
+							"__grid": [25,52],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#042D82",
+							"iid": "292f0540-d380-11f0-9ed0-e96acf9ce418",
+							"width": 1,
+							"height": 1,
+							"defUid": 120,
+							"px": [400,832],
+							"fieldInstances": [],
+							"__worldX": 3984,
+							"__worldY": 64
+						},
+						{
+							"__identifier": "Camera_guide",
+							"__grid": [0,0],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#042D82",
+							"iid": "31f36f90-d380-11f0-9ed0-63deb1e2f027",
+							"width": 512,
+							"height": 496,
+							"defUid": 120,
+							"px": [0,0],
+							"fieldInstances": [],
+							"__worldX": 3584,
+							"__worldY": -768
 						}
 					]
 				},
@@ -15107,7 +15638,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "408647c0-1460-11ee-8478-551566a7ba74", "dir": "e" }, { "levelIid": "c13d1b80-1460-11ee-8478-c33692a87d6b", "dir": "w" } ]
+			"__neighbours": [ { "levelIid": "408647c0-1460-11ee-8478-551566a7ba74", "dir": "e" }, { "levelIid": "c13d1b80-1460-11ee-8478-c33692a87d6b", "dir": "w" }, { "levelIid": "244db3c0-1460-11ee-8478-a5506f1ffa84", "dir": "se" } ]
 		},
 		{
 			"identifier": "Level_25",
@@ -15181,7 +15712,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4904,
+							"__worldY": -64
 						},
 						{
 							"__identifier": "Door",
@@ -15210,7 +15743,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5096,
+							"__worldY": 304
 						},
 						{
 							"__identifier": "Door",
@@ -15239,7 +15774,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5080,
+							"__worldY": -128
 						},
 						{
 							"__identifier": "Door",
@@ -15268,7 +15805,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4904,
+							"__worldY": 48
 						},
 						{
 							"__identifier": "Camera_guide",
@@ -15282,7 +15821,9 @@
 							"height": 624,
 							"defUid": 120,
 							"px": [0,0],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 4864,
+							"__worldY": -256
 						}
 					]
 				},
@@ -15785,7 +16326,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3544,
+							"__worldY": 160
 						},
 						{
 							"__identifier": "Laser_rail_right",
@@ -15813,7 +16356,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 149, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3408,
+							"__worldY": -64
 						},
 						{
 							"__identifier": "Laser_rail_left",
@@ -15841,7 +16386,9 @@
 									"params": [ false ]
 								}] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 150, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3472,
+							"__worldY": -128
 						},
 						{
 							"__identifier": "Laser_mount_right",
@@ -15861,7 +16408,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 114, "realEditorValues": [] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 128, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 190, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3344,
+							"__worldY": -304
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -15881,7 +16430,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 3, "__tile": null, "defUid": 110, "realEditorValues": [] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3472,
+							"__worldY": -256
 						},
 						{
 							"__identifier": "Door",
@@ -15910,7 +16461,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3544,
+							"__worldY": -400
 						},
 						{
 							"__identifier": "Door",
@@ -15939,7 +16492,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3368,
+							"__worldY": 160
 						},
 						{
 							"__identifier": "Camera_guide",
@@ -15953,7 +16508,9 @@
 							"height": 528,
 							"defUid": 120,
 							"px": [0,752],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 3328,
+							"__worldY": 240
 						},
 						{
 							"__identifier": "Camera_guide",
@@ -15967,7 +16524,9 @@
 							"height": 752,
 							"defUid": 120,
 							"px": [0,0],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 3328,
+							"__worldY": -512
 						},
 						{
 							"__identifier": "Camera_transition",
@@ -16006,7 +16565,9 @@
 									"id": "V_String",
 									"params": ["SOUTH"]
 								} ] }
-							]
+							],
+							"__worldX": 3360,
+							"__worldY": 232
 						},
 						{
 							"__identifier": "Door",
@@ -16035,7 +16596,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3368,
+							"__worldY": 752
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -16052,7 +16615,9 @@
 							"fieldInstances": [
 								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "SOUTH", "__tile": null, "defUid": 130, "realEditorValues": [] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 131, "realEditorValues": [null] }
-							]
+							],
+							"__worldX": 3392,
+							"__worldY": 640
 						},
 						{
 							"__identifier": "Door",
@@ -16081,7 +16646,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3544,
+							"__worldY": 752
 						},
 						{
 							"__identifier": "Dev_spawn",
@@ -16095,7 +16662,9 @@
 							"height": 48,
 							"defUid": 118,
 							"px": [200,448],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 3528,
+							"__worldY": -64
 						}
 					]
 				},
@@ -16591,7 +17160,13 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "73cd4390-1460-11ee-8478-a52eb5d681ec", "dir": "e" }, { "levelIid": "a9118740-1460-11ee-8478-db7974d9a015", "dir": "w" }, { "levelIid": "55633850-1460-11ee-8478-b168e5ad6481", "dir": "e" }, { "levelIid": "4549c860-1460-11ee-b53c-9f23d2db7f6b", "dir": "w" } ]
+			"__neighbours": [
+				{ "levelIid": "73cd4390-1460-11ee-8478-a52eb5d681ec", "dir": "e" },
+				{ "levelIid": "a9118740-1460-11ee-8478-db7974d9a015", "dir": "w" },
+				{ "levelIid": "55633850-1460-11ee-8478-b168e5ad6481", "dir": "e" },
+				{ "levelIid": "4549c860-1460-11ee-b53c-9f23d2db7f6b", "dir": "w" },
+				{ "levelIid": "a38c9270-1460-11ee-b53c-5d5f14461338", "dir": "sw" }
+			]
 		},
 		{
 			"identifier": "Level_27",
@@ -16653,7 +17228,9 @@
 							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "BLUE", "__tile": null, "defUid": 79, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["BLUE"]
-							}] }]
+							}] }],
+							"__worldX": 2928,
+							"__worldY": 160
 						},
 						{
 							"__identifier": "Door",
@@ -16685,7 +17262,9 @@
 									"id": "V_String",
 									"params": ["BLUE"]
 								}] }
-							]
+							],
+							"__worldX": 3288,
+							"__worldY": 160
 						}
 					]
 				},
@@ -17090,7 +17669,9 @@
 							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "YELLOW", "__tile": null, "defUid": 79, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["YELLOW"]
-							}] }]
+							}] }],
+							"__worldX": 4464,
+							"__worldY": -608
 						},
 						{
 							"__identifier": "Door",
@@ -17119,7 +17700,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4824,
+							"__worldY": -640
 						}
 					]
 				},
@@ -17462,7 +18045,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [{ "levelIid": "408647c0-1460-11ee-8478-551566a7ba74", "dir": "s" }]
+			"__neighbours": [ { "levelIid": "408647c0-1460-11ee-8478-551566a7ba74", "dir": "s" }, { "levelIid": "1f580ca0-1460-11ee-8455-07c7e55b9354", "dir": "se" } ]
 		},
 		{
 			"identifier": "Level_29",
@@ -17524,7 +18107,9 @@
 							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 79, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["RED"]
-							}] }]
+							}] }],
+							"__worldX": 4208,
+							"__worldY": 416
 						},
 						{
 							"__identifier": "Door",
@@ -17553,7 +18138,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4568,
+							"__worldY": 384
 						}
 					]
 				},
@@ -17895,7 +18482,13 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "420f2190-1460-11ee-8bd3-c96351e30231", "dir": "s" }, { "levelIid": "408647c0-1460-11ee-8478-551566a7ba74", "dir": "n" }, { "levelIid": "d50be580-1460-11ee-8478-0da730e34101", "dir": "e" } ]
+			"__neighbours": [
+				{ "levelIid": "420f2190-1460-11ee-8bd3-c96351e30231", "dir": "s" },
+				{ "levelIid": "408647c0-1460-11ee-8478-551566a7ba74", "dir": "n" },
+				{ "levelIid": "73cd4390-1460-11ee-8478-a52eb5d681ec", "dir": "nw" },
+				{ "levelIid": "55633850-1460-11ee-8478-b168e5ad6481", "dir": "sw" },
+				{ "levelIid": "d50be580-1460-11ee-8478-0da730e34101", "dir": "e" }
+			]
 		},
 		{
 			"identifier": "Level_30",
@@ -17969,7 +18562,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5928,
+							"__worldY": -224
 						},
 						{
 							"__identifier": "Door",
@@ -17998,7 +18593,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 6120,
+							"__worldY": -64
 						}
 					]
 				},
@@ -18463,7 +19060,9 @@
 							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "ALL", "__tile": null, "defUid": 79, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ALL"]
-							}] }]
+							}] }],
+							"__worldX": 2408,
+							"__worldY": 688
 						},
 						{
 							"__identifier": "Door",
@@ -18492,7 +19091,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2520,
+							"__worldY": 752
 						}
 					]
 				},
@@ -18749,7 +19350,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3624,
+							"__worldY": 752
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -18769,7 +19372,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3728,
+							"__worldY": 608
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -18792,7 +19397,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 3760,
+							"__worldY": 608
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -18815,7 +19422,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 3792,
+							"__worldY": 608
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -18838,7 +19447,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 3824,
+							"__worldY": 608
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -18861,7 +19472,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 3856,
+							"__worldY": 608
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -18884,7 +19497,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 3888,
+							"__worldY": 608
 						},
 						{
 							"__identifier": "Laser_mount_down",
@@ -18904,7 +19519,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 1, "__tile": null, "defUid": 106, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 134, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 189, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3920,
+							"__worldY": 608
 						},
 						{
 							"__identifier": "Laser_mount_up",
@@ -18930,7 +19547,9 @@
 									"id": "V_Bool",
 									"params": [ false ]
 								}] }
-							]
+							],
+							"__worldX": 3744,
+							"__worldY": 720
 						},
 						{
 							"__identifier": "Laser_mount_up",
@@ -18956,7 +19575,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 3776,
+							"__worldY": 720
 						},
 						{
 							"__identifier": "Laser_mount_up",
@@ -18982,7 +19603,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 3808,
+							"__worldY": 720
 						},
 						{
 							"__identifier": "Laser_mount_up",
@@ -19008,7 +19631,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 3840,
+							"__worldY": 720
 						},
 						{
 							"__identifier": "Laser_mount_up",
@@ -19034,7 +19659,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 3872,
+							"__worldY": 720
 						},
 						{
 							"__identifier": "Laser_mount_up",
@@ -19060,7 +19687,9 @@
 									"id": "V_Bool",
 									"params": [ false ]
 								}] }
-							]
+							],
+							"__worldX": 3904,
+							"__worldY": 720
 						},
 						{
 							"__identifier": "Door",
@@ -19089,7 +19718,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4056,
+							"__worldY": 704
 						}
 					]
 				},
@@ -19519,7 +20150,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "420f2190-1460-11ee-8bd3-c96351e30231", "dir": "e" }, { "levelIid": "c13d1b80-1460-11ee-8478-c33692a87d6b", "dir": "w" } ]
+			"__neighbours": [ { "levelIid": "420f2190-1460-11ee-8bd3-c96351e30231", "dir": "e" }, { "levelIid": "c13d1b80-1460-11ee-8478-c33692a87d6b", "dir": "w" }, { "levelIid": "244db3c0-1460-11ee-8478-a5506f1ffa84", "dir": "ne" } ]
 		},
 		{
 			"identifier": "Level_33",
@@ -19593,7 +20224,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4648,
+							"__worldY": 752
 						},
 						{
 							"__identifier": "Door",
@@ -19622,7 +20255,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4648,
+							"__worldY": 352
 						}
 					]
 				},
@@ -20113,7 +20748,9 @@
 							"height": 304,
 							"defUid": 120,
 							"px": [0,0],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 5632,
+							"__worldY": -512
 						},
 						{
 							"__identifier": "Door",
@@ -20142,7 +20779,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5672,
+							"__worldY": -224
 						},
 						{
 							"__identifier": "Door",
@@ -20171,7 +20810,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5848,
+							"__worldY": -224
 						}
 					]
 				},
@@ -20475,7 +21116,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 6184,
+							"__worldY": -112
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -20498,7 +21141,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 110, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 6352,
+							"__worldY": -63
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -20524,7 +21169,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 6352,
+							"__worldY": -97
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -20544,7 +21191,9 @@
 									"id": "V_String",
 									"params": ["BLUE"]
 								}] }
-							]
+							],
+							"__worldX": 6288,
+							"__worldY": 48
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -20564,7 +21213,9 @@
 									"id": "V_String",
 									"params": ["BLUE"]
 								}] }
-							]
+							],
+							"__worldX": 6272,
+							"__worldY": 48
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -20584,7 +21235,9 @@
 									"id": "V_String",
 									"params": ["YELLOW"]
 								}] }
-							]
+							],
+							"__worldX": 6224,
+							"__worldY": 48
 						},
 						{
 							"__identifier": "Door",
@@ -20613,7 +21266,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 6184,
+							"__worldY": 224
 						},
 						{
 							"__identifier": "Laser_mount_right",
@@ -20639,7 +21294,9 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] }
-							]
+							],
+							"__worldX": 6160,
+							"__worldY": -80
 						}
 					]
 				},
@@ -21009,7 +21666,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 6104,
+							"__worldY": 224
 						},
 						{
 							"__identifier": "Door",
@@ -21038,7 +21697,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5672,
+							"__worldY": 224
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -21058,7 +21719,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 110, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 6080,
+							"__worldY": 128
 						}
 					]
 				},
@@ -21480,7 +22143,9 @@
 									"id": "V_String",
 									"params": ["YELLOW"]
 								}] }
-							]
+							],
+							"__worldX": 5008,
+							"__worldY": -368
 						},
 						{
 							"__identifier": "Door",
@@ -21509,7 +22174,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 4904,
+							"__worldY": -304
 						},
 						{
 							"__identifier": "Door",
@@ -21538,7 +22205,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 5080,
+							"__worldY": -304
 						}
 					]
 				},
@@ -21756,7 +22425,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "db405030-1460-11ee-beb8-3f53aed84bb0", "dir": "e" }, { "levelIid": "408647c0-1460-11ee-8478-551566a7ba74", "dir": "w" }, { "levelIid": "ccaae5d0-1460-11ee-8478-3f0d982d0edf", "dir": "s" } ]
+			"__neighbours": [ { "levelIid": "db405030-1460-11ee-beb8-3f53aed84bb0", "dir": "e" }, { "levelIid": "408647c0-1460-11ee-8478-551566a7ba74", "dir": "w" }, { "levelIid": "ccaae5d0-1460-11ee-8478-3f0d982d0edf", "dir": "s" }, { "levelIid": "506ddb90-1460-11ee-8478-47bc91f70965", "dir": "nw" } ]
 		},
 		{
 			"identifier": "Level_38",
@@ -21826,7 +22495,9 @@
 								}] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 140, "realEditorValues": [] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 1504,
+							"__worldY": 2304
 						},
 						{
 							"__identifier": "Door",
@@ -21844,7 +22515,9 @@
 								{ "__identifier": "Entity_ref", "__type": "EntityRef", "__value": null, "__tile": null, "defUid": 14, "realEditorValues": [] },
 								{ "__identifier": "access_dir", "__type": "LocalEnum.Direction", "__value": null, "__tile": null, "defUid": 17, "realEditorValues": [] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 1496,
+							"__worldY": 2544
 						}
 					]
 				},
@@ -22057,7 +22730,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 110, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3168,
+							"__worldY": 712
 						},
 						{
 							"__identifier": "Camera_guide",
@@ -22071,7 +22746,9 @@
 							"height": 256,
 							"defUid": 120,
 							"px": [128,0],
-							"fieldInstances": []
+							"fieldInstances": [],
+							"__worldX": 2688,
+							"__worldY": 512
 						},
 						{
 							"__identifier": "Door",
@@ -22100,7 +22777,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3288,
+							"__worldY": 752
 						},
 						{
 							"__identifier": "Door",
@@ -22129,7 +22808,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2728,
+							"__worldY": 704
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -22149,7 +22830,9 @@
 									"id": "V_String",
 									"params": ["YELLOW"]
 								}] }
-							]
+							],
+							"__worldX": 2848,
+							"__worldY": 624
 						}
 					]
 				},
@@ -22752,7 +23435,9 @@
 									"id": "V_String",
 									"params": ["BLUE"]
 								}] }
-							]
+							],
+							"__worldX": 2944,
+							"__worldY": 864
 						},
 						{
 							"__identifier": "Laser_mount_left",
@@ -22772,7 +23457,9 @@
 								{ "__identifier": "Rest", "__type": "Float", "__value": 0, "__tile": null, "defUid": 110, "realEditorValues": [{ "id": "V_Float", "params": [0] }] },
 								{ "__identifier": "Initial_delay", "__type": "Float", "__value": 0, "__tile": null, "defUid": 127, "realEditorValues": [] },
 								{ "__identifier": "Mute", "__type": "Bool", "__value": false, "__tile": null, "defUid": 191, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3200,
+							"__worldY": 976
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -22792,7 +23479,9 @@
 									"id": "V_String",
 									"params": ["YELLOW"]
 								}] }
-							]
+							],
+							"__worldX": 3008,
+							"__worldY": 864
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -22812,7 +23501,9 @@
 									"id": "V_String",
 									"params": ["BLUE"]
 								}] }
-							]
+							],
+							"__worldX": 3072,
+							"__worldY": 864
 						},
 						{
 							"__identifier": "Door",
@@ -22841,7 +23532,9 @@
 									"params": ["WEST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 3288,
+							"__worldY": 944
 						},
 						{
 							"__identifier": "Door",
@@ -22870,7 +23563,9 @@
 									"params": ["EAST"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "EMPTY", "__tile": null, "defUid": 75, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2856,
+							"__worldY": 944
 						}
 					]
 				},
@@ -23262,7 +23957,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [{ "levelIid": "4549c860-1460-11ee-b53c-9f23d2db7f6b", "dir": "n" }]
+			"__neighbours": [ { "levelIid": "c13d1b80-1460-11ee-8478-c33692a87d6b", "dir": "ne" }, { "levelIid": "4549c860-1460-11ee-b53c-9f23d2db7f6b", "dir": "n" } ]
 		},
 		{
 			"identifier": "Level_41",
@@ -23329,7 +24024,9 @@
 								{ "__identifier": "path", "__type": "Array<Point>", "__value": [], "__tile": null, "defUid": 7, "realEditorValues": [] },
 								{ "__identifier": "Pause_on_fire", "__type": "Bool", "__value": true, "__tile": null, "defUid": 140, "realEditorValues": [] },
 								{ "__identifier": "Shoot_on_node", "__type": "Bool", "__value": false, "__tile": null, "defUid": 147, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2752,
+							"__worldY": 2448
 						},
 						{
 							"__identifier": "Perma_laser",
@@ -23349,7 +24046,9 @@
 									"params": ["NORTH"]
 								}] },
 								{ "__identifier": "Color", "__type": "LocalEnum.Color", "__value": "RED", "__tile": null, "defUid": 131, "realEditorValues": [] }
-							]
+							],
+							"__worldX": 2608,
+							"__worldY": 1904
 						}
 					]
 				},
